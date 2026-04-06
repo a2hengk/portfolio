@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///C:/Local_Setups/MyPortfolio/src/app/page.tsx"],"sourcesContent":["export default function Page() {\n\treturn <h1> Welcome to my Portfolio!</h1>\n}\n"],"names":["Page"],"mappings":";;;;;;AAAe,SAASA;IACvB,qBAAO,8OAAC;kBAAG;;;;;;AACZ"}}]
+}

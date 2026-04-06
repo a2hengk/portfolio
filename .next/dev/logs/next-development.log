@@ -1,0 +1,20 @@
+{"timestamp":"00:00:00.837","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:00.838","source":"Server","level":"LOG","message":"  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default."}
+{"timestamp":"00:00:00.838","source":"Server","level":"LOG","message":"  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:\n"}
+{"timestamp":"00:00:00.839","source":"Server","level":"LOG","message":"  \t- strictNullChecks was set to true"}
+{"timestamp":"00:00:00.839","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:00.962","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:02.588","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:02.982","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
+{"timestamp":"00:00:09.843","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
+{"timestamp":"00:00:09.862","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:10.764","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
+{"timestamp":"00:00:10.780","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:11.512","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
+{"timestamp":"00:00:11.530","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:10:44.312","source":"Server","level":"LOG","message":"✓ Compiled in 9ms"}
+{"timestamp":"00:11:22.379","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"00:11:23.873","source":"Server","level":"LOG","message":"✓ Compiled in 12ms"}
+{"timestamp":"00:11:29.641","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"00:11:33.828","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"00:11:36.798","source":"Server","level":"LOG","message":"✓ Compiled in 3ms"}
