@@ -1,0 +1,30 @@
+.headerContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2rem;
+    background-color: white;
+}
+
+.nav {
+    font-family: arial;
+    display: flex;
+    gap: 1rem;
+}
+.nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+.nav a:hover {
+    color: #0070f3;
+}
+.navList {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+}
+.navList li {
+    display: inline;
+}

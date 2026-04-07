@@ -1,0 +1,53 @@
+/* [project]/src/components/Header/header.module.css [app-client] (css) */
+.header-module__nrpHoW__headerContent {
+  background-color: #fff;
+  flex-direction: row;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+}
+
+.header-module__nrpHoW__nav {
+  gap: 1rem;
+  font-family: arial;
+  display: flex;
+}
+
+.header-module__nrpHoW__nav a {
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header-module__nrpHoW__nav a:hover {
+  color: #0070f3;
+}
+
+.header-module__nrpHoW__navList {
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.header-module__nrpHoW__navList li {
+  display: inline;
+}
+
+/* [project]/src/app/layout.module.css [app-client] (css) */
+.layout-module__L5FxyW__body {
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+}
+
+.layout-module__L5FxyW__main {
+  background-color: #2e3a52;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/*# sourceMappingURL=src_0op7su.._.css.map*/

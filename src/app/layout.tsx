@@ -1,5 +1,5 @@
 import Header from "@/components/Header/header";
-
+import styles from "./layout.module.css";
 
 
 export default function RootLayout({
@@ -9,9 +9,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={styles.body}>
         <Header />
-        {children}
+        <main className={styles.main}>
+          {children}
+        </main>
       </body>
     </html>
   )

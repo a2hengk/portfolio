@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///C:/Local_Setups/MyPortfolio/src/components/Header/header.module.css"],"sourcesContent":[".headContent {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    padding: 2rem;\r\n    background-color: #f5f5f5;\r\n}\r\n\r\n.nav {\r\n    font-family: arial;\r\n    display: flex;\r\n    gap: 1rem;\r\n}\r\n.nav a {\r\n    text-decoration: none;\r\n    color: #333;\r\n    font-weight: bold;\r\n}\r\n.nav a:hover {\r\n    color: #0070f3;\r\n}\r\n.navList {\r\n    list-style: none;\r\n    display: flex;\r\n    gap: 1rem;\r\n    padding: 0;\r\n}\r\n.navList li {\r\n    display: inline;\r\n}\r\n"],"names":[],"mappings":"AAAA;;;;;;;;AAQA;;;;;;AAKA;;;;;;AAKA;;;;AAGA;;;;;;;AAMA"}}]
+}

@@ -2,27 +2,27 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import styles from "./header.module.css";
 
 export default function Header() {
     return (
         <header>
-            <div>
+            <div className={styles.headerContent}>
                 <Image
                     src="/profil.png"
                     alt="Profile Picture"
-                    width={50}
-                    height={60}
+                    width={100}
+                    height={100}
                 />
-                <h1>Heyy I'm Lunas!</h1>
-                <nav>
-                    <ul>
-                        <li><Link href="/">Home</Link>
+                <nav className={styles.nav}>
+                    <ul className={styles.navList}>
+                        <li className={styles.navList}><Link href="/">Home</Link>
                         </li>
-                        <li><Link href="/about">About</Link>
+                        <li className={styles.navList}><Link href="/about">About</Link>
                         </li>
-                        <li><Link href="/projects">Projects</Link>
+                        <li className={styles.navList}><Link href="/projects">Projects</Link>
                         </li>
-                        <li><Link href="/contact">Contact</Link>
+                        <li className={styles.navList}><Link href="/contact">Contact</Link>
                         </li>
                     </ul>
                 </nav>

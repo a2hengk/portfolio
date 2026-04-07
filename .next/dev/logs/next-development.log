@@ -1,20 +1,46 @@
-{"timestamp":"00:00:00.837","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:00.838","source":"Server","level":"LOG","message":"  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default."}
-{"timestamp":"00:00:00.838","source":"Server","level":"LOG","message":"  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:\n"}
-{"timestamp":"00:00:00.839","source":"Server","level":"LOG","message":"  \t- strictNullChecks was set to true"}
-{"timestamp":"00:00:00.839","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:00.962","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:02.588","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:02.982","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
-{"timestamp":"00:00:09.843","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
-{"timestamp":"00:00:09.862","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:10.764","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
-{"timestamp":"00:00:10.780","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:11.512","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/profile.png\" \"received\" null"}
-{"timestamp":"00:00:11.530","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:10:44.312","source":"Server","level":"LOG","message":"✓ Compiled in 9ms"}
-{"timestamp":"00:11:22.379","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
-{"timestamp":"00:11:23.873","source":"Server","level":"LOG","message":"✓ Compiled in 12ms"}
-{"timestamp":"00:11:29.641","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
-{"timestamp":"00:11:33.828","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
-{"timestamp":"00:11:36.798","source":"Server","level":"LOG","message":"✓ Compiled in 3ms"}
+{"timestamp":"00:00:00.598","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:00.926","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:01.770","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:03:36.959","source":"Server","level":"LOG","message":"✓ Compiled in 59ms"}
+{"timestamp":"00:03:36.968","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:37.111","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:37.113","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:37.117","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:37.119","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:37.120","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:37.122","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:37.129","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed"}
+{"timestamp":"00:03:37.129","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed"}
+{"timestamp":"00:03:37.162","source":"Server","level":"ERROR","message":"⨯ ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:38.311","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed"}
+{"timestamp":"00:03:38.311","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed"}
+{"timestamp":"00:03:38.311","source":"Browser","level":"ERROR","message":"uncaughtError: Error: ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n"}
+{"timestamp":"00:03:38.311","source":"Server","level":"ERROR","message":"[browser] \"./src/app/layout.tsx:5:1\\nExpected ',', got 'export'\\n  3 |\\n  4 |\\n> 5 | export default function RootLayout({\\n    | ^^^^^^\\n  6 |   children,\\n  7 | }: {\\n  8 |     children: React.ReactNode\\n\\nParsing ecmascript source code failed\" \"\""}
+{"timestamp":"00:03:38.312","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed \"\""}
+{"timestamp":"00:03:38.312","source":"Server","level":"ERROR","message":"[browser] \"./src/app/layout.tsx:5:1\\nExpected ',', got 'export'\\n  3 |\\n  4 |\\n> 5 | export default function RootLayout({\\n    | ^^^^^^\\n  6 |   children,\\n  7 | }: {\\n  8 |     children: React.ReactNode\\n\\nParsing ecmascript source code failed\" \"\""}
+{"timestamp":"00:03:38.312","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed \"\""}
+{"timestamp":"00:03:38.315","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: ./src/app/layout.tsx:5:1\\nExpected ',', got 'export'\\n  3 |\\n  4 |\\n> 5 | export default function RootLayout({\\n    | ^^^^^^\\n  6 |   children,\\n  7 | }: {\\n  8 |     children: React.ReactNode\\n\\nParsing ecmascript source code failed\\n\\n\\u001b[39m\\n\\u001b[31m    at <unknown> (Error: ./src/app/layout.tsx:5:1)\\n    at <unknown> (Error: (./src/app/layout.tsx:5:1)\\u001b[39m\""}
+{"timestamp":"00:03:38.315","source":"Browser","level":"ERROR","message":"\u001b[31mUncaught Error: ./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed\n\n\u001b[39m\n\u001b[31m    at <unknown> (Error: ./src/app/layout.tsx:5:1)\n    at <unknown> (Error: (./src/app/layout.tsx:5:1)\u001b[39m"}
+{"timestamp":"00:03:39.345","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed"}
+{"timestamp":"00:03:40.357","source":"Server","level":"ERROR","message":"[browser] \"./src/app/layout.tsx:5:1\\nExpected ',', got 'export'\\n  3 |\\n  4 |\\n> 5 | export default function RootLayout({\\n    | ^^^^^^\\n  6 |   children,\\n  7 | }: {\\n  8 |     children: React.ReactNode\\n\\nParsing ecmascript source code failed\" \"\""}
+{"timestamp":"00:03:40.358","source":"Browser","level":"ERROR","message":"./src/app/layout.tsx:5:1\nExpected ',', got 'export'\n  3 |\n  4 |\n> 5 | export default function RootLayout({\n    | ^^^^^^\n  6 |   children,\n  7 | }: {\n  8 |     children: React.ReactNode\n\nParsing ecmascript source code failed \"\""}
+{"timestamp":"00:03:43.106","source":"Server","level":"LOG","message":"✓ Compiled in 33ms"}
+{"timestamp":"00:03:43.286","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:03:54.446","source":"Server","level":"LOG","message":"✓ Compiled in 65ms"}
+{"timestamp":"00:03:54.637","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:04:11.587","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"00:06:00.172","source":"Server","level":"LOG","message":"✓ Compiled in 3ms"}
+{"timestamp":"01:18:07.028","source":"Server","level":"LOG","message":"✓ Compiled in 19ms"}
+{"timestamp":"01:18:32.529","source":"Server","level":"LOG","message":"✓ Compiled in 3ms"}
+{"timestamp":"01:27:44.476","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"01:27:47.120","source":"Server","level":"LOG","message":"✓ Compiled in 4ms"}
+{"timestamp":"01:30:41.393","source":"Server","level":"LOG","message":"✓ Compiled in 2ms"}
+{"timestamp":"01:30:44.531","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"01:30:57.964","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"01:31:22.676","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"01:31:31.184","source":"Server","level":"LOG","message":"✓ Compiled in 6ms"}
+{"timestamp":"01:31:32.316","source":"Server","level":"LOG","message":"✓ Compiled in 2ms"}
+{"timestamp":"02:09:27.719","source":"Server","level":"LOG","message":"✓ Compiled in 4ms"}
+{"timestamp":"02:09:29.325","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}
+{"timestamp":"02:09:33.119","source":"Server","level":"LOG","message":"✓ Compiled in 4ms"}
+{"timestamp":"02:09:36.184","source":"Server","level":"LOG","message":"✓ Compiled in 5ms"}

@@ -1,0 +1,17 @@
+/* [project]/src/app/layout.module.css [app-client] (css) */
+.layout-module__L5FxyW__body {
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+}
+
+.layout-module__L5FxyW__main {
+  background-color: #2e3a52;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/*# sourceMappingURL=src_app_layout_module_css_0w3-wzy._.single.css.map*/
