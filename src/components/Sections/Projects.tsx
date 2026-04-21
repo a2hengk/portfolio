@@ -2,50 +2,68 @@ export default function ProjectsSection() {
     const projects = [
         {
             id: 1,
-            meta: "01 / Interface refresh",
-            title: "Editorial landing page",
+            type: "Website",
+            status: "Live",
+            title: "Portfolio Platform",
             description:
-                "A premium homepage layout with bold typography, layered backgrounds, and clear calls to action.",
-            link: "https://github.com/a2hengk/portfolio",
+                "Personal portfolio with component architecture, motion, responsive layout, and section-based storytelling.",
+            tags: ["Next.js", "TypeScript", "CSS Modules"],
+            github: "https://github.com/a2hengk/portfolio",
+            demo: "#top",
         },
         {
             id: 2,
-            meta: "02 / Design system",
-            title: "Reusable component set",
+            type: "Build",
+            status: "In Progress",
+            title: "Reusable Section System",
             description:
-                "A focused component system built to keep future pages consistent without feeling rigid.",
-            link: "https://github.com/a2hengk/portfolio",
+                "Structured section and button components to scale content updates while keeping styling consistent.",
+            tags: ["Architecture", "Refactor", "DX"],
+            github: "https://github.com/a2hengk/portfolio",
         },
         {
             id: 3,
-            meta: "03 / Personal brand",
-            title: "Portfolio identity",
+            type: "Build",
+            status: "Planned",
+            title: "Links and Setup Hub",
             description:
-                "An approachable visual tone that balances personality, readability, and a strong first impression.",
-            link: "https://github.com/a2hengk/portfolio",
+                "Dedicated links page for socials, tools, and PC components so visitors can see your full setup.",
+            tags: ["Socials", "Uses", "Personal Brand"],
+            demo: "/links",
         },
     ];
 
     return (
         <section className="section" id="projects">
             <div className="section__heading">
-                <p className="eyebrow">Selected work</p>
-                <h2>Projects presented as concise case studies.</h2>
+                <p className="eyebrow">Projects and builds</p>
+                <h2>What I&apos;m building and where each project stands.</h2>
             </div>
             <div className="project-grid">
                 {projects.map((project) => (
-                    <a
-                        key={project.id}
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-card"
-                        style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                        <p className="project-card__meta">{project.meta}</p>
+                    <article key={project.id} className="project-card">
+                        <div className="project-card__top">
+                            <p className="project-card__meta">{project.type}</p>
+                            <span className="status-badge">{project.status}</span>
+                        </div>
                         <h3>{project.title}</h3>
                         <p>{project.description}</p>
-                    </a>
+                        <div className="project-tags" aria-label="Project stack">
+                            {project.tags.map((tag) => (
+                                <span key={tag}>{tag}</span>
+                            ))}
+                        </div>
+                        <div className="project-links">
+                            {project.github ? (
+                                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                                    GitHub
+                                </a>
+                            ) : null}
+                            {project.demo ? (
+                                <a href={project.demo}>Open</a>
+                            ) : null}
+                        </div>
+                    </article>
                 ))}
             </div>
         </section>
