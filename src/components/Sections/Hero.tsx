@@ -7,7 +7,7 @@ export default function HeroSection() {
                 <p className="eyebrow">Portfolio of Lunas</p>
                 <h1>Heyy i'm Lunas and a Dual Student</h1>
                 <p className="lede">
-                    I&apos;m a dual student focused on building clean, modern web products with strong UX.
+                    My name is Lunas and I'm a dual student at DHBW in Karlsruhe. I created this Portfolio as a Project for my studies and just share some insight about myself :D
                 </p>
                 <div className="hero__actions">
                     <Button href="#projects" variant="primary">
@@ -23,18 +23,18 @@ export default function HeroSection() {
                 <p className="hero__card-label">Quick metadata</p>
                 <div className="hero__card-metric">
                     <strong>Work</strong>
-                    <span>Frontend-focused product and portfolio development</span>
+                    <span>I'm working at Herrenknecht AG as Software Developer :D</span>
                 </div>
                 <div className="hero__card-metric">
                     <strong>School</strong>
-                    <span>Dual study program in software engineering</span>
+                    <span>I study at DHBW in Karlsruhe.</span>
                 </div>
                 <div className="hero__card-metric">
-                    <strong>Base</strong>
-                    <span>Germany</span>
+                    <strong>Age</strong>
+                    <span>I'm currently 18 years old and will be 19 soon!</span>
                 </div>
                 <div className="hero__card-note">
-                    Open to internships, freelance projects, and collaboration.
+                    Feel free to reach out if you have any questions or project ideas!
                 </div>
             </aside>
         </section>

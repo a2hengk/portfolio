@@ -7,11 +7,11 @@ export default function ContactSection() {
                 <p className="eyebrow">Contact</p>
                 <h2>Have a project in mind?</h2>
                 <p>
-                    I&apos;m open to portfolio feedback, freelance opportunities, and collaborative frontend work.
+                    My full contact list lives on the links page, so you can reach me through the channel that fits best.
                 </p>
             </div>
-            <Button href="mailto:hello@lunas.dev" variant="primary">
-                Email me
+            <Button href="/links" variant="primary">
+                View my links
             </Button>
         </section>
     );
