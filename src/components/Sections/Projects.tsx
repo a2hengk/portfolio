@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ProjectsSection() {
     const projects = [
         {
@@ -60,7 +62,13 @@ export default function ProjectsSection() {
                                 </a>
                             ) : null}
                             {project.demo ? (
-                                <a href={project.demo}>Open</a>
+                                project.demo.startsWith("/") || project.demo.startsWith("#") ? (
+                                    <Link href={project.demo}>Open</Link>
+                                ) : (
+                                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                                        Open
+                                    </a>
+                                )
                             ) : null}
                         </div>
                     </article>

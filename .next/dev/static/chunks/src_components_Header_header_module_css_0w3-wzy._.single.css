@@ -62,6 +62,12 @@
   font-weight: 500;
 }
 
+.header-module__nrpHoW__avatar {
+  object-fit: cover;
+  border: 1px solid #ffffff1f;
+  border-radius: 999px;
+}
+
 .header-module__nrpHoW__nav {
   background: #ffffff0a;
   border: 1px solid #ffffff14;
