@@ -1,28 +1,42 @@
+import Image from "next/image";
+
 export default function GamesSection() {
     const games = [
         {
             id: 1,
             title: "Valorant",
             mode: "Competitive",
-            note: "Aiming, comms, and fast decision-making.",
+            image: "/games/valorant.png",
         },
         {
             id: 2,
             title: "League of Legends",
-            mode: "Ranked / Flex",
-            note: "Macro-focused games with team coordination.",
+            mode: "For fun",
+            image: "/games/league-of-legends.png",
         },
         {
             id: 3,
             title: "Minecraft",
             mode: "Survival + Creative",
-            note: "Building systems, farms, and server ideas.",
+            image: "/games/minecraft.png",
         },
         {
             id: 4,
-            title: "EA FC",
-            mode: "Ultimate Team",
-            note: "Quick sessions and weekend grind.",
+            title: "Apex Legends",
+            mode: "Competitive",
+            image: "/games/apex-legends.png",
+        },
+        {
+            id: 5,
+            title: "Overwatch 2",
+            mode: "For fun",
+            image: "/games/overwatch.png",
+        },
+        {
+            id: 6,
+            title: "TheCrew 2",
+            mode: "Chilling",
+            image: "/games/the-crew-2.png",
         },
     ];
 
@@ -35,9 +49,19 @@ export default function GamesSection() {
             <div className="games-grid">
                 {games.map((game) => (
                     <article key={game.id} className="game-card">
-                        <p className="game-card__mode">{game.mode}</p>
-                        <h3>{game.title}</h3>
-                        <p>{game.note}</p>
+                        <div className="game-card__image-wrap">
+                            <Image
+                                src={game.image}
+                                alt={game.title}
+                                fill
+                                sizes="(max-width: 980px) 100vw, 33vw"
+                                className="game-card__image"
+                            />
+                        </div>
+                        <div className="game-card__content">
+                            <p className="game-card__mode">{game.mode}</p>
+                            <h3>{game.title}</h3>
+                        </div>
                     </article>
                 ))}
             </div>
