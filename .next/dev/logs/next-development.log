@@ -1,2 +1,8 @@
-{"timestamp":"00:00:00.587","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:01.784","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:00.669","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:01.216","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:02:08.170","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/anime/sword-art-online.\" \"received\" null"}
+{"timestamp":"00:02:10.112","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/anime/sword-art-online.pgn\" \"received\" null"}
+{"timestamp":"00:02:12.670","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/anime/angel-next-door.png\" \"received\" null"}
+{"timestamp":"00:02:12.671","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/anime/world-trigger.png\" \"received\" null"}
+{"timestamp":"00:02:29.039","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/anime/world-trigger.\" \"received\" null"}
+{"timestamp":"00:07:22.442","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/anime/angel-next-door.\" \"received\" null"}
