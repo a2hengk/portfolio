@@ -26,18 +26,18 @@ function Header() {
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                     src: "/profil.png",
                     alt: "Profile Picture",
-                    width: 100,
-                    height: 100
+                    width: 50,
+                    height: 60
                 }, void 0, false, {
                     fileName: "[project]/src/components/Header/header.tsx",
-                    lineNumber: 11,
+                    lineNumber: 10,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                     children: "Heyy I'm Lunas!"
                 }, void 0, false, {
                     fileName: "[project]/src/components/Header/header.tsx",
-                    lineNumber: 17,
+                    lineNumber: 16,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -49,12 +49,12 @@ function Header() {
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Header/header.tsx",
-                                    lineNumber: 20,
+                                    lineNumber: 19,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Header/header.tsx",
-                                lineNumber: 20,
+                                lineNumber: 19,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -63,12 +63,12 @@ function Header() {
                                     children: "About"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Header/header.tsx",
-                                    lineNumber: 22,
+                                    lineNumber: 21,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Header/header.tsx",
-                                lineNumber: 22,
+                                lineNumber: 21,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -77,12 +77,12 @@ function Header() {
                                     children: "Projects"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Header/header.tsx",
-                                    lineNumber: 24,
+                                    lineNumber: 23,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Header/header.tsx",
-                                lineNumber: 24,
+                                lineNumber: 23,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -91,34 +91,34 @@ function Header() {
                                     children: "Contact"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Header/header.tsx",
-                                    lineNumber: 26,
+                                    lineNumber: 25,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Header/header.tsx",
-                                lineNumber: 26,
+                                lineNumber: 25,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Header/header.tsx",
-                        lineNumber: 19,
+                        lineNumber: 18,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/Header/header.tsx",
-                    lineNumber: 18,
+                    lineNumber: 17,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/Header/header.tsx",
-            lineNumber: 10,
+            lineNumber: 9,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Header/header.tsx",
-        lineNumber: 9,
+        lineNumber: 8,
         columnNumber: 9
     }, this);
 }
