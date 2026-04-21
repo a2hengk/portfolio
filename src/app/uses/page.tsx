@@ -1,16 +1,16 @@
 export default function UsesPage() {
     const pcParts = [
-        "CPU: AMD Ryzen 7 7800X3D",
-        "GPU: NVIDIA RTX 4070 Super",
-        "RAM: 32GB DDR5",
-        "Storage: 2TB NVMe SSD",
-        "Mainboard: B650 chipset",
-        "Cooling: 360mm AIO",
-        "Peripherals: Mechanical keyboard + lightweight mouse",
-        "Monitor: 27in 1440p high refresh",
+        "CPU: Intel Core i5 14600KF",
+        "GPU: AMD Radeon RX 9060 XT",
+        "RAM: Kingston Fury 32GB DDR5",
+        "Storage: Samsung SSD 990 EVO Plus 2TB",
+        "Mainboard: B760 GAMING PLUS WIFI",
+        "Cooling: NZXT Kraken 360",
+        "Peripherals: Attack Shark M86, Attack Shark X3",
+        "Monitor: 2x 27 Zoll 1080p 180Hz/165Hz"
     ];
 
-    const uses = ["VS Code", "Figma", "Notion", "GitHub", "Vercel", "Spotify"];
+    const uses = ["VS Code", "Figma", "GitHub", "Vercel", "Spotify", "WSL2", "Discord", "Copilot"];
 
     return (
         <main id="top" className="links-page">

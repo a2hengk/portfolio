@@ -9,20 +9,20 @@ export default function LinksPage() {
         {
             id: 2,
             name: "Discord",
-            handle: "@your-handle",
+            handle: "@lunas3407",
             href: "https://discord.com/",
         },
         {
             id: 3,
-            name: "LinkedIn",
+            name: "Instagram",
             handle: "Add your profile",
-            href: "https://www.linkedin.com/",
+            href: "https://www.instagram.com/hengkevin1405?igsh=MWF2aWZmb2tqdXhuNw==",
         },
         {
             id: 4,
-            name: "Email",
-            handle: "hello@lunas.dev",
-            href: "mailto:hello@lunas.dev",
+            name: "TikTok",
+            handle: "Add your profile",
+            href: "https://www.tiktok.com/@lunas.118f20?_r=1&_t=ZG-95j9qvTOsWO",
         },
     ];
 
