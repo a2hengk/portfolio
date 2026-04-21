@@ -17,22 +17,42 @@ export default function ProjectsSection() {
             id: 2,
             type: "Build",
             status: "In Progress",
-            title: "Reusable Section System",
+            title: "Pygame",
             description:
-                "Structured section and button components to scale content updates while keeping styling consistent.",
-            tags: ["Architecture", "Refactor", "DX"],
-            github: "https://github.com/a2hengk/portfolio",
+                "Reacted something like mario to learn the libary and refresh my python skills. It will be open sourced once it's in a presentable state.",
+            tags: ["Python", "Pygame", "Game Development"],
+            github: "https://github.com/a2hengk/",
         },
         {
             id: 3,
             type: "Build",
-            status: "Planned",
-            title: "Links and Setup Hub",
+            status: "Live",
+            title: "Discord Bot",
             description:
-                "Dedicated links page for socials, tools, and PC components so visitors can see your full setup.",
-            tags: ["Socials", "Uses", "Personal Brand"],
-            demo: "/links",
+                "A simple Discord bot for managing server activities and providing useful information.",
+            tags: ["Python", "Discord API", "Bot Development"],
+            github: "https://github.com/a2hengk/",
         },
+        {
+            id: 4,
+            type: "Build",
+            status: "In Progress",
+            title: "Personal Blog",
+            description:
+                "A personal blog to share my thoughts, experiences, and projects with the world.",
+            tags: ["Next.js", "Markdown", "Static Site Generation"],
+            github: "https://github.com/a2hengk/personal-blog",
+        },
+        {
+            id: 5,
+            type: "Build",
+            status: "In Progress",
+            title: "Karteikarten App",
+            description:
+                "A flashcard app for creating and studying digital flashcards. Also the project for my studies at DHBW.",
+            tags: ["React", "Next.js", "TypeScript", "Sqlite"],
+            github: "https://github.com/a2hengk/",
+        }
     ];
 
     return (
