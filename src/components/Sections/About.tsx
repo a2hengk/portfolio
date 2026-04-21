@@ -3,12 +3,12 @@ export default function AboutSection() {
         {
             id: 1,
             title: "Frontend",
-            stack: "Next.js, TypeScript, CSS Modules, Motion",
+            stack: "Next.js, TypeScript, React, HTML, CSS",
         },
         {
             id: 2,
             title: "Backend",
-            stack: "Node.js APIs, Auth Flows, Data Modeling",
+            stack: "Node.js, Python, Sql, Docker, C#, Java, Git, Linux, REST APIs,",
         },
         {
             id: 3,
@@ -18,7 +18,7 @@ export default function AboutSection() {
         {
             id: 4,
             title: "Interests",
-            stack: "System Design, Automation, Gaming UI",
+            stack: "System Design, Automation, Game Development, UI/UX",
         },
     ];
 

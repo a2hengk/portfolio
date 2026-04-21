@@ -45,7 +45,7 @@ export default function ProjectsSection() {
         },
         {
             id: 5,
-            type: "Build",
+            type: "Website",
             status: "In Progress",
             title: "Karteikarten App",
             description:
