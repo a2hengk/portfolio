@@ -4,8 +4,8 @@ export default function HeroSection() {
     return (
         <section className="hero">
             <div className="hero__content">
-                <p className="eyebrow">Portfolio of Lunas</p>
-                <h1>Heyy i'm Lunas and a Dual Student</h1>
+                <p className="eyebrow">Portfolio</p>
+                <h1>Heyy i'm Lunas!</h1>
                 <p className="lede">
                     My name is Lunas and I'm a dual student at DHBW in Karlsruhe. I created this Portfolio as a Project for my studies and just share some insight about myself :D
                 </p>

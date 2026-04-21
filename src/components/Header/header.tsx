@@ -16,7 +16,7 @@ export default function Header() {
                     />
                     <span>
                         <strong>Lunas</strong>
-                        <small>Creative developer</small>
+                        <small>Software Dev. / Student</small>
                     </span>
                 </Link>
 
