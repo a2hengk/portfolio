@@ -31,7 +31,7 @@ export default function HeroSection() {
                 </div>
                 <div className="hero__card-metric">
                     <strong>Age</strong>
-                    <span>I'm currently 18 years old and will be 19 soon!</span>
+                    <span>I'm currently 19 years old, pushing to 20 o7</span>
                 </div>
                 <div className="hero__card-note">
                     Feel free to reach out if you have any questions or project ideas!
