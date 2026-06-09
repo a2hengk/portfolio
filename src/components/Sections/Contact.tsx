@@ -5,13 +5,13 @@ export default function ContactSection() {
         <section className="section section--contact" id="contact">
             <div>
                 <p className="eyebrow">Contact</p>
-                <h2>Have a project in mind?</h2>
+                <h2>Have a project in mind or just want to say hi?</h2>
                 <p>
-                    My full contact list lives on the links page, so you can reach me through the channel that fits best.
+                    The links page has the fastest ways to reach me, and the footer keeps the contact paths close on every page.
                 </p>
             </div>
             <Button href="/links" variant="primary">
-                View my links
+                View contact links
             </Button>
         </section>
     );

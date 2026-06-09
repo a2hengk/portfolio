@@ -1,3 +1,5 @@
+import PageIntro from "@/components/PageIntro";
+
 export default function LinksPage() {
     const socials = [
         {
@@ -27,11 +29,18 @@ export default function LinksPage() {
     ];
 
     return (
-        <main id="top" className="links-page">
-            <section className="section">
+        <main id="top" className="route-page">
+            <PageIntro
+                eyebrow="Links"
+                title="Want to reach out? Start here."
+                description="These are the best places to contact me, follow my work, or send a quick message."
+                highlight="reach out"
+            />
+
+            <section className="route-section">
                 <div className="section__heading">
-                    <p className="eyebrow">Links</p>
-                    <h2>Find me online.</h2>
+                    <p className="eyebrow">Socials</p>
+                    <h2>I’m happy to hear from you on whichever platform fits best.</h2>
                 </div>
                 <div className="links-grid">
                     {socials.map((social) => (
