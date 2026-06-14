@@ -1,4 +1,13 @@
+import GamesSection from "./Games";
+import AnimeSection from "./Anime";
+
 export default function AboutSection() {
+    const intro = {
+        title: "Hi — I'm a developer",
+        description:
+            "I'm a software developer focused on building delightful web experiences, tools for automation, and hobby game projects. I enjoy clean interfaces, reliable systems, and learning new technologies.",
+    };
+
     const skillBlocks = [
         {
             id: 1,
@@ -8,7 +17,7 @@ export default function AboutSection() {
         {
             id: 2,
             title: "Backend",
-            stack: "Node.js, Python, Sql, Docker, C#, Java, Git, Linux, REST APIs,",
+            stack: "Node.js, Python, SQL, Docker, C#, Java, Git, Linux, REST APIs",
         },
         {
             id: 3,
@@ -23,12 +32,21 @@ export default function AboutSection() {
     ];
 
     return (
-        <section className="section section--about" id="stack">
+        <section className="section section--about" id="about">
             <div className="section__heading">
-                <p className="eyebrow">Stack and skills</p>
-                <h2>The tools and areas I work with most.</h2>
+                <p className="eyebrow">About me</p>
+                <h2>{intro.title}</h2>
             </div>
+
+            <div className="about-intro">
+                <p>{intro.description}</p>
+            </div>
+
             <aside className="about-panel about-panel--skills" aria-label="Skill overview">
+                <div className="section__heading">
+                    <p className="eyebrow">Stack and skills</p>
+                    <h2>The tools and areas I work with most.</h2>
+                </div>
                 <div className="skill-grid">
                     {skillBlocks.map((skill) => (
                         <div key={skill.id} className="skill-card">
@@ -38,6 +56,9 @@ export default function AboutSection() {
                     ))}
                 </div>
             </aside>
+
+            <GamesSection />
+            <AnimeSection />
         </section>
     );
 }
