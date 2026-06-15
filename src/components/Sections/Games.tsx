@@ -4,15 +4,15 @@ export default function GamesSection() {
     const games = [
         {
             id: 1,
-            title: "Valorant",
+            title: "Assetto Corsa Competizione",
             mode: "Competitive",
-            image: "/games/valorant.png",
+            image: "/games/assetto-corsa-competizione.jpg",
         },
         {
             id: 2,
-            title: "League of Legends",
+            title: "Valorant",
             mode: "For fun",
-            image: "/games/league-of-legends.png",
+            image: "/games/valorant.png",
         },
         {
             id: 3,
@@ -28,9 +28,9 @@ export default function GamesSection() {
         },
         {
             id: 5,
-            title: "Overwatch 2",
+            title: "League of Legends",
             mode: "For fun",
-            image: "/games/overwatch.png",
+            image: "/games/league-of-legends.png",
         },
         {
             id: 6,
@@ -45,6 +45,7 @@ export default function GamesSection() {
             <div className="section__heading">
                 <p className="eyebrow">Games I play</p>
                 <h2>My current rotation outside coding hours.</h2>
+                <p>Lately, I've been really interested in Sim Racing and Motorsport in general. I love the realism and competition that comes with it. Outside that, I enjoy playing a variety of games to unwind and have fun.</p>
             </div>
             <div className="games-grid">
                 {games.map((game) => (

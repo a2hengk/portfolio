@@ -5,7 +5,7 @@ export default function AboutSection() {
     const intro = {
         title: "Hi — I'm a developer",
         description:
-            "I'm a software developer focused on building delightful web experiences, tools for automation, and hobby game projects. I enjoy clean interfaces, reliable systems, and learning new technologies.",
+            "Heyy I'm Kevin 19 years old, studing in a dual system school in Germany where i study Computer Science and work as a software developer. I have a passion for creating and building things, and I love to learn new technologies and improve my skills. I am always looking for new challenges and opportunities to grow as a developer.",
     };
 
     const skillBlocks = [
@@ -17,7 +17,7 @@ export default function AboutSection() {
         {
             id: 2,
             title: "Backend",
-            stack: "Node.js, Python, SQL, Docker, C#, Java, Git, Linux, REST APIs",
+            stack: "Node.js, Python, SQL, Docker, C#, Java, Git, WSL2, REST APIs",
         },
         {
             id: 3,

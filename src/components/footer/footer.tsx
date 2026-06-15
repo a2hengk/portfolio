@@ -6,7 +6,7 @@ export default function Footer() {
             <div className="site-footer__content">
                 <div className="site-footer__lead">
                     <p className="eyebrow">Contact</p>
-                    <h2>Want to say hi or build something?</h2>
+                    <h3>Want to say hi or build something?</h3>
                     <p>
                         The quickest way to reach me is through the links page, or directly via GitHub and Discord.
                     </p>
