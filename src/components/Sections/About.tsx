@@ -22,7 +22,7 @@ export default function AboutSection() {
         {
             id: 3,
             title: "Workflow",
-            stack: "GitHub, VS Code, Figma, Vercel",
+            stack: "GitHub, VS Code, Cloudflare, Vercel",
         },
         {
             id: 4,

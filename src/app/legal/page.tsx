@@ -11,10 +11,10 @@ export default function LegalPage() {
             <section className="legal-section" id="impressum">
                 <h2>Impressum</h2>
                 <p>
-                    Site owner: <strong>Psydos Name</strong>
+                    Site owner: <strong>Kevin</strong>
                 </p>
                 <p>
-                    Contact: <a href="mailto:contact@psydos.example">contact@psydos.example</a>
+                    Contact: <a href="mailto:contact@anonymos.example">contact@anonymos.example</a>
                 </p>
                 <p>
                     Address: Example Street 1, 12345 Example City, Country
@@ -26,8 +26,7 @@ export default function LegalPage() {
                     Company / VAT ID: DE000000000 (placeholder)
                 </p>
                 <p>
-                    These are placeholder details (psydos). Replace them with your real contact and
-                    registration information when ready.
+                    These are placeholder details (anonymos).
                 </p>
             </section>
 

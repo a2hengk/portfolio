@@ -12,7 +12,7 @@ export default function UsesPage() {
         "Monitor: 2x 27 Zoll 1080p 180Hz/165Hz",
     ];
 
-    const uses = ["VS Code", "Figma", "GitHub", "Vercel", "Spotify", "WSL2", "Discord", "Copilot"];
+    const uses = ["VS Code", "GitHub", "Vercel", "Spotify", "WSL2", "Discord", "Copilot", "Notion", "Canva", "Cloudflare"];
 
     return (
         <main id="top" className="route-page">
