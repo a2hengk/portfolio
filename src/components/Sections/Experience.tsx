@@ -1,33 +1,40 @@
 export default function ExperienceSection() {
     const milestones = [
         {
-            year: "2026",
-            title: "Software Developer at Herrenknecht AG",
+            year: "2022",
+            title: "Interessted in IT",
             description:
-                "Working on real software with real constraints, learning how to ship maintainable features and communicate clearly with a team.",
-            tags: ["Production code", "Team workflows", "Responsibility"],
+                "I was in 9th grade when I first got interested in IT. I started doing interships at local companies to get a feel for the industry and insights into the different roles and responsibilities.",
+            tags: ["IT", "Internships", "Exploration"],
         },
         {
-            year: "2024 - 2026",
-            title: "Dual student at DHBW Karlsruhe",
+            year: "2023 - 2025",
+            title: "Tech. Highschool",
             description:
-                "Balancing study and practice while building a foundation in frontend, backend, system thinking, and software engineering habits.",
-            tags: ["Computer science", "Hands-on learning", "Dual study"],
+                "I enrolled in a tech-focused school to get more understanding and got in touch with programming and a lot more of different technologies. I also enrolled to get permission to study at a highschool.",
+            tags: ["Tech highschool", "Programming", "Exploration"],
         },
         {
-            year: "2023 - 2024",
-            title: "Early projects and self-teaching",
+            year: "2024 - 2025",
+            title: "Side projects",
             description:
-                "Built small tools, a first portfolio, game prototypes, and Discord bots to sharpen my fundamentals and find my style.",
-            tags: ["Next.js", "Python", "Discord bots"],
+                "I started working on side projects to apply what I learned and to explore my interests further. I built a few projects, including a Discord bot and just small Python scripts to get a better understanding of programming.",
+            tags: ["Python", "Discord bots"],
         },
         {
-            year: "Now",
-            title: "Sharpening product thinking",
+            year: "2025",
+            title: "Herrenknecht AG",
             description:
-                "Pushing toward cleaner interfaces, stronger motion, and a more intentional way to present my work and progress.",
-            tags: ["UI design", "Motion", "Portfolio"],
+                "I applyed at Herrenknecht AG as a Dual Student in the field of IT. I got accepted and started working there since July 2025.",
+            tags: ["Herrenknecht AG", "Dual Student", "IT"],
         },
+        {
+            year: "2025 - 2028",
+            title: "Dual Student at Herrenknecht AG",
+            description:
+                "Not am i only working at Herrenknecht AG but also studying in Karlsruhe. I am gaining practical experience in the field of IT while also studying to deepen my theoretical knowledge.",
+            tags: ["Herrenknecht AG", "Dual Student", "IT", "Practical Experience"],
+        }
     ];
 
     return (
