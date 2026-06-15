@@ -104,7 +104,7 @@ export default function HeroSection() {
                     <p className="hero__terminal-line hero__terminal-line--delay-1">&gt; init portfolio --status=live</p>
                     <p className="hero__terminal-line hero__terminal-line--delay-2">&gt; load stack: Next.js, TypeScript, CSS, React</p>
                     <p className="hero__terminal-line hero__terminal-line--delay-3">&gt; sync profile: HerrenknechtAG</p>
-                    <p className="hero__terminal-line hero__terminal-line--delay-4">&gt; sync profile: DHBW</p>
+                    <p className="hero__terminal-line hero__terminal-line--delay-4">&gt; sync profile: DHBW Karlsruhe</p>
                     <p className="hero__terminal-line hero__terminal-line--ready">All systems operational</p>
                 </div>
             </aside>

@@ -3,7 +3,7 @@ import AnimeSection from "./Anime";
 
 export default function AboutSection() {
     const intro = {
-        title: "Hi — I'm a developer",
+        title: "",
         description:
             "Heyy I'm Kevin 19 years old, studing in a dual system school in Germany where i study Computer Science and work as a software developer. I have a passion for creating and building things, and I love to learn new technologies and improve my skills. I am always looking for new challenges and opportunities to grow as a developer.",
     };
