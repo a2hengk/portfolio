@@ -19,7 +19,7 @@ export default function ProjectsSection() {
             status: "In Progress",
             title: "Pygame",
             description:
-                "Reacted something like mario to learn the libary and refresh my python skills. It will be open sourced once it's in a presentable state.",
+                "Creating something like Mario to learn the library and refresh my python skills. It will be open sourced once it's in a presentable state.",
             tags: ["Python", "Pygame", "Game Development"],
             github: "https://github.com/a2hengk/",
         },
@@ -31,7 +31,7 @@ export default function ProjectsSection() {
             description:
                 "A simple Discord bot for managing server activities and providing useful information.",
             tags: ["Python", "Discord API", "Bot Development"],
-            github: "https://github.com/a2hengk/",
+            github: "https://github.com/a2hengk/discordbot",
         },
         {
             id: 4,
@@ -41,7 +41,7 @@ export default function ProjectsSection() {
             description:
                 "A personal blog to share my thoughts, experiences, and projects with the world.",
             tags: ["Next.js", "Markdown", "Static Site Generation"],
-            github: "https://github.com/a2hengk/personal-blog",
+            github: "https://github.com/a2hengk/Lunair",
         },
         {
             id: 5,
@@ -51,7 +51,7 @@ export default function ProjectsSection() {
             description:
                 "A flashcard app for creating and studying digital flashcards. Also the project for my studies at DHBW.",
             tags: ["React", "Next.js", "TypeScript", "Sqlite"],
-            github: "https://github.com/a2hengk/",
+            github: "https://github.com/a2hengk/Die-Kleinen-Einsteins",
         }
     ];
 

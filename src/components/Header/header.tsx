@@ -21,7 +21,7 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.inner}>
-                <Link className={styles.brand} href="/#top" aria-label="Go to the top of the homepage">
+                <Link className={styles.brand} href="/" aria-label="Go to the top of the homepage">
                     <Image
                         src="/profil.png"
                         alt="Profile picture"
