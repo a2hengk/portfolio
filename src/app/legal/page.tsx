@@ -14,16 +14,13 @@ export default function LegalPage() {
                     Site owner: <strong>Kevin</strong>
                 </p>
                 <p>
-                    Contact: <a href="mailto:contact@anonymos.example">contact@anonymos.example</a>
+                    Contact: <a href="mailto:lukasbauer198@gmail.com">lukasbauer198@gmail.com</a>
                 </p>
                 <p>
-                    Address: Example Street 1, 12345 Example City, Country
+                    Address: Invalid Street 123, 12345 City, Germany (placeholder)
                 </p>
                 <p>
                     Phone: +49 123 456789 (placeholder)
-                </p>
-                <p>
-                    Company / VAT ID: DE000000000 (placeholder)
                 </p>
                 <p>
                     These are placeholder details (anonymos).
