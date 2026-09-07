@@ -11,6 +11,7 @@ export default function AboutPage() {
     return (
         <main id="top" className="route-page">
             <PageIntro
+                sector="01"
                 eyebrow="About"
                 title="A clearer view of who I am."
                 description="This page shows the background, stack, and habits that shape the way I build."

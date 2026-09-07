@@ -11,6 +11,7 @@ export default function ProjectsPage() {
     return (
         <main id="top" className="route-page">
             <PageIntro
+                sector="03"
                 eyebrow="Projects"
                 title="Selected builds and the problems I like solving."
                 description="A clearer look at the apps, experiments, and tools I’ve worked on or am actively shaping."

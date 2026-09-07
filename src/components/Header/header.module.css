@@ -90,9 +90,9 @@
 }
 
 .activeNavLink {
-    background: rgba(242, 179, 91, 0.14);
+    background: rgba(63, 140, 232, 0.16);
     color: var(--text) !important;
-    border: 1px solid rgba(242, 179, 91, 0.25);
+    border: 1px solid rgba(63, 140, 232, 0.3);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -103,7 +103,7 @@
 }
 
 .nav a.activeNavLink:hover {
-    background: rgba(242, 179, 91, 0.18);
+    background: rgba(63, 140, 232, 0.22);
     transform: translateY(-1px);
 }
 

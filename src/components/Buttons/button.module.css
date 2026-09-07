@@ -18,13 +18,13 @@
 }
 
 .button--primary {
-    background: linear-gradient(135deg, var(--accent), #f5c97a);
-    color: #11131a;
-    box-shadow: 0 14px 28px rgba(242, 179, 91, 0.24);
+    background: linear-gradient(135deg, var(--accent), #7fc4f7);
+    color: #0b0f17;
+    box-shadow: 0 14px 28px rgba(63, 140, 232, 0.28);
 }
 
 .button--primary:hover {
-    box-shadow: 0 20px 40px rgba(242, 179, 91, 0.32);
+    box-shadow: 0 20px 40px rgba(63, 140, 232, 0.36);
 }
 
 .button--secondary {

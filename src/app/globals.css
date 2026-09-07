@@ -6,13 +6,18 @@
     --border: rgba(255, 255, 255, 0.12);
     --text: #f4f0e8;
     --muted: rgba(244, 240, 232, 0.72);
-    --accent: #f2b35b;
-    --accent-strong: #f7d18a;
-    --accent-soft: #b58cff;
+    --accent: #3f8ce8;
+    --accent-strong: #8ecdfb;
+    --accent-soft: #8b7cf0;
+    --m-red: #e0333f;
+    --racing-green: #6fe3ab;
+    --racing-amber: #f2a35f;
     --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
     --content-width: 1120px;
-    --font-display: "Cormorant Garamond", "Georgia", serif;
+    --font-display: var(--font-cormorant), "Georgia", serif;
     --font-body: "Avenir Next", "Trebuchet MS", sans-serif;
+    --font-tech: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
 }
 
 @keyframes fadeInUp {
@@ -89,8 +94,8 @@ body {
     min-height: 100vh;
     font-family: var(--font-body);
     background:
-        radial-gradient(circle at top left, rgba(242, 179, 91, 0.14), transparent 30%),
-        radial-gradient(circle at top right, rgba(122, 167, 255, 0.12), transparent 25%),
+        radial-gradient(circle at top left, rgba(63, 140, 232, 0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(142, 205, 251, 0.12), transparent 25%),
         linear-gradient(180deg, #0d111a 0%, #0b0f17 45%, #090c12 100%);
     color: var(--text);
     background-attachment: fixed;
@@ -127,7 +132,7 @@ main {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(242, 179, 91, 0.08), transparent 28%, transparent 72%, rgba(122, 167, 255, 0.06));
+    background: linear-gradient(135deg, rgba(63, 140, 232, 0.1), transparent 28%, transparent 72%, rgba(139, 124, 240, 0.08));
     pointer-events: none;
 }
 
@@ -159,7 +164,7 @@ main {
 
 .page-intro__highlight {
     color: var(--text);
-    background: linear-gradient(135deg, rgba(242, 179, 91, 0.26), rgba(122, 167, 255, 0.18));
+    background: linear-gradient(135deg, rgba(63, 140, 232, 0.28), rgba(139, 124, 240, 0.2));
     padding: 0 0.18em;
     border-radius: 0.2em;
     box-decoration-break: clone;
@@ -289,7 +294,10 @@ main {
 }
 
 .hero__metric strong {
+    font-family: var(--font-tech);
+    font-weight: 700;
     font-size: 1rem;
+    letter-spacing: 0.01em;
     color: var(--text);
     line-height: 1.4;
 }
@@ -304,54 +312,64 @@ main {
 
 .hero__terminal {
     padding: 0;
-    overflow: hidden;
 }
 
 .hero__terminal-top {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     padding: 18px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(0, 0, 0, 0.18);
-}
-
-.hero__terminal-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.22);
-}
-
-.hero__terminal-dot--accent {
-    background: var(--accent);
-    box-shadow: 0 0 18px rgba(242, 179, 91, 0.45);
+    border-radius: 16px 16px 0 0;
 }
 
 .hero__terminal-title {
-    margin-left: 8px;
     color: var(--muted);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     text-transform: uppercase;
     letter-spacing: 0.14em;
+    font-family: var(--font-mono);
+}
+
+.tick-divider {
+    height: 8px;
+    margin: 0 20px;
+    background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 11px);
+    background-position: top;
+    background-repeat: repeat-x;
+    background-size: auto 6px;
 }
 
 .hero__terminal-body {
-    padding: 22px 20px 12px;
+    padding: 16px 20px 4px;
     display: grid;
-    gap: 10px;
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Consolas, Liberation Mono, monospace;
-    font-size: 0.92rem;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
     line-height: 1.55;
 }
 
 .hero__terminal-line {
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text);
     white-space: nowrap;
     overflow: hidden;
-    border-right: 2px solid transparent;
     opacity: 0;
+}
+
+.hero__terminal-line:first-child {
+    border-top: 0;
+}
+
+.hero__terminal-line span:first-child {
+    color: var(--muted);
 }
 
 .hero__terminal-line--delay-1 {
@@ -366,87 +384,201 @@ main {
     animation: terminalLineReveal 700ms ease-out 1550ms forwards;
 }
 
-.hero__terminal-line--delay-4 {
+.hero__terminal-line--ready {
+    padding-bottom: 18px;
     animation: terminalLineReveal 700ms ease-out 2150ms forwards;
 }
 
-.hero__terminal-line--ready {
-    color: var(--accent-strong);
-    padding-top: 2px;
-    animation: terminalLineReveal 700ms ease-out 2750ms forwards;
+/* Start lights: five lamps igniting in sequence, "lights out" when the
+   telemetry card is ready - the F1 start sequence, doubling as a loading
+   tell for the panel itself. */
+@keyframes lightUp {
+    from {
+        opacity: 0.25;
+        box-shadow: none;
+    }
+
+    to {
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(111, 227, 171, 0.8);
+    }
 }
 
-.hero__terminal-line--ready::after {
-    content: "";
-    display: inline-block;
-    width: 0.65em;
-    height: 1em;
-    margin-left: 4px;
-    border-radius: 1px;
-    background: var(--accent-strong);
-    vertical-align: -0.15em;
-    animation: terminalCursorBlink 1s steps(2, end) infinite 2600ms;
-}
-
-.hero__terminal-stats {
-    display: grid;
-    gap: 0;
-    padding: 6px 20px 22px;
-}
-
-.hero__terminal-stats>div {
-    display: grid;
-    gap: 3px;
-    padding: 12px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.hero__terminal-stats>div:first-child {
-    border-top: 0;
-}
-
-.hero__terminal-stats strong {
-    font-size: 0.94rem;
-    color: var(--text);
-}
-
-.hero__terminal-stats span {
-    color: var(--muted);
-    font-size: 0.88rem;
-    line-height: 1.5;
-}
-
-.hero__card-label {
-    margin: 0 0 20px;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--accent-strong);
-}
-
-.hero__card-metric {
-    padding: 18px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: grid;
+.start-lights {
+    display: flex;
     gap: 4px;
 }
 
-.hero__card-metric:first-of-type {
-    border-top: 0;
-    padding-top: 0;
+.start-light {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--racing-green);
+    opacity: 0.25;
+    animation: lightUp 220ms ease-out forwards;
 }
 
-.hero__card-metric strong {
-    font-size: 1.3rem;
-    color: var(--text);
+.start-light:nth-child(1) {
+    animation-delay: 200ms;
 }
 
-.hero__card-note {
-    margin-top: 18px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--muted);
-    line-height: 1.7;
+.start-light:nth-child(2) {
+    animation-delay: 340ms;
+}
+
+.start-light:nth-child(3) {
+    animation-delay: 480ms;
+}
+
+.start-light:nth-child(4) {
+    animation-delay: 620ms;
+}
+
+.start-light:nth-child(5) {
+    animation-delay: 760ms;
+}
+
+/* HUD corner brackets - a targeting-reticle accent for telemetry-style
+   panels. Host element needs position: relative (hero__card already has it). */
+.hud-corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 0 solid var(--accent-soft);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.hud-corner--tl {
+    top: -8px;
+    left: -8px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+}
+
+.hud-corner--tr {
+    top: -8px;
+    right: -8px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+}
+
+.hud-corner--bl {
+    bottom: -8px;
+    left: -8px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.hud-corner--br {
+    bottom: -8px;
+    right: -8px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+}
+
+/* Sector tag - a small timing-tower marker used next to section eyebrows. */
+.section-marker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.section-marker .eyebrow {
+    margin: 0;
+}
+
+.sector-tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--racing-green);
+    border: 1px solid rgba(111, 227, 171, 0.4);
+    background: rgba(111, 227, 171, 0.12);
+    border-radius: 4px;
+    padding: 3px 7px;
+}
+
+/* Livery stripe - a BMW M-stripe corner flourish (blue / violet / red).
+   Host element needs position: relative + overflow: hidden (hero and
+   section already have both). Decorative only - never a status color. */
+.livery-stripe {
+    position: absolute;
+    right: -70px;
+    width: 220px;
+    height: 10px;
+    transform: rotate(45deg);
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.livery-stripe--1 {
+    top: 14px;
+    background: var(--accent);
+}
+
+.livery-stripe--2 {
+    top: 26px;
+    background: var(--accent-soft);
+}
+
+.livery-stripe--3 {
+    top: 38px;
+    background: var(--m-red);
+}
+
+.circuit-line {
+    position: absolute;
+    opacity: 0.07;
+    pointer-events: none;
+}
+
+/* Skewed technical numerals - a livery-number treatment for stat figures. */
+.stat-figure {
+    font-family: var(--font-tech);
+    font-weight: 700;
+    display: inline-block;
+    transform: skewX(-8deg);
+}
+
+/* Position badges - P1..P5 markers on project cards, colored to match
+   each card's status. Host element needs position: relative
+   (.project-card already has it). */
+.position-badge {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    display: inline-flex;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: #11141c;
+    font-family: var(--font-tech);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.position-badge span {
+    display: inline-block;
+    transform: skewX(-8deg);
+}
+
+.position-badge--live {
+    border: 1px solid rgba(111, 227, 171, 0.5);
+    color: var(--racing-green);
+}
+
+.position-badge--progress {
+    border: 1px solid rgba(242, 163, 95, 0.5);
+    color: var(--racing-amber);
+}
+
+.position-badge--featured {
+    border: 1px solid rgba(139, 124, 240, 0.5);
+    color: var(--accent-soft);
 }
 
 .section,
@@ -562,14 +694,39 @@ main {
 }
 
 .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 5px 10px;
     border-radius: 999px;
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    background: rgba(242, 179, 91, 0.15);
-    border: 1px solid rgba(242, 179, 91, 0.4);
-    color: var(--accent-strong);
+}
+
+.status-badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: currentColor;
+}
+
+.status-badge--live {
+    background: rgba(111, 227, 171, 0.14);
+    border: 1px solid rgba(111, 227, 171, 0.4);
+    color: var(--racing-green);
+}
+
+.status-badge--progress {
+    background: rgba(242, 163, 95, 0.14);
+    border: 1px solid rgba(242, 163, 95, 0.4);
+    color: var(--racing-amber);
+}
+
+.status-badge--featured {
+    background: rgba(139, 124, 240, 0.16);
+    border: 1px solid rgba(139, 124, 240, 0.45);
+    color: var(--accent-soft);
 }
 
 .project-tags {
@@ -703,7 +860,7 @@ main {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, rgba(242, 179, 91, 0.12), transparent 30%), radial-gradient(circle at bottom left, rgba(122, 167, 255, 0.1), transparent 30%);
+    background: radial-gradient(circle at top right, rgba(63, 140, 232, 0.14), transparent 30%), radial-gradient(circle at bottom left, rgba(139, 124, 240, 0.1), transparent 30%);
     pointer-events: none;
 }
 
@@ -923,8 +1080,9 @@ main {
         transform: none;
     }
 
-    .hero__terminal-line--ready::after {
-        animation: none;
+    .start-light {
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(111, 227, 171, 0.8);
     }
 }
 
@@ -1040,6 +1198,7 @@ main {
 }
 
 .project-card {
+    position: relative;
     cursor: pointer;
 }
 

@@ -11,6 +11,7 @@ export default function ExperiencePage() {
     return (
         <main id="top" className="route-page">
             <PageIntro
+                sector="02"
                 eyebrow="Experience"
                 title="The road I’ve been taking so far."
                 description="A timeline of study, work, and the projects that shaped how I build today."

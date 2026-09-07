@@ -54,8 +54,21 @@ export default function HeroSection() {
 
     return (
         <section className="hero">
+            <span className="livery-stripe livery-stripe--1" aria-hidden="true" />
+            <span className="livery-stripe livery-stripe--2" aria-hidden="true" />
+            <span className="livery-stripe livery-stripe--3" aria-hidden="true" />
+
+            <svg className="circuit-line" style={{ right: "-40px", bottom: "-30px", width: "640px", height: "420px" }} viewBox="0 0 640 420" fill="none" aria-hidden="true">
+                <path d="M40 340 C 40 250, 120 210, 200 230 C 280 250, 270 320, 350 335 C 430 350, 480 300, 450 235 C 425 180, 350 185, 325 130 C 305 88, 345 45, 405 55 C 480 68, 495 145, 570 160 C 615 169, 625 205, 585 225 C 545 245, 520 210, 480 220" stroke="var(--text)" strokeWidth="3" strokeLinecap="round" />
+                <circle cx="40" cy="340" r="5" fill="var(--text)" />
+                <circle cx="480" cy="220" r="5" fill="var(--text)" />
+            </svg>
+
             <div className="hero__content">
-                <p className="eyebrow">Portfolio</p>
+                <div className="section-marker">
+                    <span className="sector-tag">Sector 00</span>
+                    <p className="eyebrow">Portfolio</p>
+                </div>
                 <h1 className="hero__title">
                     <span className="hero__title-kicker">Hey I&apos;m</span>
                     <span className="hero__title-name">Lunas</span>
@@ -79,11 +92,11 @@ export default function HeroSection() {
                 <div className="hero__metrics" aria-label="Profile metrics">
                     <div className="hero__metric">
                         <span>Experience</span>
-                        <strong>2+ years</strong>
+                        <strong><span className="stat-figure">2+</span> years</strong>
                     </div>
                     <div className="hero__metric">
                         <span>Projects</span>
-                        <strong>5+ builds</strong>
+                        <strong><span className="stat-figure">5+</span> builds</strong>
                     </div>
                     <div className="hero__metric">
                         <span>Focus</span>
@@ -92,20 +105,45 @@ export default function HeroSection() {
                 </div>
             </div>
 
-            <aside className="hero__card hero__terminal" aria-label="Live profile terminal">
+            <aside className="hero__card hero__terminal" aria-label="Live build telemetry">
+                <span className="hud-corner hud-corner--tl" aria-hidden="true" />
+                <span className="hud-corner hud-corner--tr" aria-hidden="true" />
+                <span className="hud-corner hud-corner--bl" aria-hidden="true" />
+                <span className="hud-corner hud-corner--br" aria-hidden="true" />
+
                 <div className="hero__terminal-top">
-                    <span className="hero__terminal-dot hero__terminal-dot--accent" aria-hidden="true" />
-                    <span className="hero__terminal-dot" aria-hidden="true" />
-                    <span className="hero__terminal-dot" aria-hidden="true" />
-                    <span className="hero__terminal-title">Portfolio-Terminal</span>
+                    <div className="start-lights" aria-hidden="true">
+                        <span className="start-light" />
+                        <span className="start-light" />
+                        <span className="start-light" />
+                        <span className="start-light" />
+                        <span className="start-light" />
+                    </div>
+                    <span className="hero__terminal-title">Telemetry // Lights out</span>
                 </div>
 
+                <div className="tick-divider" aria-hidden="true" />
+
                 <div className="hero__terminal-body" aria-live="polite">
-                    <p className="hero__terminal-line hero__terminal-line--delay-1">&gt; init portfolio --status=live</p>
-                    <p className="hero__terminal-line hero__terminal-line--delay-2">&gt; load stack: Next.js, TypeScript, CSS, React</p>
-                    <p className="hero__terminal-line hero__terminal-line--delay-3">&gt; sync profile: HerrenknechtAG</p>
-                    <p className="hero__terminal-line hero__terminal-line--delay-4">&gt; sync profile: DHBW Karlsruhe</p>
-                    <p className="hero__terminal-line hero__terminal-line--ready">All systems operational</p>
+                    <p className="hero__terminal-line hero__terminal-line--delay-1">
+                        <span>&gt; stack</span>
+                        <span>Next.js · TS · React</span>
+                    </p>
+                    <p className="hero__terminal-line hero__terminal-line--delay-2">
+                        <span>&gt; base</span>
+                        <span>Herrenknecht AG</span>
+                    </p>
+                    <p className="hero__terminal-line hero__terminal-line--delay-3">
+                        <span>&gt; study</span>
+                        <span>DHBW Karlsruhe</span>
+                    </p>
+                    <p className="hero__terminal-line hero__terminal-line--ready">
+                        <span>&gt; status</span>
+                        <span className="status-badge status-badge--live">
+                            <span className="status-badge__dot" />
+                            Operational
+                        </span>
+                    </p>
                 </div>
             </aside>
         </section>

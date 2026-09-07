@@ -3,6 +3,7 @@ interface PageIntroProps {
     title: string;
     description: string;
     highlight?: string;
+    sector?: string;
 }
 
 function renderHighlightedTitle(title: string, highlight?: string) {
@@ -29,10 +30,13 @@ function renderHighlightedTitle(title: string, highlight?: string) {
     );
 }
 
-export default function PageIntro({ eyebrow, title, description, highlight }: PageIntroProps) {
+export default function PageIntro({ eyebrow, title, description, highlight, sector }: PageIntroProps) {
     return (
         <section className="page-intro">
-            <p className="eyebrow">{eyebrow}</p>
+            <div className="section-marker">
+                {sector ? <span className="sector-tag">Sector {sector}</span> : null}
+                <p className="eyebrow">{eyebrow}</p>
+            </div>
             <h1>{renderHighlightedTitle(title, highlight)}</h1>
             <p>{description}</p>
         </section>

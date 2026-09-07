@@ -36,6 +36,7 @@ export default function LinksPage() {
     return (
         <main id="top" className="route-page">
             <PageIntro
+                sector="04"
                 eyebrow="Links"
                 title="Want to reach out? Start here."
                 description="These are the best places to contact me, follow my work, or send a quick message."
