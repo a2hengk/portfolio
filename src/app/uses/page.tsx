@@ -22,7 +22,7 @@ export default function UsesPage() {
     return (
         <main id="top" className="route-page">
             <PageIntro
-                sector="05"
+                sector="06"
                 eyebrow="Uses"
                 title="The tools and hardware behind my workflow."
                 description="A compact list of the software and PC parts that shape how I code, design, and stay productive."

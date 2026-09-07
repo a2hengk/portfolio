@@ -8,7 +8,7 @@
     --muted: rgba(244, 240, 232, 0.72);
     --accent: #3f8ce8;
     --accent-strong: #8ecdfb;
-    --accent-soft: #8b7cf0;
+    --accent-soft: #6c8cf5;
     --m-red: #e0333f;
     --racing-green: #6fe3ab;
     --racing-amber: #f2a35f;
@@ -132,7 +132,7 @@ main {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(63, 140, 232, 0.1), transparent 28%, transparent 72%, rgba(139, 124, 240, 0.08));
+    background: linear-gradient(135deg, rgba(63, 140, 232, 0.1), transparent 28%, transparent 72%, rgba(108, 140, 245, 0.08));
     pointer-events: none;
 }
 
@@ -164,7 +164,7 @@ main {
 
 .page-intro__highlight {
     color: var(--text);
-    background: linear-gradient(135deg, rgba(63, 140, 232, 0.28), rgba(139, 124, 240, 0.2));
+    background: linear-gradient(135deg, rgba(63, 140, 232, 0.28), rgba(108, 140, 245, 0.2));
     padding: 0 0.18em;
     border-radius: 0.2em;
     box-decoration-break: clone;
@@ -577,7 +577,7 @@ main {
 }
 
 .position-badge--featured {
-    border: 1px solid rgba(139, 124, 240, 0.5);
+    border: 1px solid rgba(108, 140, 245, 0.5);
     color: var(--accent-soft);
 }
 
@@ -724,8 +724,8 @@ main {
 }
 
 .status-badge--featured {
-    background: rgba(139, 124, 240, 0.16);
-    border: 1px solid rgba(139, 124, 240, 0.45);
+    background: rgba(108, 140, 245, 0.16);
+    border: 1px solid rgba(108, 140, 245, 0.45);
     color: var(--accent-soft);
 }
 
@@ -860,7 +860,7 @@ main {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, rgba(63, 140, 232, 0.14), transparent 30%), radial-gradient(circle at bottom left, rgba(139, 124, 240, 0.1), transparent 30%);
+    background: radial-gradient(circle at top right, rgba(63, 140, 232, 0.14), transparent 30%), radial-gradient(circle at bottom left, rgba(108, 140, 245, 0.1), transparent 30%);
     pointer-events: none;
 }
 

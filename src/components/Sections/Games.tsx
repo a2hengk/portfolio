@@ -41,7 +41,7 @@ export default function GamesSection() {
     ];
 
     return (
-        <section className="subsection" id="games">
+        <section className="route-section" id="games">
             <div className="section__heading">
                 <p className="eyebrow">Games I play</p>
                 <h2>My current rotation outside coding hours.</h2>

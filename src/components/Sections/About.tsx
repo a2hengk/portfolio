@@ -1,5 +1,4 @@
-import GamesSection from "./Games";
-import AnimeSection from "./Anime";
+import Button from "@/components/Buttons/button";
 
 export default function AboutSection() {
     const intro = {
@@ -7,6 +6,12 @@ export default function AboutSection() {
         description:
             "Heyy I'm Kevin 19 years old, studying in a dual system school in Germany where i study Computer Science and work as a software developer. I have a passion for creating and building things, and I love to learn new technologies and improve my skills. I am always looking for new challenges and opportunities to grow as a developer.",
     };
+
+    const quickFacts = [
+        { label: "Company", value: "Herrenknecht AG" },
+        { label: "Studying at", value: "DHBW Karlsruhe" },
+        { label: "Role", value: "Dual Student" },
+    ];
 
     const skillBlocks = [
         {
@@ -42,6 +47,15 @@ export default function AboutSection() {
                 <p>{intro.description}</p>
             </div>
 
+            <div className="hero__metrics" aria-label="Quick facts">
+                {quickFacts.map((fact) => (
+                    <div key={fact.label} className="hero__metric">
+                        <span>{fact.label}</span>
+                        <strong>{fact.value}</strong>
+                    </div>
+                ))}
+            </div>
+
             <aside className="about-panel about-panel--skills" aria-label="Skill overview">
                 <div className="section__heading">
                     <p className="eyebrow">Stack and skills</p>
@@ -57,8 +71,18 @@ export default function AboutSection() {
                 </div>
             </aside>
 
-            <GamesSection />
-            <AnimeSection />
+            <div className="subsection">
+                <div className="section__heading">
+                    <p className="eyebrow">Beyond the code</p>
+                    <h2>What I do when I log off.</h2>
+                </div>
+                <p>
+                    Outside of work I'm usually deep in Sim Racing and Motorsport, working through a rotating cast of games, or catching up on an anime.
+                </p>
+                <Button href="/off-duty" variant="secondary">
+                    See what I&apos;m into off duty
+                </Button>
+            </div>
         </section>
     );
 }

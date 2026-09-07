@@ -23,7 +23,7 @@ export default function AnimeSection() {
     ];
 
     return (
-        <section className="subsection" id="anime">
+        <section className="route-section" id="anime">
             <div className="section__heading">
                 <p className="eyebrow">Animes</p>
                 <h2>Animes that i like</h2>
