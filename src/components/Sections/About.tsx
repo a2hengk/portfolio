@@ -7,10 +7,12 @@ export default function AboutSection() {
             "Heyy I'm Kevin 19 years old, studying in a dual system school in Germany where i study Computer Science and work as a software developer. I have a passion for creating and building things, and I love to learn new technologies and improve my skills. I am always looking for new challenges and opportunities to grow as a developer.",
     };
 
-    const quickFacts = [
-        { label: "Company", value: "Herrenknecht AG" },
-        { label: "Studying at", value: "DHBW Karlsruhe" },
-        { label: "Role", value: "Dual Student" },
+    // Counted straight from the tags on the projects listed on /projects -
+    // what actually shows up when something ships, not a claimed skill level.
+    const mostUsed = [
+        { name: "Next.js", builds: 3, of: 5 },
+        { name: "TypeScript", builds: 2, of: 5 },
+        { name: "Python", builds: 2, of: 5 },
     ];
 
     const skillBlocks = [
@@ -47,15 +49,6 @@ export default function AboutSection() {
                 <p>{intro.description}</p>
             </div>
 
-            <div className="hero__metrics" aria-label="Quick facts">
-                {quickFacts.map((fact) => (
-                    <div key={fact.label} className="hero__metric">
-                        <span>{fact.label}</span>
-                        <strong>{fact.value}</strong>
-                    </div>
-                ))}
-            </div>
-
             <aside className="about-panel about-panel--skills" aria-label="Skill overview">
                 <div className="section__heading">
                     <p className="eyebrow">Stack and skills</p>
@@ -66,6 +59,23 @@ export default function AboutSection() {
                         <div key={skill.id} className="skill-card">
                             <strong>{skill.title}</strong>
                             <span>{skill.stack}</span>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="skill-bars" aria-label="Most used across my builds">
+                    {mostUsed.map((item) => (
+                        <div key={item.name}>
+                            <div className="skill-bar__label">
+                                <strong>{item.name}</strong>
+                                <span>{item.builds}/{item.of} builds</span>
+                            </div>
+                            <div className="skill-bar__track">
+                                <div
+                                    className="skill-bar__fill"
+                                    style={{ width: `${(item.builds / mostUsed[0].builds) * 100}%` }}
+                                />
+                            </div>
                         </div>
                     ))}
                 </div>
