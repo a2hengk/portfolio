@@ -1,5 +1,10 @@
 import PageIntro from "@/components/PageIntro";
 
+export const metadata = {
+    title: "Links - Lunas",
+    description: "The best places to contact, follow, or message Lunas.",
+};
+
 export default function LinksPage() {
     const socials = [
         {
@@ -12,7 +17,7 @@ export default function LinksPage() {
             id: 2,
             name: "Discord",
             handle: "@lunas3407",
-            href: "",
+            href: null,
         },
         {
             id: 3,
@@ -43,12 +48,25 @@ export default function LinksPage() {
                     <h2>I’m happy to hear from you on whichever platform fits best.</h2>
                 </div>
                 <div className="links-grid">
-                    {socials.map((social) => (
-                        <a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer" className="link-card">
-                            <strong>{social.name}</strong>
-                            <span>{social.handle}</span>
-                        </a>
-                    ))}
+                    {socials.map((social) =>
+                        social.href ? (
+                            <a
+                                key={social.id}
+                                href={social.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="link-card"
+                            >
+                                <strong>{social.name}</strong>
+                                <span>{social.handle}</span>
+                            </a>
+                        ) : (
+                            <div key={social.id} className="link-card" aria-label={`${social.name}: ${social.handle}`}>
+                                <strong>{social.name}</strong>
+                                <span>{social.handle} (add me directly)</span>
+                            </div>
+                        )
+                    )}
                 </div>
             </section>
         </main>

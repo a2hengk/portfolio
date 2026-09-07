@@ -2,6 +2,11 @@ import Button from "@/components/Buttons/button";
 import PageIntro from "@/components/PageIntro";
 import ProjectsSection from "@/components/Sections/Projects";
 
+export const metadata = {
+    title: "Projects - Lunas",
+    description: "Selected builds and experiments from Lunas, and where each project currently stands.",
+};
+
 export default function ProjectsPage() {
     return (
         <main id="top" className="route-page">

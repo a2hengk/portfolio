@@ -2,6 +2,11 @@ import Button from "@/components/Buttons/button";
 import PageIntro from "@/components/PageIntro";
 import AboutSection from "@/components/Sections/About";
 
+export const metadata = {
+    title: "About - Lunas",
+    description: "Background, stack, and skills of Lunas, a dual student and developer building polished web experiences.",
+};
+
 export default function AboutPage() {
     return (
         <main id="top" className="route-page">

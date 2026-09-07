@@ -5,7 +5,7 @@ export default function AnimeSection() {
         {
             id: 1,
             title: "1. Sword Art Online",
-            description: "One of my first animes that i watched. Still wish that the nearfgear will soon be available in real life.",
+            description: "One of the first animes I watched. Still wish the NerveGear would be available in real life.",
             image: "/anime/sword-art-online.png",
         },
         {

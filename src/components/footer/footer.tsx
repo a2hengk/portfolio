@@ -8,7 +8,7 @@ export default function Footer() {
                     <p className="eyebrow">Contact</p>
                     <h3>Want to say hi or build something?</h3>
                     <p>
-                        The quickest way to reach me is through the links page, or directly via GitHub and Discord.
+                        The quickest way to reach me is through the links page, or directly via GitHub and email.
                     </p>
                 </div>
 
@@ -17,9 +17,7 @@ export default function Footer() {
                     <a href="https://github.com/a2hengk" target="_blank" rel="noopener noreferrer">
                         GitHub
                     </a>
-                    <a href="https://discord.com/" target="_blank" rel="noopener noreferrer">
-                        Discord
-                    </a>
+                    <a href="mailto:heng.kevin05@gmail.com">Email</a>
                     <Link href="/legal">Impressum / Legal</Link>
                 </div>
             </div>

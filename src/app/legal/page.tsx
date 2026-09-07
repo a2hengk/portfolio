@@ -1,53 +1,60 @@
-import Link from "next/link";
+import Button from "@/components/Buttons/button";
+import PageIntro from "@/components/PageIntro";
+
+export const metadata = {
+    title: "Legal - Lunas",
+    description: "Impressum and legal information.",
+};
 
 export default function LegalPage() {
     return (
-        <main className="container legal-page">
-            <header className="section__heading">
-                <p className="eyebrow">Legal</p>
-                <h1>Impressum & Legal information</h1>
-            </header>
+        <main id="top" className="route-page">
+            <PageIntro
+                eyebrow="Legal"
+                title="Impressum & legal information."
+                description="This is a private, non-commercial portfolio project."
+                highlight="legal"
+            />
 
-            <section className="legal-section" id="impressum">
-                <h2>Impressum</h2>
+            <section className="route-section" id="impressum">
+                <div className="section__heading">
+                    <p className="eyebrow">Impressum</p>
+                    <h2>Site owner</h2>
+                </div>
+                <p>Kevin</p>
                 <p>
-                    Site owner: <strong>Kevin</strong>
-                </p>
-                <p>
-                    Contact: <a href="mailto:lukasbauer198@gmail.com">lukasbauer198@gmail.com</a>
-                </p>
-                <p>
-                    Address: Invalid Street 123, 12345 City, Germany (placeholder)
-                </p>
-                <p>
-                    Phone: +49 123 456789 (placeholder)
-                </p>
-                <p>
-                    These are placeholder details (anonymos).
+                    Contact: <a href="mailto:heng.kevin05@gmail.com">heng.kevin05@gmail.com</a>
                 </p>
             </section>
 
-            <section className="legal-section" id="privacy">
-                <h2>Privacy & Data Protection</h2>
+            <section className="route-section" id="privacy">
+                <div className="section__heading">
+                    <p className="eyebrow">Privacy</p>
+                    <h2>Data protection</h2>
+                </div>
                 <p>
-                    This site may collect minimal analytics and contact form data. If you prefer to
-                    host a full privacy policy elsewhere, replace this section with a link or the
-                    complete policy text. For now, this is a placeholder note.
+                    This site does not use analytics, tracking, or cookies, and it does not collect
+                    any personal data from visitors. If that changes, this section will be updated.
                 </p>
             </section>
 
-            <section className="legal-section" id="rights">
-                <h2>Copyright & Legal Rights</h2>
+            <section className="route-section" id="rights">
+                <div className="section__heading">
+                    <p className="eyebrow">Copyright</p>
+                    <h2>Rights</h2>
+                </div>
                 <p>
                     All content on this site is © the site owner unless otherwise stated. If you
-                    believe material on this site infringes your copyright, please contact the site
-                    owner using the details above so the issue can be resolved.
+                    believe material on this site infringes your copyright, please get in touch
+                    using the contact details above so the issue can be resolved.
                 </p>
             </section>
 
-            <footer className="legal-footer">
-                <Link href="/">Back to home</Link>
-            </footer>
+            <div className="route-inline-actions">
+                <Button href="/" variant="secondary">
+                    Back to home
+                </Button>
+            </div>
         </main>
     );
 }

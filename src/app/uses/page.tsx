@@ -1,5 +1,10 @@
 import PageIntro from "@/components/PageIntro";
 
+export const metadata = {
+    title: "Uses - Lunas",
+    description: "The software and hardware behind Lunas's daily workflow.",
+};
+
 export default function UsesPage() {
     const pcParts = [
         "CPU: Intel Core i5 14600KF",

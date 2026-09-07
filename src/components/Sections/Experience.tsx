@@ -2,9 +2,9 @@ export default function ExperienceSection() {
     const milestones = [
         {
             year: "2022",
-            title: "Interessted in IT",
+            title: "Interested in IT",
             description:
-                "I was in 9th grade when I first got interested in IT. I started doing interships at local companies to get a feel for the industry and insights into the different roles and responsibilities.",
+                "I was in 9th grade when I first got interested in IT. I started doing internships at local companies to get a feel for the industry and insights into the different roles and responsibilities.",
             tags: ["IT", "Internships", "Exploration"],
         },
         {
@@ -25,14 +25,14 @@ export default function ExperienceSection() {
             year: "2025",
             title: "Herrenknecht AG",
             description:
-                "I applyed at Herrenknecht AG as a Dual Student in the field of IT. I got accepted and started working there since July 2025.",
+                "I applied at Herrenknecht AG as a Dual Student in the field of IT. I got accepted and started working there in July 2025.",
             tags: ["Herrenknecht AG", "Dual Student", "IT"],
         },
         {
             year: "2025 - 2028",
             title: "Dual Student at Herrenknecht AG",
             description:
-                "Not am i only working at Herrenknecht AG but also studying in Karlsruhe. I am gaining practical experience in the field of IT while also studying to deepen my theoretical knowledge.",
+                "Not only am I working at Herrenknecht AG, I'm also studying in Karlsruhe. I'm gaining practical experience in the field of IT while deepening my theoretical knowledge.",
             tags: ["Herrenknecht AG", "Dual Student", "IT", "Practical Experience"],
         }
     ];

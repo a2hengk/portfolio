@@ -2,6 +2,11 @@ import Button from "@/components/Buttons/button";
 import PageIntro from "@/components/PageIntro";
 import ExperienceSection from "@/components/Sections/Experience";
 
+export const metadata = {
+    title: "Experience - Lunas",
+    description: "A timeline of study, work, and the projects that shaped how Lunas builds today.",
+};
+
 export default function ExperiencePage() {
     return (
         <main id="top" className="route-page">
