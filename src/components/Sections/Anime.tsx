@@ -25,7 +25,10 @@ export default function AnimeSection() {
     return (
         <section className="route-section" id="anime">
             <div className="section__heading">
-                <p className="eyebrow">Animes</p>
+                <div className="section-marker">
+                    <span className="sector-tag">Watchlist</span>
+                    <p className="eyebrow">Animes</p>
+                </div>
                 <h2>Animes that i like</h2>
             </div>
             <div className="anime-list">

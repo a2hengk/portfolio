@@ -1,7 +1,18 @@
 import Image from "next/image";
 
+type Mode = "Competitive" | "For fun" | "Survival + Creative" | "Chilling";
+
+// Same status-badge chip used for project status on /projects, just
+// re-mapped to game modes so the two card grids read as one system.
+const MODE_VARIANT: Record<Mode, "live" | "progress" | "featured"> = {
+    Competitive: "progress",
+    "For fun": "live",
+    "Survival + Creative": "featured",
+    Chilling: "featured",
+};
+
 export default function GamesSection() {
-    const games = [
+    const games: { id: number; title: string; mode: Mode; image: string }[] = [
         {
             id: 1,
             title: "Assetto Corsa Competizione",
@@ -43,7 +54,10 @@ export default function GamesSection() {
     return (
         <section className="route-section" id="games">
             <div className="section__heading">
-                <p className="eyebrow">Games I play</p>
+                <div className="section-marker">
+                    <span className="sector-tag">Pit lane</span>
+                    <p className="eyebrow">Games I play</p>
+                </div>
                 <h2>My current rotation outside coding hours.</h2>
                 <p>Lately, I've been really interested in Sim Racing and Motorsport in general. I love the realism and competition that comes with it. Outside that, I enjoy playing a variety of games to unwind and have fun.</p>
             </div>
@@ -60,7 +74,10 @@ export default function GamesSection() {
                             />
                         </div>
                         <div className="game-card__content">
-                            <p className="game-card__mode">{game.mode}</p>
+                            <span className={`status-badge status-badge--${MODE_VARIANT[game.mode]}`}>
+                                <span className="status-badge__dot" aria-hidden="true" />
+                                {game.mode}
+                            </span>
                             <h3>{game.title}</h3>
                         </div>
                     </article>
