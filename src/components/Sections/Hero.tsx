@@ -79,7 +79,7 @@ export default function HeroSection() {
                     <span className="hero__typing-cursor" aria-hidden="true" />
                 </p>
                 <p className="lede">
-                    My name is Lunas and I’m a dual student at DHBW in Karlsruhe. I build polished web experiences, learn from real work, and keep pushing my portfolio forward.
+                    My name is Lunas and I’m training to become an Anwendungsentwickler at Herrenknecht AG. I build polished web experiences, learn from real work, and keep pushing my portfolio forward.
                 </p>
                 <div className="hero__actions">
                     <Button href="/experience" variant="primary">
@@ -135,8 +135,8 @@ export default function HeroSection() {
                         <span>Herrenknecht AG</span>
                     </p>
                     <p className="hero__terminal-line hero__terminal-line--delay-3">
-                        <span>&gt; study</span>
-                        <span>DHBW Karlsruhe</span>
+                        <span>&gt; training</span>
+                        <span>Anwendungsentwickler '26</span>
                     </p>
                     <p className="hero__terminal-line hero__terminal-line--ready">
                         <span>&gt; status</span>

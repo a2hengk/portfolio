@@ -1,57 +1,23 @@
 import PageIntro from "@/components/PageIntro";
+import UsesSection from "@/components/Sections/Uses";
 
 export const metadata = {
     title: "Uses - Lunas",
-    description: "The software and hardware behind Lunas's daily workflow.",
+    description: "The software and setup behind Lunas's daily workflow.",
 };
 
 export default function UsesPage() {
-    const pcParts = [
-        "CPU: Intel Core i5 14600KF",
-        "GPU: AMD Radeon RX 9060 XT",
-        "RAM: Kingston Fury 32GB DDR5",
-        "Storage: Samsung SSD 990 EVO Plus 2TB",
-        "Mainboard: B760 GAMING PLUS WIFI",
-        "Cooling: NZXT Kraken 360",
-        "Peripherals: Attack Shark M86, Attack Shark X3",
-        "Monitor: 2x 27 Zoll 1080p 180Hz/165Hz",
-    ];
-
-    const uses = ["VS Code", "GitHub", "Vercel", "Spotify", "WSL2", "Discord", "Copilot", "Notion", "Canva", "Cloudflare"];
-
     return (
         <main id="top" className="route-page">
             <PageIntro
                 sector="06"
                 eyebrow="Uses"
-                title="The tools and hardware behind my workflow."
-                description="A compact list of the software and PC parts that shape how I code, design, and stay productive."
+                title="The tools and setup behind my workflow."
+                description="A garage-board look at the software I keep open and the setup it runs on."
                 highlight="workflow"
             />
 
-            <section className="route-section">
-                <div className="section__heading">
-                    <p className="eyebrow">Daily tools</p>
-                    <h2>Software I keep open all the time.</h2>
-                </div>
-                <div className="uses-tags">
-                    {uses.map((tool) => (
-                        <span key={tool}>{tool}</span>
-                    ))}
-                </div>
-            </section>
-
-            <section className="route-section">
-                <div className="section__heading">
-                    <p className="eyebrow">PC components</p>
-                    <h2>The machine I actually use.</h2>
-                </div>
-                <ul className="pc-list">
-                    {pcParts.map((part) => (
-                        <li key={part}>{part}</li>
-                    ))}
-                </ul>
-            </section>
+            <UsesSection />
         </main>
     );
 }

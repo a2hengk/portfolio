@@ -4,7 +4,7 @@ import AboutSection from "@/components/Sections/About";
 
 export const metadata = {
     title: "About - Lunas",
-    description: "Background, stack, and skills of Lunas, a dual student and developer building polished web experiences.",
+    description: "Background, stack, and skills of Lunas, a developer training to become an Anwendungsentwickler and building polished web experiences.",
 };
 
 export default function AboutPage() {

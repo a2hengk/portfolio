@@ -1330,7 +1330,7 @@ main {
 
 .timeline__item {
     display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-columns: 156px minmax(0, 1fr);
     gap: 16px;
     padding: 18px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -1354,10 +1354,96 @@ main {
 }
 
 .timeline__year {
+    display: grid;
+    gap: 6px;
+    align-content: start;
     color: var(--accent-strong);
     text-transform: uppercase;
     letter-spacing: 0.16em;
     font-size: 0.78rem;
+}
+
+/* Ties each milestone back to its dot on the Nordschleife map above. */
+.timeline__checkpoint {
+    display: inline-flex;
+    width: fit-content;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    font-size: 0.68rem;
+    color: var(--neon-cyan);
+    border: 1px solid rgba(0, 231, 255, 0.35);
+    background: rgba(0, 231, 255, 0.08);
+    border-radius: 999px;
+    padding: 2px 8px;
+}
+
+/* Stylized Nürburgring Nordschleife map above the timeline - see
+   <NordschleifeMap> in Experience.tsx for the checkpoint/corner data. */
+.track-map {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    padding: 24px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+}
+
+.track-map__svg {
+    width: min(100%, 340px);
+    height: auto;
+}
+
+.track-map__road {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.14);
+    stroke-width: 16;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.track-map__line {
+    fill: none;
+    stroke: var(--neon-cyan);
+    stroke-width: 2;
+    stroke-dasharray: 7 9;
+    opacity: 0.55;
+}
+
+.track-map__checkpoint {
+    fill: #11141c;
+    stroke: var(--accent-strong);
+    stroke-width: 2;
+    filter: drop-shadow(0 0 5px rgba(63, 140, 232, 0.4));
+}
+
+.track-map__checkpoint--start {
+    stroke: var(--racing-green);
+    filter: drop-shadow(0 0 6px rgba(111, 227, 171, 0.55));
+}
+
+.track-map__checkpoint-label {
+    font-family: var(--font-tech);
+    font-size: 13px;
+    font-weight: 700;
+    fill: var(--text);
+    pointer-events: none;
+}
+
+.track-map__runner {
+    fill: var(--neon-cyan);
+    filter: drop-shadow(0 0 6px rgba(0, 231, 255, 0.9));
+}
+
+.track-map__caption {
+    margin: 4px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-align: center;
 }
 
 .timeline__content {
@@ -1720,26 +1806,174 @@ main {
     color: var(--accent-strong);
 }
 
-.uses-tags {
+/* /uses "garage board" - the software grid reads like a dash of load
+   meters, sat under a genuinely live clock/session readout (see
+   useGarageClock in Uses.tsx). Host needs position: relative for the
+   hud-corner brackets reused from the track map. */
+.garage-panel {
+    position: relative;
+}
+
+.garage-readout {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-}
-
-.uses-tags span {
-    padding: 7px 11px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.05);
+    align-items: center;
+    gap: 10px 16px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 231, 255, 0.25);
+    background: rgba(0, 231, 255, 0.06);
+    font-family: var(--font-mono);
     font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    color: var(--neon-cyan);
 }
 
-.pc-list {
-    margin: 0;
-    padding-left: 18px;
+.garage-readout__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--racing-green);
+    box-shadow: 0 0 8px rgba(111, 227, 171, 0.8);
+    animation: launchPulse 1.6s ease-in-out infinite;
+}
+
+.garage-readout__item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.garage-readout__label {
     color: var(--muted);
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+}
+
+.garage-readout__sep {
+    width: 1px;
+    height: 14px;
+    background: rgba(0, 231, 255, 0.25);
+}
+
+.software-grid {
     display: grid;
-    gap: 8px;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.software-card {
+    display: grid;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 600ms ease-out backwards;
+    transition: transform 240ms ease, border-color 220ms ease;
+}
+
+.software-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 231, 255, 0.3);
+}
+
+.software-card__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.software-card__top strong {
+    color: var(--text);
+    font-size: 0.98rem;
+}
+
+.software-card__category {
+    color: var(--muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+.software-card__meter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.software-card__track {
+    flex: 1;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.software-card__fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--neon-cyan));
+}
+
+.software-card__value {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--accent-strong);
+    min-width: 2.6em;
+    text-align: right;
+}
+
+.setup-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.setup-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: var(--bg-elevated);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 600ms ease-out backwards;
+    transition: transform 240ms ease, border-color 220ms ease;
+}
+
+.setup-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(63, 140, 232, 0.35);
+}
+
+.setup-card__icon {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    color: var(--accent-strong);
+}
+
+.setup-card__body {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+}
+
+.setup-card__type {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.68rem;
+    color: var(--racing-green);
+}
+
+.setup-card__body strong {
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.35;
 }
 
 .project-card,
@@ -1913,7 +2147,8 @@ main {
     .links-grid,
     .uses-grid,
     .anime-list,
-    .section--contact {
+    .section--contact,
+    .setup-grid {
         grid-template-columns: 1fr;
         display: grid;
     }
