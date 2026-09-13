@@ -3,12 +3,28 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./header.module.css";
 
 export default function Header() {
     const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    // Easter egg: 5 clicks on the brand within ~1.6s fires launch control
+    // instead of navigating home. Header lives outside <main> in the root
+    // layout, so it never remounts between routes and this ref survives
+    // client-side navigation.
+    const clickTimes = useRef<number[]>([]);
+
+    const handleBrandClick = (event: React.MouseEvent) => {
+        const now = Date.now();
+        clickTimes.current = [...clickTimes.current, now].filter((time) => now - time < 1600);
+
+        if (clickTimes.current.length >= 5) {
+            event.preventDefault();
+            clickTimes.current = [];
+            window.dispatchEvent(new Event("bmw-launch"));
+        }
+    };
 
     const navItems = [
         { href: "/about", label: "About" },
@@ -22,7 +38,7 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.inner}>
-                <Link className={styles.brand} href="/" aria-label="Go to the top of the homepage">
+                <Link className={styles.brand} href="/" aria-label="Go to the top of the homepage" onClick={handleBrandClick}>
                     <Image
                         src="/profil.png"
                         alt="Profile picture"

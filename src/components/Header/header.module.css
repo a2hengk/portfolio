@@ -7,6 +7,29 @@
     background: rgba(9, 12, 18, 0.72);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     animation: slideDown 600ms ease-out;
+    overflow: hidden;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: -20%;
+    bottom: -1px;
+    width: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    animation: headerScan 5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes headerScan {
+    0% {
+        left: -20%;
+    }
+
+    100% {
+        left: 100%;
+    }
 }
 
 @keyframes slideDown {

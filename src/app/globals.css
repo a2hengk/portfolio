@@ -13,6 +13,9 @@
     --racing-green: #6fe3ab;
     --racing-amber: #f2a35f;
     --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+    --neon-cyan: #00e7ff;
+    --neon-cyan-soft: rgba(0, 231, 255, 0.5);
+    --grid-line: rgba(0, 231, 255, 0.07);
     --content-width: 1120px;
     --font-display: var(--font-cormorant), "Georgia", serif;
     --font-body: "Avenir Next", "Trebuchet MS", sans-serif;
@@ -87,6 +90,8 @@
 
 html {
     scroll-behavior: smooth;
+    --mx: 50%;
+    --my: 0%;
 }
 
 body {
@@ -99,6 +104,114 @@ body {
         linear-gradient(180deg, #0d111a 0%, #0b0f17 45%, #090c12 100%);
     color: var(--text);
     background-attachment: fixed;
+    position: relative;
+}
+
+/* Futuristic base layer: a slowly drifting Tron-style grid fading toward
+   the horizon, plus a faint CRT scanline pass. Fixed + negative z-index so
+   it sits under every in-flow element without needing z-index bumps
+   everywhere else. Purely decorative - disabled under reduced motion via
+   the global media query below. */
+@keyframes gridDrift {
+    from {
+        background-position: center top;
+    }
+
+    to {
+        background-position: center 480px;
+    }
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center top;
+    mask-image: radial-gradient(circle at 50% 0%, black, transparent 72%);
+    -webkit-mask-image: radial-gradient(circle at 50% 0%, black, transparent 72%);
+    animation: gridDrift 34s linear infinite;
+    pointer-events: none;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0px, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 3px);
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* Cursor-reactive glow rendered by <BackgroundFX>; --mx/--my are updated
+   from a throttled mousemove listener, defaulting to top-center so the
+   page still looks intentional before the first move / on touch. */
+.cursor-glow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(360px circle at var(--mx) var(--my), rgba(0, 231, 255, 0.09), transparent 70%);
+}
+
+.neon-text {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 6px rgba(0, 231, 255, 0.8), 0 0 22px rgba(0, 231, 255, 0.4);
+}
+
+/* Glitch hover - two mistimed color-split copies of the element's own
+   text, clipped top/bottom and nudged apart. Needs data-text matching
+   the visible content. */
+.glitch {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+}
+
+@keyframes glitchShift {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-2px, 1px);
+    }
+
+    100% {
+        transform: translate(2px, -1px);
+    }
+}
+
+.glitch:hover::before,
+.glitch:hover::after {
+    opacity: 1;
+}
+
+.glitch:hover::before {
+    color: var(--m-red);
+    clip-path: inset(0 0 60% 0);
+    transform: translate(-2px, -1px);
+    animation: glitchShift 340ms steps(2, end) infinite;
+}
+
+.glitch:hover::after {
+    color: var(--neon-cyan);
+    clip-path: inset(40% 0 0 0);
+    transform: translate(2px, 1px);
+    animation: glitchShift 420ms steps(2, end) infinite reverse;
 }
 
 a {
@@ -200,6 +313,7 @@ main {
 .hero__title-name {
     font-size: clamp(3.8rem, 8vw, 7rem);
     line-height: 0.9;
+    text-shadow: 0 0 22px rgba(63, 140, 232, 0.4), 0 0 46px rgba(0, 231, 255, 0.2);
 }
 
 .hero__typing {
@@ -332,6 +446,63 @@ main {
     font-family: var(--font-mono);
 }
 
+/* Ambient BMW drive-by track, rendered by <BmwDriveBy> along the bottom
+   edge of the hero. Host (.hero) already has position: relative +
+   overflow: hidden. */
+.bmw-driveby-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    height: 70px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bmw-driveby {
+    position: absolute;
+    top: 0;
+    width: 150px;
+    filter: drop-shadow(0 0 10px rgba(0, 231, 255, 0.45));
+    animation: bmwDrive 2.6s cubic-bezier(0.45, 0, 0.4, 1) forwards;
+}
+
+.bmw-car {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.bmw-driveby__trail {
+    position: absolute;
+    right: 100%;
+    top: 42%;
+    width: 200px;
+    height: 5px;
+    background: linear-gradient(90deg, transparent, rgba(0, 231, 255, 0.55));
+    filter: blur(2px);
+}
+
+@keyframes bmwDrive {
+    0% {
+        left: -170px;
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    92% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
 .tick-divider {
     height: 8px;
     margin: 0 20px;
@@ -444,8 +615,9 @@ main {
     position: absolute;
     width: 18px;
     height: 18px;
-    border: 0 solid var(--accent-soft);
-    opacity: 0.7;
+    border: 0 solid var(--neon-cyan);
+    opacity: 0.8;
+    filter: drop-shadow(0 0 4px var(--neon-cyan-soft));
     pointer-events: none;
 }
 
@@ -817,7 +989,7 @@ main {
 .game-card:hover {
     transform: translateY(-8px);
     border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 28px rgba(0, 231, 255, 0.1);
 }
 
 .game-card__image-wrap {
@@ -1106,6 +1278,215 @@ main {
     }
 }
 
+/* Logo-click easter egg: a brief full-viewport "launch control" flash,
+   rendered by <LaunchControlOverlay> in the root layout. */
+.launch-control {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: center;
+    gap: 16px;
+    pointer-events: none;
+    animation: launchFade 2.2s ease-out forwards;
+}
+
+@keyframes launchFade {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    10%,
+    80% {
+        opacity: 1;
+    }
+}
+
+.launch-control__flash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0, 231, 255, 0.18), transparent 60%);
+    animation: launchPulse 0.5s ease-out 3;
+}
+
+@keyframes launchPulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.launch-control__text {
+    margin: 0;
+    font-family: var(--font-tech);
+    font-weight: 800;
+    font-size: clamp(1.3rem, 4vw, 2.4rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px rgba(0, 231, 255, 0.7);
+    text-align: center;
+}
+
+.launch-control__bar {
+    width: min(70vw, 420px);
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 231, 255, 0.3);
+    overflow: hidden;
+}
+
+.launch-control__bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--neon-cyan));
+    animation: launchRev 1.8s ease-in forwards;
+}
+
+@keyframes launchRev {
+    0% {
+        width: 0%;
+    }
+
+    70% {
+        width: 96%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+/* Konami-code secret: a small canvas lane-dodge game, rendered by
+   <SecretRaceGame> in the root layout. */
+.race-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: grid;
+    place-items: center;
+    background: rgba(4, 6, 10, 0.86);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 220ms ease-out;
+    padding: 20px;
+}
+
+.race-modal {
+    position: relative;
+    width: min(92vw, 380px);
+    padding: 22px;
+    border-radius: 24px;
+    border: 1px solid rgba(0, 231, 255, 0.3);
+    background: linear-gradient(180deg, rgba(10, 16, 26, 0.95), rgba(6, 10, 18, 0.98));
+    box-shadow: 0 0 60px rgba(0, 231, 255, 0.12), var(--shadow);
+    display: grid;
+    gap: 14px;
+}
+
+.race-modal__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.race-modal__title {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+}
+
+.race-modal__close {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.race-modal__close:hover {
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.24);
+}
+
+.race-modal__hud {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.race-modal__hud strong {
+    color: var(--neon-cyan);
+}
+
+.race-canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 231, 255, 0.25);
+    background: #060a12;
+    display: block;
+}
+
+.race-modal__prompt {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.race-modal__prompt p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.race-modal__start {
+    font-family: var(--font-tech);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    background: rgba(0, 231, 255, 0.08);
+    cursor: pointer;
+    transition: background 180ms ease, box-shadow 180ms ease;
+}
+
+.race-modal__start:hover {
+    background: rgba(0, 231, 255, 0.16);
+    box-shadow: 0 0 24px rgba(0, 231, 255, 0.35);
+}
+
+/* Tiny footer hint, dim enough to stay a secret you have to look for. */
+.footer-hint {
+    margin: 10px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(244, 240, 232, 0.28);
+    transition: color 200ms ease;
+}
+
+.footer-hint:hover {
+    color: var(--neon-cyan-soft);
+}
+
 @media (prefers-reduced-motion: reduce) {
 
     *,
@@ -1249,7 +1630,7 @@ main {
     transform: translateY(-8px);
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 28px rgba(0, 231, 255, 0.1);
 }
 
 .project-card:nth-child(1) {

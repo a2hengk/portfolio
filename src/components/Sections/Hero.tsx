@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Button from "@/components/Buttons/button";
+import BmwDriveBy from "@/components/Effects/BmwDriveBy";
 
 const typingPhrases = ["Software Dev.", "Student"];
 
@@ -71,7 +72,7 @@ export default function HeroSection() {
                 </div>
                 <h1 className="hero__title">
                     <span className="hero__title-kicker">Hey I&apos;m</span>
-                    <span className="hero__title-name">Lunas</span>
+                    <span className="hero__title-name glitch" data-text="Lunas">Lunas</span>
                 </h1>
                 <p className="hero__typing" aria-live="polite">
                     <span className="hero__typing-label">{typingText}</span>
@@ -146,6 +147,8 @@ export default function HeroSection() {
                     </p>
                 </div>
             </aside>
+
+            <BmwDriveBy />
         </section>
     );
 }

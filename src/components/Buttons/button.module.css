@@ -24,7 +24,7 @@
 }
 
 .button--primary:hover {
-    box-shadow: 0 20px 40px rgba(63, 140, 232, 0.36);
+    box-shadow: 0 20px 40px rgba(63, 140, 232, 0.36), 0 0 22px rgba(0, 231, 255, 0.35);
 }
 
 .button--secondary {

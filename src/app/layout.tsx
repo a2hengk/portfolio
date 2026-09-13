@@ -1,6 +1,9 @@
 import { Cormorant_Garamond, Big_Shoulders } from "next/font/google";
 import Header from "@/components/Header/header";
 import Footer from "@/components/footer/footer";
+import BackgroundFX from "@/components/Effects/BackgroundFX";
+import LaunchControlOverlay from "@/components/Effects/LaunchControlOverlay";
+import SecretRaceGame from "@/components/Effects/SecretRaceGame";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -38,9 +41,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${bigShoulders.variable}`}>
       <body>
+        <BackgroundFX />
         <Header />
         {children}
         <Footer />
+        <LaunchControlOverlay />
+        <SecretRaceGame />
       </body>
     </html>
   )

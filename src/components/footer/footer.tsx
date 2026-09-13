@@ -21,6 +21,7 @@ export default function Footer() {
                     <Link href="/legal">Impressum / Legal</Link>
                 </div>
             </div>
+            <p className="footer-hint">// sector 00 dev note: ↑ ↑ ↓ ↓ ← → ← → B A unlocks something</p>
         </footer>
     );
 }
