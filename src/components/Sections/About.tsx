@@ -1,5 +1,58 @@
 import Button from "@/components/Buttons/button";
 
+type SkillVariant = "frontend" | "backend" | "workflow" | "interests";
+
+// Small line icons, one per skill category - purely decorative, no
+// implied proficiency level (see the skill-bars comment below for why
+// that matters here).
+function SkillIcon({ variant }: { variant: SkillVariant }) {
+    const shared = {
+        className: "skill-card__icon",
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: 1.8,
+        strokeLinecap: "round" as const,
+        strokeLinejoin: "round" as const,
+        "aria-hidden": true,
+    };
+
+    switch (variant) {
+        case "frontend":
+            return (
+                <svg {...shared}>
+                    <polyline points="8 6 3 12 8 18" />
+                    <polyline points="16 6 21 12 16 18" />
+                </svg>
+            );
+        case "backend":
+            return (
+                <svg {...shared}>
+                    <rect x="3" y="4" width="18" height="6" rx="1.5" />
+                    <rect x="3" y="14" width="18" height="6" rx="1.5" />
+                    <circle cx="7" cy="7" r="0.6" fill="currentColor" stroke="none" />
+                    <circle cx="7" cy="17" r="0.6" fill="currentColor" stroke="none" />
+                </svg>
+            );
+        case "workflow":
+            return (
+                <svg {...shared}>
+                    <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4l-6 6 2 2 6-6a4 4 0 0 0 5.4-5.4l-2.2 2.2-2-2z" />
+                </svg>
+            );
+        case "interests":
+            return (
+                <svg {...shared}>
+                    <circle cx="12" cy="12" r="9" />
+                    <circle cx="12" cy="12" r="2.2" />
+                    <path d="M12 3v6.8M4.5 16.5l5-3.4M19.5 16.5l-5-3.4" />
+                </svg>
+            );
+        default:
+            return null;
+    }
+}
+
 export default function AboutSection() {
     const intro = {
         title: "The person behind the code.",
@@ -15,26 +68,43 @@ export default function AboutSection() {
         { name: "Python", builds: 2, of: 5 },
     ];
 
-    const skillBlocks = [
+    // Skill categories, framed as gears in a sequential gearbox - shifting
+    // up through Frontend -> Backend -> Workflow -> Interests. Each tool
+    // is its own chip rather than one flat sentence of text.
+    const skillBlocks: {
+        id: number;
+        gear: string;
+        variant: SkillVariant;
+        title: string;
+        tags: string[];
+    }[] = [
         {
             id: 1,
+            gear: "1st",
+            variant: "frontend",
             title: "Frontend",
-            stack: "Next.js, TypeScript, React, HTML, CSS",
+            tags: ["Next.js", "TypeScript", "React", "HTML", "CSS"],
         },
         {
             id: 2,
+            gear: "2nd",
+            variant: "backend",
             title: "Backend",
-            stack: "Node.js, Python, SQL, Docker, C#, Java, Git, WSL2, REST APIs",
+            tags: ["Node.js", "Python", "SQL", "Docker", "C#", "Java", "Git", "WSL2", "REST APIs"],
         },
         {
             id: 3,
+            gear: "3rd",
+            variant: "workflow",
             title: "Workflow",
-            stack: "GitHub, VS Code, Cloudflare, Vercel",
+            tags: ["GitHub", "VS Code", "Cloudflare", "Vercel"],
         },
         {
             id: 4,
+            gear: "4th",
+            variant: "interests",
             title: "Interests",
-            stack: "System Design, Automation, Game Development, UI/UX",
+            tags: ["System Design", "Automation", "Game Development", "UI/UX"],
         },
     ];
 
@@ -51,14 +121,28 @@ export default function AboutSection() {
 
             <aside className="about-panel about-panel--skills" aria-label="Skill overview">
                 <div className="section__heading">
-                    <p className="eyebrow">Stack and skills</p>
+                    <div className="section-marker">
+                        <span className="sector-tag">Gearbox</span>
+                        <p className="eyebrow">Stack and skills</p>
+                    </div>
                     <h2>The tools and areas I work with most.</h2>
+                    <div className="tick-divider" aria-hidden="true" />
                 </div>
                 <div className="skill-grid">
                     {skillBlocks.map((skill) => (
-                        <div key={skill.id} className="skill-card">
+                        <div key={skill.id} className={`skill-card skill-card--${skill.variant}`}>
+                            <div className="skill-card__top">
+                                <span className="skill-card__gear">
+                                    <span>{skill.gear}</span> gear
+                                </span>
+                                <SkillIcon variant={skill.variant} />
+                            </div>
                             <strong>{skill.title}</strong>
-                            <span>{skill.stack}</span>
+                            <div className="skill-card__tags" aria-label={`${skill.title} tools`}>
+                                {skill.tags.map((tag) => (
+                                    <span key={tag}>{tag}</span>
+                                ))}
+                            </div>
                         </div>
                     ))}
                 </div>

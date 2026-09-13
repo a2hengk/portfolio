@@ -821,27 +821,158 @@ main {
 
 .skill-grid {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Skill cards read like shifting up a sequential gearbox - each category
+   is a "gear" with its own tachometer-style accent color, an icon, and
+   its tools as individual chips instead of one flat sentence of text. */
+.skill-card {
+    position: relative;
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    padding: 16px 16px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    animation: fadeInUp 600ms ease-out backwards;
+    transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.skill-card:nth-child(1) {
+    animation-delay: 80ms;
+}
+
+.skill-card:nth-child(2) {
+    animation-delay: 160ms;
+}
+
+.skill-card:nth-child(3) {
+    animation-delay: 240ms;
+}
+
+.skill-card:nth-child(4) {
+    animation-delay: 320ms;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+}
+
+.skill-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 10px;
 }
 
-.skill-card {
-    display: grid;
-    gap: 4px;
-    padding: 12px 14px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.skill-card__gear {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: #11141c;
+    font-family: var(--font-tech);
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+
+.skill-card__gear span {
+    display: inline-block;
+    transform: skewX(-8deg);
+}
+
+.skill-card__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
 }
 
 .skill-card strong {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text);
 }
 
-.skill-card span {
+.skill-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-card__tags span {
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 0.74rem;
     color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.45;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.skill-card--frontend .skill-card__gear,
+.skill-card--frontend .skill-card__icon {
+    color: var(--accent-strong);
+}
+
+.skill-card--frontend .skill-card__gear {
+    border: 1px solid rgba(63, 140, 232, 0.4);
+}
+
+.skill-card--frontend:hover {
+    border-color: rgba(63, 140, 232, 0.4);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(63, 140, 232, 0.18);
+}
+
+.skill-card--backend .skill-card__gear,
+.skill-card--backend .skill-card__icon {
+    color: var(--racing-green);
+}
+
+.skill-card--backend .skill-card__gear {
+    border: 1px solid rgba(111, 227, 171, 0.4);
+}
+
+.skill-card--backend:hover {
+    border-color: rgba(111, 227, 171, 0.4);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(111, 227, 171, 0.18);
+}
+
+.skill-card--workflow .skill-card__gear,
+.skill-card--workflow .skill-card__icon {
+    color: var(--racing-amber);
+}
+
+.skill-card--workflow .skill-card__gear {
+    border: 1px solid rgba(242, 163, 95, 0.4);
+}
+
+.skill-card--workflow:hover {
+    border-color: rgba(242, 163, 95, 0.4);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(242, 163, 95, 0.18);
+}
+
+.skill-card--interests .skill-card__gear,
+.skill-card--interests .skill-card__icon {
+    color: var(--neon-cyan);
+}
+
+.skill-card--interests .skill-card__gear {
+    border: 1px solid rgba(0, 231, 255, 0.4);
+}
+
+.skill-card--interests:hover {
+    border-color: rgba(0, 231, 255, 0.4);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(0, 231, 255, 0.22);
+}
+
+@media (max-width: 640px) {
+    .skill-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Most-used-across-my-builds bars: a small, honest companion to the
