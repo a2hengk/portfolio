@@ -49,7 +49,7 @@ export default function Header() {
                     />
                     <span>
                         <strong>Lunas</strong>
-                        <small>Software Dev. / FIAE</small>
+                        <small>FIAE @ Herrenknecht</small>
                     </span>
                 </Link>
 

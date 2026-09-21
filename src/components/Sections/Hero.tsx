@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Button from "@/components/Buttons/button";
 import BmwDriveBy from "@/components/Effects/BmwDriveBy";
 
-const typingPhrases = ["Software Dev.", "Fachinformatiker Anwendungsentwicklung"];
+const typingPhrases = ["Fachinformatiker für Anwendungsentwicklung", "FIAE"];
 
 function useTypingLoop() {
     const [text, setText] = useState(typingPhrases[0]);
@@ -93,12 +93,12 @@ export default function HeroSection() {
 
                 <div className="hero__metrics" aria-label="Profile metrics">
                     <div className="hero__metric">
-                        <span>Experience</span>
-                        <strong><span className="stat-figure">2+</span> years</strong>
+                        <span>At Herrenknecht</span>
+                        <strong>Since <span className="stat-figure">2025</span></strong>
                     </div>
                     <div className="hero__metric">
                         <span>Projects</span>
-                        <strong><span className="stat-figure">5+</span> builds</strong>
+                        <strong><span className="stat-figure">5</span> builds</strong>
                     </div>
                     <div className="hero__metric">
                         <span>Focus</span>

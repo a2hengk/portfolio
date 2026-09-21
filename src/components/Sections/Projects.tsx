@@ -8,17 +8,30 @@ const statusMeta: Record<StatusKey, { label: string; badgeClass: string; positio
     featured: { label: "Featured", badgeClass: "status-badge--featured", positionClass: "position-badge--featured" },
 };
 
+type Project = {
+    id: number;
+    type: string;
+    status: StatusKey;
+    title: string;
+    description: string;
+    tags: string[];
+    github?: string;
+    // No public repo to link yet - renders a "repo coming soon" note instead of a link.
+    repoComingSoon?: boolean;
+    demo?: string;
+    // Optional deep-dive content, rendered in a per-card <details> disclosure
+    // when present. Fields left out just don't render - see ProjectDetails below.
+    about?: string;
+    highlights?: string[];
+};
+
+// The about/highlights text below was drafted by reading each repo's README
+// (and, for the portfolio itself, the actual source in this project) - not
+// invented. Review the wording before treating it as final copy. Projects
+// with no public repo content yet (Pygame, Discord Bot) are left as TODOs
+// instead of guessed-at copy.
 export default function ProjectsSection() {
-    const projects: {
-        id: number;
-        type: string;
-        status: StatusKey;
-        title: string;
-        description: string;
-        tags: string[];
-        github?: string;
-        demo?: string;
-    }[] = [
+    const projects: Project[] = [
         {
             id: 1,
             type: "Website",
@@ -29,6 +42,13 @@ export default function ProjectsSection() {
             tags: ["Next.js", "TypeScript", "CSS Modules"],
             github: "https://github.com/a2hengk/portfolio",
             demo: "#top",
+            about:
+                "This site - built to actually learn Next.js properly instead of just reading about it, and to have something online that's mine instead of a template. Everything runs on a BMW M / racing theme, down to the small stuff.",
+            highlights: [
+                "Hand-built BMW M livery theme and motion carried through every page, not just the homepage",
+                "Traced the real Nürburgring Nordschleife track geometry for the /experience timeline map",
+                "A couple of hidden easter eggs, including a launch-control sequence and a small race mini-game",
+            ],
         },
         {
             id: 2,
@@ -38,7 +58,8 @@ export default function ProjectsSection() {
             description:
                 "Creating something like Mario to learn the library and refresh my python skills. It will be open sourced once it's in a presentable state.",
             tags: ["Python", "Pygame", "Game Development"],
-            github: "https://github.com/a2hengk/",
+            // TODO(Kevin): no public repo yet - add the link (and about/highlights) once it's up.
+            repoComingSoon: true,
         },
         {
             id: 3,
@@ -48,7 +69,9 @@ export default function ProjectsSection() {
             description:
                 "A simple Discord bot for managing server activities and providing useful information.",
             tags: ["Python", "Discord API", "Bot Development"],
-            github: "https://github.com/a2hengk/discordbot",
+            // TODO(Kevin): repo only has a README right now (no code pushed) -
+            // link it once the actual bot code is up there.
+            repoComingSoon: true,
         },
         {
             id: 4,
@@ -59,6 +82,8 @@ export default function ProjectsSection() {
                 "A personal blog to share my thoughts, experiences, and projects with the world.",
             tags: ["Next.js", "Markdown", "Static Site Generation"],
             github: "https://github.com/a2hengk/Lunair",
+            about:
+                "Draft: right now this is just the Next.js + Tailwind starting point, not built out yet. The plan is a lightweight blog for writing about projects and whatever else is going on.",
         },
         {
             id: 5,
@@ -69,7 +94,14 @@ export default function ProjectsSection() {
                 "A flashcard app for creating and studying digital flashcards. Also the project for my studies at DHBW.",
             tags: ["React", "Next.js", "TypeScript", "Sqlite"],
             github: "https://github.com/a2hengk/Die-Kleinen-Einsteins",
-        }
+            about:
+                "A flashcard app for creating and studying your own cards - built as the practical project for my studies at DHBW, with a real Postgres/Drizzle backend behind it instead of just local state.",
+            highlights: [
+                "Card overview to create, edit, and delete your own flashcard sets",
+                "Self-study mode with a flip-card animation, progress saved per card",
+                "Login/register so cards and progress follow you across devices",
+            ],
+        },
     ];
 
     return (
@@ -96,6 +128,7 @@ export default function ProjectsSection() {
             <div className="project-grid">
                 {projects.map((project, index) => {
                     const meta = statusMeta[project.status];
+                    const hasDetails = Boolean(project.about || project.highlights?.length);
 
                     return (
                         <article key={project.id} className="project-card">
@@ -121,6 +154,8 @@ export default function ProjectsSection() {
                                     <a href={project.github} target="_blank" rel="noopener noreferrer">
                                         GitHub
                                     </a>
+                                ) : project.repoComingSoon ? (
+                                    <span className="project-links__note">Repo coming soon</span>
                                 ) : null}
                                 {project.demo ? (
                                     project.demo.startsWith("/") || project.demo.startsWith("#") ? (
@@ -132,6 +167,22 @@ export default function ProjectsSection() {
                                     )
                                 ) : null}
                             </div>
+
+                            {hasDetails ? (
+                                <details className="project-card__details">
+                                    <summary>More about this build</summary>
+                                    <div className="project-card__details-body">
+                                        {project.about ? <p>{project.about}</p> : null}
+                                        {project.highlights?.length ? (
+                                            <ul className="project-card__highlights">
+                                                {project.highlights.map((point) => (
+                                                    <li key={point}>{point}</li>
+                                                ))}
+                                            </ul>
+                                        ) : null}
+                                    </div>
+                                </details>
+                            ) : null}
                         </article>
                     );
                 })}

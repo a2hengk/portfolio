@@ -57,7 +57,7 @@ export default function AboutSection() {
     const intro = {
         title: "The person behind the code.",
         description:
-            "Heyy I'm Kevin, 19 years old, doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG in Germany. I have a passion for creating and building things, and I love to learn new technologies and improve my skills. I am always looking for new challenges and opportunities to grow as a developer.",
+            "Heyy I'm Kevin, 19 years old, doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG in Germany. Day to day I work in the backend team there, which I can't really show off here - so on my own time I mostly build fullstack and frontend stuff for fun, like this site.",
     };
 
     // Counted straight from the tags on the projects listed on /projects -
@@ -90,14 +90,14 @@ export default function AboutSection() {
             gear: "2nd",
             variant: "backend",
             title: "Backend",
-            tags: ["Node.js", "Python", "SQL", "Docker", "C#", "Java", "Git", "WSL2", "REST APIs"],
+            tags: ["Node.js", "Python", "Postgres", "Drizzle ORM", "Docker", "C#", "Java", "REST APIs"],
         },
         {
             id: 3,
             gear: "3rd",
             variant: "workflow",
             title: "Workflow",
-            tags: ["GitHub", "VS Code", "Cloudflare", "Vercel"],
+            tags: ["Git", "GitHub", "VS Code", "WSL2", "Cloudflare", "Vercel"],
         },
         {
             id: 4,

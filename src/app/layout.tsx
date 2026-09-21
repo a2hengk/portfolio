@@ -21,8 +21,8 @@ const bigShoulders = Big_Shoulders({
 });
 
 export const metadata = {
-  title: "Lunas - Creative Developer",
-  description: "Portfolio of Lunas, a creative developer building polished, story-driven experiences.",
+  title: "Lunas - FIAE",
+  description: "Portfolio of Lunas, a Fachinformatiker für Anwendungsentwicklung (FIAE) apprentice sharing projects, skills, and what he builds in his own time.",
 };
 
 export const viewport = {

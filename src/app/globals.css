@@ -1111,6 +1111,68 @@ main {
     color: var(--accent);
 }
 
+.project-links__note {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.74rem;
+}
+
+.project-card__details {
+    margin-top: 2px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-card__details summary {
+    cursor: pointer;
+    list-style: none;
+    color: var(--accent-strong);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.74rem;
+    font-weight: 700;
+}
+
+.project-card__details summary::-webkit-details-marker {
+    display: none;
+}
+
+.project-card__details summary::before {
+    content: "+ ";
+}
+
+.project-card__details[open] summary::before {
+    content: "\2212 ";
+}
+
+.project-card__details summary:hover {
+    color: var(--accent);
+}
+
+.project-card__details-body {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.project-card__details-body p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.65;
+}
+
+.project-card__highlights {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+}
+
 .game-card {
     padding: 0;
     border-radius: 22px;
