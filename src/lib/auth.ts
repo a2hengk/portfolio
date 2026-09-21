@@ -30,7 +30,13 @@ export const auth = betterAuth({
             discordId: {
                 type: "string",
                 required: false,
-                input: false,
+                // better-auth filters out any additionalField with input:false
+                // before it ever reaches the DB write - including values that
+                // came from mapProfileToUser, not just values from a public
+                // form. This field is never user-submitted (there's no signup
+                // form for it, only the Discord OAuth callback sets it), so
+                // input:true here doesn't open it up to arbitrary client input.
+                input: true,
             },
         },
     },

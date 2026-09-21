@@ -1,11 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 export default function SignOutButton() {
-    const router = useRouter();
-
     return (
         <button
             type="button"
@@ -13,7 +10,12 @@ export default function SignOutButton() {
             onClick={() =>
                 authClient.signOut({
                     fetchOptions: {
-                        onSuccess: () => router.refresh(),
+                        // Full reload instead of router.refresh() - makes the
+                        // signed-out state unambiguous instead of relying on
+                        // the router cache picking up the change.
+                        onSuccess: () => {
+                            window.location.href = "/guestbook/admin";
+                        },
                     },
                 })
             }
