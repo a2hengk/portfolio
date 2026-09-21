@@ -6,16 +6,24 @@
     --border: rgba(255, 255, 255, 0.12);
     --text: #f4f0e8;
     --muted: rgba(244, 240, 232, 0.72);
-    --accent: #3f8ce8;
-    --accent-strong: #8ecdfb;
-    --accent-soft: #6c8cf5;
-    --m-red: #e0333f;
+    /* BMW M Motorsport tricolor - the real stripe order sampled from the
+       Schaeffler livery (custom_paint_frontAngle.webp): light blue, dark
+       blue, red, white. Every "accent" tone below is derived from these
+       four so the whole site stays on the real palette instead of a
+       generic neon cyan/purple. */
+    --m-blue-light: #4fc3f7;
+    --m-blue-dark: #0a3d91;
+    --m-red: #e2231a;
+    --m-white: #ffffff;
+    --accent: #2f6fd1;
+    --accent-strong: var(--m-blue-light);
+    --accent-soft: #6ea3e6;
     --racing-green: #6fe3ab;
     --racing-amber: #f2a35f;
     --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-    --neon-cyan: #00e7ff;
-    --neon-cyan-soft: rgba(0, 231, 255, 0.5);
-    --grid-line: rgba(0, 231, 255, 0.07);
+    --neon-cyan: var(--m-blue-light);
+    --neon-cyan-soft: rgba(79, 195, 247, 0.5);
+    --grid-line: rgba(79, 195, 247, 0.07);
     --content-width: 1120px;
     --font-display: var(--font-cormorant), "Georgia", serif;
     --font-body: "Avenir Next", "Trebuchet MS", sans-serif;
@@ -454,7 +462,7 @@ main {
     left: 0;
     right: 0;
     bottom: 10px;
-    height: 70px;
+    height: 90px;
     pointer-events: none;
     z-index: 1;
 }
@@ -462,8 +470,8 @@ main {
 .bmw-driveby {
     position: absolute;
     top: 0;
-    width: 150px;
-    filter: drop-shadow(0 0 10px rgba(0, 231, 255, 0.45));
+    width: 210px;
+    filter: drop-shadow(0 0 10px var(--neon-cyan-soft));
     animation: bmwDrive 2.6s cubic-bezier(0.45, 0, 0.4, 1) forwards;
 }
 
@@ -476,16 +484,16 @@ main {
 .bmw-driveby__trail {
     position: absolute;
     right: 100%;
-    top: 42%;
+    top: 46%;
     width: 200px;
     height: 5px;
-    background: linear-gradient(90deg, transparent, rgba(0, 231, 255, 0.55));
+    background: linear-gradient(90deg, transparent, var(--neon-cyan-soft));
     filter: blur(2px);
 }
 
 @keyframes bmwDrive {
     0% {
-        left: -170px;
+        left: -230px;
         opacity: 0;
     }
 
@@ -675,33 +683,38 @@ main {
     padding: 3px 7px;
 }
 
-/* Livery stripe - the BMW Motorsport tricolor (blue / white / red) as a
-   corner flourish. Host element needs position: relative + overflow:
-   hidden (hero and section already have both). Decorative only - never
-   a status color. */
+/* Livery stripe - the real BMW Motorsport tricolor (light blue / dark
+   blue / red / white) as a corner flourish. Host element needs
+   position: relative + overflow: hidden (hero and section already have
+   both). Decorative only - never a status color. */
 .livery-stripe {
     position: absolute;
     right: -70px;
     width: 220px;
-    height: 10px;
+    height: 9px;
     transform: rotate(45deg);
     opacity: 0.9;
     pointer-events: none;
 }
 
 .livery-stripe--1 {
-    top: 14px;
-    background: var(--accent);
+    top: 10px;
+    background: var(--m-blue-light);
 }
 
 .livery-stripe--2 {
-    top: 26px;
-    background: var(--text);
+    top: 20px;
+    background: var(--m-blue-dark);
 }
 
 .livery-stripe--3 {
-    top: 38px;
+    top: 30px;
     background: var(--m-red);
+}
+
+.livery-stripe--4 {
+    top: 40px;
+    background: var(--m-white);
 }
 
 .circuit-line {
@@ -781,8 +794,8 @@ main {
 }
 
 .section--contact h2 {
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    max-width: 12ch;
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    max-width: 32ch;
 }
 
 .anime-list,

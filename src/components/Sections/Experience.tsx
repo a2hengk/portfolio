@@ -150,10 +150,10 @@ export default function ExperienceSection() {
             checkpoint: 7,
             corner: "Döttinger Höhe",
             year: "Sep 2026 - 2028",
-            title: "Ausbildung: Anwendungsentwickler",
+            title: "Ausbildung: Fachinformatiker Anwendungsentwicklung",
             description:
-                "Starting 1 September 2026, I'm swapping the split dual-study model for a full apprenticeship (Ausbildung) as an Anwendungsentwickler at Herrenknecht AG - full-time and fully hands-on through 2028.",
-            tags: ["Herrenknecht AG", "Anwendungsentwickler", "Ausbildung"],
+                "Since 1 September 2026, I've swapped the split dual-study model for a full apprenticeship (Ausbildung) as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG - full-time and fully hands-on through 2028.",
+            tags: ["Herrenknecht AG", "Fachinformatiker Anwendungsentwicklung", "Ausbildung"],
         },
     ];
 

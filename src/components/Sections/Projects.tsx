@@ -77,6 +77,7 @@ export default function ProjectsSection() {
             <span className="livery-stripe livery-stripe--1" aria-hidden="true" />
             <span className="livery-stripe livery-stripe--2" aria-hidden="true" />
             <span className="livery-stripe livery-stripe--3" aria-hidden="true" />
+            <span className="livery-stripe livery-stripe--4" aria-hidden="true" />
 
             <svg className="circuit-line" style={{ left: "-60px", bottom: "-50px", width: "520px", height: "340px" }} viewBox="0 0 520 340" fill="none" aria-hidden="true">
                 <path d="M20 40 C 90 30, 130 60, 120 110 C 112 150, 60 155, 65 195 C 70 240, 140 235, 165 200 C 195 158, 175 100, 220 70 C 265 40, 330 55, 345 105 C 358 148, 320 175, 340 215 C 358 250, 420 250, 445 210" stroke="var(--text)" strokeWidth="3" strokeLinecap="round" />

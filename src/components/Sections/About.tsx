@@ -57,7 +57,7 @@ export default function AboutSection() {
     const intro = {
         title: "The person behind the code.",
         description:
-            "Heyy I'm Kevin 19 years old, studying in a dual system school in Germany where i study Computer Science and work as a software developer. I have a passion for creating and building things, and I love to learn new technologies and improve my skills. I am always looking for new challenges and opportunities to grow as a developer.",
+            "Heyy I'm Kevin, 19 years old, doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG in Germany. I have a passion for creating and building things, and I love to learn new technologies and improve my skills. I am always looking for new challenges and opportunities to grow as a developer.",
     };
 
     // Counted straight from the tags on the projects listed on /projects -

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Button from "@/components/Buttons/button";
 import BmwDriveBy from "@/components/Effects/BmwDriveBy";
 
-const typingPhrases = ["Software Dev.", "Student"];
+const typingPhrases = ["Software Dev.", "Fachinformatiker Anwendungsentwicklung"];
 
 function useTypingLoop() {
     const [text, setText] = useState(typingPhrases[0]);
@@ -58,6 +58,7 @@ export default function HeroSection() {
             <span className="livery-stripe livery-stripe--1" aria-hidden="true" />
             <span className="livery-stripe livery-stripe--2" aria-hidden="true" />
             <span className="livery-stripe livery-stripe--3" aria-hidden="true" />
+            <span className="livery-stripe livery-stripe--4" aria-hidden="true" />
 
             <svg className="circuit-line" style={{ right: "-40px", bottom: "-30px", width: "640px", height: "420px" }} viewBox="0 0 640 420" fill="none" aria-hidden="true">
                 <path d="M40 340 C 40 250, 120 210, 200 230 C 280 250, 270 320, 350 335 C 430 350, 480 300, 450 235 C 425 180, 350 185, 325 130 C 305 88, 345 45, 405 55 C 480 68, 495 145, 570 160 C 615 169, 625 205, 585 225 C 545 245, 520 210, 480 220" stroke="var(--text)" strokeWidth="3" strokeLinecap="round" />
@@ -79,7 +80,7 @@ export default function HeroSection() {
                     <span className="hero__typing-cursor" aria-hidden="true" />
                 </p>
                 <p className="lede">
-                    My name is Lunas and I’m training to become an Anwendungsentwickler at Herrenknecht AG. I build polished web experiences, learn from real work, and keep pushing my portfolio forward.
+                    My name is Lunas and I’m doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG. I build polished web experiences, learn from real work, and keep pushing my portfolio forward.
                 </p>
                 <div className="hero__actions">
                     <Button href="/experience" variant="primary">
@@ -136,7 +137,7 @@ export default function HeroSection() {
                     </p>
                     <p className="hero__terminal-line hero__terminal-line--delay-3">
                         <span>&gt; training</span>
-                        <span>Anwendungsentwickler '26</span>
+                        <span>Fachinformatiker '28</span>
                     </p>
                     <p className="hero__terminal-line hero__terminal-line--ready">
                         <span>&gt; status</span>
