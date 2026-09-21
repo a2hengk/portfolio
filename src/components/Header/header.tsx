@@ -31,6 +31,7 @@ export default function Header() {
         { href: "/experience", label: "Experience" },
         { href: "/projects", label: "Projects" },
         { href: "/off-duty", label: "Off Duty" },
+        { href: "/guestbook", label: "Pit Wall" },
         { href: "/links", label: "Links" },
         { href: "/uses", label: "Uses" },
     ];
