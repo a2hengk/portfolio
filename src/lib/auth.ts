@@ -10,6 +10,10 @@ export const auth = betterAuth({
     }),
     secret: process.env.BETTER_AUTH_SECRET,
     baseURL: process.env.BETTER_AUTH_URL,
+    // BETTER_AUTH_URL (and therefore the primary trusted origin) should be
+    // the canonical www host - the site 308-redirects apex -> www. This just
+    // covers someone landing on the apex domain before that redirect.
+    trustedOrigins: ["https://about-lunas.dev"],
     socialProviders: {
         discord: {
             clientId: process.env.DISCORD_CLIENT_ID as string,

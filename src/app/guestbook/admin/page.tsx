@@ -2,9 +2,10 @@ import { desc } from "drizzle-orm";
 import PageIntro from "@/components/PageIntro";
 import { db } from "@/db";
 import { guestbookEntries } from "@/db/schema";
-import { getAdminUser } from "@/lib/admin";
+import { getAdminAccess } from "@/lib/admin";
 import { approveEntry, deleteEntry } from "../actions";
 import AdminSignInButton from "./SignInButton";
+import SignOutButton from "./SignOutButton";
 
 export const metadata = {
     title: "Pit Wall Admin - Lunas",
@@ -13,7 +14,7 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
-function SignInPrompt() {
+function SignedOutPrompt() {
     return (
         <main id="top" className="route-page">
             <PageIntro
@@ -28,13 +29,33 @@ function SignInPrompt() {
     );
 }
 
-export default async function GuestbookAdminPage() {
-    const admin = await getAdminUser();
+function ForbiddenNotice({ name }: { name: string }) {
+    return (
+        <main id="top" className="route-page">
+            <PageIntro
+                eyebrow="Pit Wall"
+                title="No access."
+                description={`Signed in as ${name}, but this isn't the admin account.`}
+            />
+            <section className="route-section">
+                <SignOutButton />
+            </section>
+        </main>
+    );
+}
 
-    if (!admin) {
-        return <SignInPrompt />;
+export default async function GuestbookAdminPage() {
+    const access = await getAdminAccess();
+
+    if (access.status === "signed-out") {
+        return <SignedOutPrompt />;
     }
 
+    if (access.status === "forbidden") {
+        return <ForbiddenNotice name={access.user.name} />;
+    }
+
+    const admin = access.user;
     const entries = await db.select().from(guestbookEntries).orderBy(desc(guestbookEntries.createdAt));
     const pending = entries.filter((entry) => entry.status === "pending");
     const approved = entries.filter((entry) => entry.status === "approved");
