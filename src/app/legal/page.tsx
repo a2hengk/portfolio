@@ -13,7 +13,6 @@ export default function LegalPage() {
                 eyebrow="Legal"
                 title="Impressum & legal information."
                 description="This is a private, non-commercial portfolio project."
-                highlight="legal"
             />
 
             <section className="route-section" id="impressum">

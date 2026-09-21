@@ -14,7 +14,6 @@ export default function UsesPage() {
                 eyebrow="Uses"
                 title="The tools and setup behind my workflow."
                 description="A garage-board look at the software I keep open and the setup it runs on."
-                highlight="workflow"
             />
 
             <UsesSection />

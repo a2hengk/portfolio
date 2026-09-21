@@ -15,7 +15,6 @@ export default function AboutPage() {
                 eyebrow="About"
                 title="A clearer view of who I am."
                 description="This page shows the background, stack, and habits that shape the way I build."
-                highlight="who I am"
             />
             <div className="route-inline-actions">
                 <Button href="/experience" variant="primary">

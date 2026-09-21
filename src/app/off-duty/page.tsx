@@ -15,7 +15,6 @@ export default function OffDutyPage() {
                 eyebrow="Off duty"
                 title="What I'm into when I log off."
                 description="Sim racing, a rotating cast of games, and a few animes I keep coming back to."
-                highlight="log off"
             />
             <GamesSection />
             <AnimeSection />

@@ -283,15 +283,6 @@ main {
     color: var(--accent-strong);
 }
 
-.page-intro__highlight {
-    color: var(--text);
-    background: linear-gradient(135deg, rgba(63, 140, 232, 0.28), rgba(108, 140, 245, 0.2));
-    padding: 0 0.18em;
-    border-radius: 0.2em;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-}
-
 .hero h1,
 .section__heading h2,
 .section--contact h2 {
@@ -1183,7 +1174,7 @@ main {
     line-height: 0.95;
     letter-spacing: -0.04em;
     font-size: clamp(2.5rem, 6vw, 4.8rem);
-    max-width: 11ch;
+    max-width: 34ch;
 }
 
 .page-intro p:last-child {

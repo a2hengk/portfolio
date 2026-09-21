@@ -13,7 +13,6 @@ export default function NotFound() {
                 eyebrow="404"
                 title="This page doesn't exist."
                 description="The link might be outdated, or the page moved. Here are a few places to pick back up."
-                highlight="doesn't exist"
             />
             <div className="route-inline-actions">
                 <Button href="/" variant="primary">

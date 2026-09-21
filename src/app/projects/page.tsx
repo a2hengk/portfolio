@@ -15,7 +15,6 @@ export default function ProjectsPage() {
                 eyebrow="Projects"
                 title="Selected builds and the problems I like solving."
                 description="A clearer look at the apps, experiments, and tools I’ve worked on or am actively shaping."
-                highlight="builds"
             />
             <div className="route-inline-actions">
                 <Button href="/links" variant="primary">

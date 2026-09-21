@@ -15,7 +15,6 @@ export default function ExperiencePage() {
                 eyebrow="Experience"
                 title="The road I’ve been taking so far."
                 description="A timeline of study, work, and the projects that shaped how I build today."
-                highlight="road"
             />
             <div className="route-inline-actions">
                 <Button href="/projects" variant="primary">

@@ -103,7 +103,6 @@ export default function LinksPage() {
                 eyebrow="Links"
                 title="Want to reach out? Start here."
                 description="These are the best places to contact me, follow my work, or send a quick message."
-                highlight="reach out"
             />
 
             <section className="route-section">
