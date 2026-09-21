@@ -22,13 +22,25 @@ async function getClientIp(): Promise<string> {
 }
 
 const anonymousSchema = z.object({
-    displayName: z.string().trim().min(1).max(DISPLAY_NAME_MAX_LENGTH),
-    message: z.string().trim().min(1).max(MESSAGE_MAX_LENGTH),
+    displayName: z
+        .string()
+        .trim()
+        .min(1, "Please enter a name.")
+        .max(DISPLAY_NAME_MAX_LENGTH, "That name is too long."),
+    message: z
+        .string()
+        .trim()
+        .min(1, "Please enter a message.")
+        .max(MESSAGE_MAX_LENGTH, "That message is too long."),
     turnstileToken: z.string().min(1, "Please complete the spam check."),
 });
 
 const discordSchema = z.object({
-    message: z.string().trim().min(1).max(MESSAGE_MAX_LENGTH),
+    message: z
+        .string()
+        .trim()
+        .min(1, "Please enter a message.")
+        .max(MESSAGE_MAX_LENGTH, "That message is too long."),
     turnstileToken: z.string().min(1, "Please complete the spam check."),
 });
 
@@ -41,10 +53,13 @@ export async function submitEntry(_prevState: SubmitEntryState, formData: FormDa
     const session = await auth.api.getSession({ headers: await headers() });
     const ip = await getClientIp();
 
+    // Coerce a missing field to "" rather than leaving it null - null fails
+    // Zod's string type check itself (raw "expected string, received null"),
+    // bypassing the friendly min-length messages below entirely.
     const raw = {
-        displayName: formData.get("displayName"),
-        message: formData.get("message"),
-        turnstileToken: formData.get("cf-turnstile-response"),
+        displayName: formData.get("displayName")?.toString() ?? "",
+        message: formData.get("message")?.toString() ?? "",
+        turnstileToken: formData.get("cf-turnstile-response")?.toString() ?? "",
     };
 
     const parsed = session ? discordSchema.safeParse(raw) : anonymousSchema.safeParse(raw);
