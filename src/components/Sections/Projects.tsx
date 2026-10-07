@@ -102,6 +102,24 @@ export default function ProjectsSection() {
                 "Login/register so cards and progress follow you across devices",
             ],
         },
+        {
+            id: 6,
+            type: "Website",
+            status: "progress",
+            title: "Home Dashboard",
+            description:
+                "A personal dashboard for everyday life and vocational school: todos, deadlines with reminders, and a place to keep school documents.",
+            tags: ["Next.js", "TypeScript", "Drizzle", "Postgres"],
+            // TODO(Kevin): swap for the github link once the repo is pushed.
+            repoComingSoon: true,
+            about:
+                "Planning stage: built for myself first, with my vocational school (Berufsschule) as the main use case. Everything school-related hangs off its Lernfeld, so documents, todos, exams and grades for one subject live on one page.",
+            highlights: [
+                "Today view with due todos, upcoming exams and the day's timetable",
+                "Private document storage per Lernfeld with signed, short-lived download links",
+                "Email reminders for exams and deadlines",
+            ],
+        },
     ];
 
     return (
