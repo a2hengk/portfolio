@@ -110,14 +110,13 @@ export default function ProjectsSection() {
             description:
                 "A personal dashboard for everyday life and vocational school: todos, deadlines with reminders, and a place to keep school documents.",
             tags: ["Next.js", "TypeScript", "Drizzle", "Postgres"],
-            // TODO(Kevin): swap for the github link once the repo is pushed.
-            repoComingSoon: true,
+            github: "https://github.com/a2hengk/home-dashboard",
             about:
-                "Planning stage: built for myself first, with my vocational school (Berufsschule) as the main use case. Everything school-related hangs off its Lernfeld, so documents, todos, exams and grades for one subject live on one page.",
+                "Built for myself first, with my vocational school (Berufsschule) as the main use case. Everything school-related hangs off its Lernfeld, so documents, todos, exams and grades for one subject live on one page. Right now it's a clickable prototype with sample data; database and login come next.",
             highlights: [
-                "Today view with due todos, upcoming exams and the day's timetable",
-                "Private document storage per Lernfeld with signed, short-lived download links",
-                "Email reminders for exams and deadlines",
+                "Today view with a two-week strip of school days, exams and deadlines",
+                "Document storage with real folders: drag files in, they still show up in the full list",
+                "Planned: email reminders for exams and deadlines",
             ],
         },
     ];
