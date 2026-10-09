@@ -343,7 +343,7 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
                         onKeyDown={onKeyDown}
                     >
                         <span className="start-lights__pad-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10" />
                                 <path d="M12 9.5a1.5 1.5 0 0 1 3 0V11" />
                                 <path d="M15 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4.3 15.6a1.5 1.5 0 0 1 2.3-1.9L9 16" />
