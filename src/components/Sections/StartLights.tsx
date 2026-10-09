@@ -82,7 +82,8 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
     const [turnstileReady, setTurnstileReady] = useState(false);
     const [turnstileToken, setTurnstileToken] = useState("");
 
-    const gantryRef = useRef<HTMLButtonElement>(null);
+    const gantryRef = useRef<HTMLDivElement>(null);
+    const padRef = useRef<HTMLButtonElement>(null);
     const turnstileContainerRef = useRef<HTMLDivElement>(null);
     const timersRef = useRef<number[]>([]);
     const runIdRef = useRef(0);
@@ -150,6 +151,7 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
                 requestAnimationFrame(() => {
                     if (runIdRef.current !== runId || phaseRef.current !== "lights") return;
                     gantryRef.current?.setAttribute("data-phase", "green");
+                    padRef.current?.setAttribute("data-phase", "green");
                     greenAtRef.current = performance.now();
                     go("green");
                 });
@@ -193,9 +195,12 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
         [clearTimers, go, startSequence],
     );
 
-    const onPointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    const onPointerDown = (event: PointerEvent<HTMLElement>) => {
         if (!event.isPrimary || event.button !== 0) return;
+        // preventDefault also cancels the browser's focus-on-mousedown, so
+        // focus the pad by hand - after one click, Space keeps working too.
         event.preventDefault();
+        padRef.current?.focus({ preventScroll: true });
         handlePress(event.timeStamp);
     };
 
@@ -262,38 +267,34 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
         });
     };
 
-    const readout = (() => {
+    // The pad is the obvious "press here" target - most people won't read a
+    // hint below the lights or guess that the lights themselves are clickable.
+    const pad = (() => {
         switch (phase) {
             case "idle":
-                return { label: "Ready", value: "Hit the lights", tone: "idle" };
+                return { title: "start", sub: "then hit it again the moment the lights turn green" };
             case "arming":
             case "lights":
-                return { label: "Lights", value: `${litCount} / ${LIGHT_COUNT}`, tone: "idle" };
+                return { title: "Wait for green...", sub: `Lights ${litCount} / ${LIGHT_COUNT} - don't jump it` };
             case "green":
-                return { label: "Go", value: "GO GO GO", tone: "green" };
+                return { title: "GO!", sub: "now now now" };
             case "jumpstart":
                 return {
-                    label: jumpReason === "early" ? "Jump start" : "Too quick to be real",
-                    value: "+5s penalty",
-                    tone: "red",
+                    title: "Jump start",
+                    sub:
+                        jumpReason === "early"
+                            ? "You went before green. Press again to retry."
+                            : `Under ${MIN_REACTION_MS} ms is guessing, not reacting. Press again to retry.`,
                 };
             case "result":
-                return { label: "Reaction", value: `${formatSeconds(reactionMs ?? 0)} s`, tone: "green" };
+                return {
+                    title: `${formatSeconds(reactionMs ?? 0)} s`,
+                    sub: ranked
+                        ? "Press again for another go"
+                        : "Leaderboard unreachable - just for fun. Press again for another go",
+                };
         }
     })();
-
-    const hint =
-        phase === "idle"
-            ? "Click, tap or press Space on the lights to start. Hit it again the moment they turn green."
-            : phase === "jumpstart"
-              ? jumpReason === "early"
-                  ? "You went before green. Click to line up again."
-                  : `Under ${MIN_REACTION_MS} ms counts as guessing, not reacting. Click to try again.`
-              : phase === "result"
-                ? ranked
-                    ? "Click the lights for another go."
-                    : "Leaderboard couldn't be reached, so this run was just for fun. Click to go again."
-                : "Wait for green...";
 
     return (
         <section className="route-section start-lights" id="start-lights">
@@ -313,36 +314,54 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
 
             <div className="start-lights__layout">
                 <div className="start-lights__stage">
-                    <button
+                    {/* Decorative but still clickable for people who do go for the
+                        lights - the pad below is the real (focusable) control. */}
+                    <div
                         ref={gantryRef}
-                        type="button"
                         className="start-lights__gantry"
                         data-phase={phase}
                         onPointerDown={onPointerDown}
-                        onKeyDown={onKeyDown}
-                        aria-describedby="start-lights-hint"
-                        aria-label="Start lights - press to start, then press again on green"
+                        aria-hidden="true"
                     >
                         {Array.from({ length: LIGHT_COUNT }, (_, index) => (
                             <span
                                 key={index}
                                 className={`start-lights__pod${phase === "lights" && litCount > index ? " is-lit" : ""}`}
-                                aria-hidden="true"
                             >
                                 <span className="start-lights__lamp" />
                                 <span className="start-lights__lamp" />
                             </span>
                         ))}
-                    </button>
-
-                    <div className={`start-lights__readout start-lights__readout--${readout.tone}`} aria-live="polite">
-                        <span className="start-lights__readout-label">{readout.label}</span>
-                        <strong className="start-lights__readout-value">{readout.value}</strong>
                     </div>
 
-                    <p id="start-lights-hint" className="start-lights__hint">
-                        {hint}
-                    </p>
+                    <button
+                        ref={padRef}
+                        type="button"
+                        className="start-lights__pad"
+                        data-phase={phase}
+                        onPointerDown={onPointerDown}
+                        onKeyDown={onKeyDown}
+                    >
+                        <span className="start-lights__pad-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10" />
+                                <path d="M12 9.5a1.5 1.5 0 0 1 3 0V11" />
+                                <path d="M15 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4.3 15.6a1.5 1.5 0 0 1 2.3-1.9L9 16" />
+                            </svg>
+                        </span>
+                        <strong className="start-lights__pad-title" aria-live="polite">
+                            {phase === "idle" ? (
+                                <>
+                                    <span className="start-lights__verb-click">Click here to </span>
+                                    <span className="start-lights__verb-tap">Tap here to </span>
+                                    {pad.title}
+                                </>
+                            ) : (
+                                pad.title
+                            )}
+                        </strong>
+                        <span className="start-lights__pad-sub">{pad.sub}</span>
+                    </button>
 
                     {showSaveForm ? (
                         <form className="start-lights__save" onSubmit={onSave}>
