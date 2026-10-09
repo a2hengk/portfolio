@@ -4,6 +4,8 @@ import { db } from "@/db";
 import { guestbookEntries } from "@/db/schema";
 import { getAdminAccess } from "@/lib/admin";
 import { approveEntry, deleteEntry } from "../actions";
+import { deleteReactionScore } from "@/app/off-duty/actions";
+import { getLeaderboard } from "@/lib/reaction-leaderboard";
 import AdminSignInButton from "./SignInButton";
 import SignOutButton from "./SignOutButton";
 
@@ -59,6 +61,9 @@ export default async function GuestbookAdminPage() {
     const entries = await db.select().from(guestbookEntries).orderBy(desc(guestbookEntries.createdAt));
     const pending = entries.filter((entry) => entry.status === "pending");
     const approved = entries.filter((entry) => entry.status === "approved");
+    // Names on the start-lights board go live without review, so the top
+    // of it is listed here to delete anything that shouldn't be there.
+    const scores = await getLeaderboard(20);
 
     return (
         <main id="top" className="route-page">
@@ -126,6 +131,35 @@ export default async function GuestbookAdminPage() {
                                 <div className="guestbook-admin-entry__actions">
                                     <form action={deleteEntry}>
                                         <input type="hidden" name="id" value={entry.id} />
+                                        <button type="submit" className="guestbook-admin-entry__delete">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                )}
+            </section>
+
+            <section className="route-section">
+                <div className="section__heading">
+                    <p className="eyebrow">Start lights (top {scores.length})</p>
+                    <h2>Leaderboard names.</h2>
+                </div>
+                {scores.length === 0 ? (
+                    <p className="guestbook-empty">No times yet.</p>
+                ) : (
+                    <div className="guestbook-admin-list">
+                        {scores.map((score) => (
+                            <article key={score.id} className="guestbook-admin-entry">
+                                <div>
+                                    <strong>{score.displayName}</strong>
+                                    <p>{(score.reactionMs / 1000).toFixed(3)} s</p>
+                                </div>
+                                <div className="guestbook-admin-entry__actions">
+                                    <form action={deleteReactionScore}>
+                                        <input type="hidden" name="id" value={score.id} />
                                         <button type="submit" className="guestbook-admin-entry__delete">
                                             Delete
                                         </button>

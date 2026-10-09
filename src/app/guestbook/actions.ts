@@ -10,16 +10,8 @@ import { auth } from "@/lib/auth";
 import { getAdminUser } from "@/lib/admin";
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import { checkAndRecordRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/client-ip";
 import { DISPLAY_NAME_MAX_LENGTH, MESSAGE_MAX_LENGTH } from "@/lib/guestbook-constants";
-
-async function getClientIp(): Promise<string> {
-    const requestHeaders = await headers();
-    const forwardedFor = requestHeaders.get("x-forwarded-for");
-    if (forwardedFor) {
-        return forwardedFor.split(",")[0]!.trim();
-    }
-    return requestHeaders.get("x-real-ip") ?? "unknown";
-}
 
 const anonymousSchema = z.object({
     displayName: z
