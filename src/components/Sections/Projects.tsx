@@ -28,7 +28,7 @@ type Project = {
 // The about/highlights text below was drafted by reading each repo's README
 // (and, for the portfolio itself, the actual source in this project) - not
 // invented. Review the wording before treating it as final copy. Projects
-// with no public repo content yet (Pygame, Discord Bot) are left as TODOs
+// with no public repo content yet (Pygame) are left as TODOs
 // instead of guessed-at copy.
 export default function ProjectsSection() {
     const projects: Project[] = [
@@ -67,11 +67,17 @@ export default function ProjectsSection() {
             status: "live",
             title: "Discord Bot",
             description:
-                "A simple Discord bot for managing server activities and providing useful information.",
-            tags: ["Python", "Discord API", "Bot Development"],
-            // TODO(Kevin): repo only has a README right now (no code pushed) -
-            // link it once the actual bot code is up there.
-            repoComingSoon: true,
+                "My own Discord bot for running a server: ticket system, audit log, welcome messages, moderation tools and a few minigames.",
+            tags: ["Python", "discord.py", "Slash Commands"],
+            github: "https://github.com/a2hengk/discordbot",
+            about:
+                "One of my first projects, recently rebuilt from scratch. Every feature is its own cog that gets loaded automatically, so adding something new is just dropping a file into a folder.",
+            highlights: [
+                "Ticket panel with claim/close buttons - closed tickets get archived as a .txt transcript",
+                "Audit log for joins, leaves, deleted and edited messages, with a word-level diff for edits",
+                "Per-server settings via /config that survive restarts",
+                "Minigames like rock-paper-scissors, number guessing and a typing speed test that catches copy-paste",
+            ],
         },
         {
             id: 4,
@@ -105,19 +111,19 @@ export default function ProjectsSection() {
         {
             id: 6,
             type: "Website",
-            status: "progress",
-            title: "Home Dashboard",
+            status: "live",
+            title: "LUNAS OS",
             description:
-                "A personal dashboard for everyday life and vocational school: todos, deadlines with reminders, and a place to keep school documents.",
-            tags: ["Next.js", "TypeScript", "Drizzle", "Postgres"],
-            // TODO(Kevin): swap for the github link once the repo is pushed.
-            repoComingSoon: true,
+                "My personal HUD-style home dashboard for everyday life and vocational school: todos, appointments, timetable, grades and a private file storage.",
+            tags: ["Next.js", "TypeScript", "Tailwind", "Drizzle", "Postgres", "Vercel Blob"],
+            github: "https://github.com/a2hengk/home-dashboard",
             about:
-                "Planning stage: built for myself first, with my vocational school (Berufsschule) as the main use case. Everything school-related hangs off its Lernfeld, so documents, todos, exams and grades for one subject live on one page.",
+                "Built for myself first, with my vocational school (Berufsschule) as the main use case. Everything school-related hangs off its Lernfeld, so files, todos, appointments and grades for one subject live on one page. Single user, GitHub login only.",
             highlights: [
-                "Today view with due todos, upcoming exams and the day's timetable",
-                "Private document storage per Lernfeld with signed, short-lived download links",
-                "Email reminders for exams and deadlines",
+                "Today view with a countdown to the next exam, a 14-day timeline and the day's timetable",
+                "Private file storage with folders and drag-and-drop - files are only served after a server-side login check",
+                "Per-subject pages with files, todos, appointments and a grade average",
+                "Todos split into school, private and work",
             ],
         },
     ];
