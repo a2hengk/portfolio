@@ -7,6 +7,7 @@ import { submitEntry, type SubmitEntryState } from "./actions";
 import { DISPLAY_NAME_MAX_LENGTH, MESSAGE_MAX_LENGTH } from "@/lib/guestbook-constants";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 import { fill, localizedHref, type Locale } from "@/i18n/config";
+import { useTurnstileWidget } from "@/lib/use-turnstile";
 
 const initialState: SubmitEntryState = {};
 
@@ -14,17 +15,22 @@ export default function GuestbookForm({ lang, dict }: { lang: Locale; dict: Dict
     const { data: session } = authClient.useSession();
     const [state, formAction, isSubmitting] = useActionState(submitEntry, initialState);
     const formRef = useRef<HTMLFormElement>(null);
+    const turnstileRef = useRef<HTMLDivElement>(null);
+    const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+    // Rendered explicitly (not via the auto-scanned .cf-turnstile class) so
+    // reset() only ever hits this widget - the start-lights game on the same
+    // page has its own. The token still lands in a hidden
+    // cf-turnstile-response input, which the action reads from the form data.
+    const resetTurnstile = useTurnstileWidget(turnstileRef, { enabled: true, siteKey });
 
     useEffect(() => {
         if (state.success) {
             formRef.current?.reset();
             // The Turnstile widget doesn't reset itself with the rest of the
             // form - ask it to issue a fresh token for the next submission.
-            window.turnstile?.reset();
+            resetTurnstile();
         }
-    }, [state.success]);
-
-    const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+    }, [state.success, resetTurnstile]);
     // The action returns an error key, translated here.
     const errorText = state.error
         ? (dict.errors as Record<string, string>)[state.error] ?? dict.errors.invalid
@@ -78,7 +84,7 @@ export default function GuestbookForm({ lang, dict }: { lang: Locale; dict: Dict
                 />
             </div>
 
-            {siteKey ? <div className="cf-turnstile" data-sitekey={siteKey} /> : null}
+            {siteKey ? <div ref={turnstileRef} className="guestbook-form__turnstile" /> : null}
 
             <div className="guestbook-form__actions">
                 <button type="submit" className="guestbook-form__submit" disabled={isSubmitting}>

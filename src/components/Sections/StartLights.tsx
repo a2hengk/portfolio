@@ -6,6 +6,7 @@ import { startRun, submitTime } from "@/app/[lang]/guestbook/reaction-actions";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 import { fill } from "@/i18n/config";
 import type { LeaderboardEntry } from "@/lib/reaction-leaderboard";
+import { useTurnstileWidget } from "@/lib/use-turnstile";
 import {
     FIRST_LIGHT_DELAY_MS,
     HOLD_MAX_MS,
@@ -87,7 +88,6 @@ export default function StartLights({
     const [name, setName] = useState("");
     const [saveState, setSaveState] = useState<SaveState>({ status: "idle" });
     const [highlightKey, setHighlightKey] = useState<string | null>(null);
-    const [turnstileReady, setTurnstileReady] = useState(false);
     const [turnstileToken, setTurnstileToken] = useState("");
 
     const gantryRef = useRef<HTMLDivElement>(null);
@@ -229,25 +229,13 @@ export default function StartLights({
         (leaderboard.length < LEADERBOARD_SIZE || (lastOnBoard !== undefined && reactionMs < lastOnBoard.reactionMs));
     const showSaveForm = qualifies && saveState.status !== "saved";
 
-    // Turnstile only appears once a time is worth saving, so it's rendered
-    // explicitly instead of via the auto-scanned .cf-turnstile class.
-    useEffect(() => {
-        const container = turnstileContainerRef.current;
-        if (!showSaveForm || !turnstileReady || !siteKey || !container || !window.turnstile) return;
-
-        const widgetId = window.turnstile.render(container, {
-            sitekey: siteKey,
-            theme: "dark",
-            callback: (token) => setTurnstileToken(token),
-            "expired-callback": () => setTurnstileToken(""),
-            "error-callback": () => setTurnstileToken(""),
-        });
-
-        return () => {
-            if (widgetId) window.turnstile?.remove(widgetId);
-            setTurnstileToken("");
-        };
-    }, [showSaveForm, turnstileReady, siteKey]);
+    // Turnstile only appears once a time is worth saving.
+    const resetTurnstile = useTurnstileWidget(turnstileContainerRef, {
+        enabled: showSaveForm,
+        siteKey,
+        theme: "dark",
+        onToken: setTurnstileToken,
+    });
 
     const onSave = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -261,8 +249,7 @@ export default function StartLights({
             // The action returns an error key; translate it here.
             const message = (dict.errors as Record<string, string>)[result.error] ?? dict.errors.invalid;
             setSaveState({ status: "error", message });
-            window.turnstile?.reset();
-            setTurnstileToken("");
+            resetTurnstile();
             return;
         }
 
@@ -304,7 +291,7 @@ export default function StartLights({
 
     return (
         <section className="route-section start-lights" id="start-lights">
-            <Script src={TURNSTILE_SRC} strategy="afterInteractive" onReady={() => setTurnstileReady(true)} />
+            <Script src={TURNSTILE_SRC} strategy="afterInteractive" />
 
             <div className="section__heading">
                 <div className="section-marker">
