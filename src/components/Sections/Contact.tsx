@@ -1,17 +1,19 @@
 import Button from "@/components/Buttons/button";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/config";
 
-export default function ContactSection() {
+export default function ContactSection({ lang, dict }: { lang: Locale; dict: Dictionary["home"]["contact"] }) {
     return (
         <section className="section section--contact" id="contact">
             <div>
-                <p className="eyebrow">Contact</p>
-                <h2>Have a project in mind or just want to say hi?</h2>
+                <p className="eyebrow">{dict.eyebrow}</p>
+                <h2>{dict.title}</h2>
                 <p>
-                    The links page has the fastest ways to reach me, and the footer keeps the contact paths close on every page.
+                    {dict.text}
                 </p>
             </div>
-            <Button href="/links" variant="primary">
-                View contact links
+            <Button href={localizedHref(lang, "/links")} variant="primary">
+                {dict.action}
             </Button>
         </section>
     );

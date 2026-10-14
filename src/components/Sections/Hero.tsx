@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Button from "@/components/Buttons/button";
 import BmwDriveBy from "@/components/Effects/BmwDriveBy";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/config";
 
 const typingPhrases = ["Fachinformatiker für Anwendungsentwicklung", "FIAE"];
 
@@ -50,7 +52,7 @@ function useTypingLoop() {
     return text;
 }
 
-export default function HeroSection() {
+export default function HeroSection({ lang, dict }: { lang: Locale; dict: Dictionary["home"]["hero"] }) {
     const typingText = useTypingLoop();
 
     return (
@@ -69,10 +71,10 @@ export default function HeroSection() {
             <div className="hero__content">
                 <div className="section-marker">
                     <span className="sector-tag">Sector 00</span>
-                    <p className="eyebrow">Portfolio</p>
+                    <p className="eyebrow">{dict.eyebrow}</p>
                 </div>
                 <h1 className="hero__title">
-                    <span className="hero__title-kicker">Hey I&apos;m</span>
+                    <span className="hero__title-kicker">{dict.kicker}</span>
                     <span className="hero__title-name glitch" data-text="Lunas">Lunas</span>
                 </h1>
                 <p className="hero__typing" aria-live="polite">
@@ -80,34 +82,34 @@ export default function HeroSection() {
                     <span className="hero__typing-cursor" aria-hidden="true" />
                 </p>
                 <p className="lede">
-                    My name is Lunas and I’m doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG. I build polished web experiences, learn from real work, and keep pushing my portfolio forward.
+                    {dict.lede}
                 </p>
                 <div className="hero__actions">
-                    <Button href="/experience" variant="primary">
-                        Open experience
+                    <Button href={localizedHref(lang, "/experience")} variant="primary">
+                        {dict.primaryAction}
                     </Button>
-                    <Button href="/about" variant="secondary">
-                        About me
+                    <Button href={localizedHref(lang, "/about")} variant="secondary">
+                        {dict.secondaryAction}
                     </Button>
                 </div>
 
-                <div className="hero__metrics" aria-label="Profile metrics">
+                <div className="hero__metrics" aria-label={dict.metricsAria}>
                     <div className="hero__metric">
-                        <span>At Herrenknecht</span>
-                        <strong>Since <span className="stat-figure">2025</span></strong>
+                        <span>{dict.metrics.companyLabel}</span>
+                        <strong>{dict.metrics.companyValue} <span className="stat-figure">2025</span></strong>
                     </div>
                     <div className="hero__metric">
-                        <span>Projects</span>
-                        <strong><span className="stat-figure">5</span> builds</strong>
+                        <span>{dict.metrics.projectsLabel}</span>
+                        <strong><span className="stat-figure">5</span> {dict.metrics.projectsValue}</strong>
                     </div>
                     <div className="hero__metric">
-                        <span>Focus</span>
-                        <strong>Backend</strong>
+                        <span>{dict.metrics.focusLabel}</span>
+                        <strong>{dict.metrics.focusValue}</strong>
                     </div>
                 </div>
             </div>
 
-            <aside className="hero__card hero__terminal" aria-label="Live build telemetry">
+            <aside className="hero__card hero__terminal" aria-label={dict.terminalAria}>
                 <span className="hud-corner hud-corner--tl" aria-hidden="true" />
                 <span className="hud-corner hud-corner--tr" aria-hidden="true" />
                 <span className="hud-corner hud-corner--bl" aria-hidden="true" />
@@ -121,7 +123,7 @@ export default function HeroSection() {
                         <span className="start-light" />
                         <span className="start-light" />
                     </div>
-                    <span className="hero__terminal-title">Telemetry // Lights out</span>
+                    <span className="hero__terminal-title">{dict.terminalTitle}</span>
                 </div>
 
                 <div className="tick-divider" aria-hidden="true" />
@@ -143,7 +145,7 @@ export default function HeroSection() {
                         <span>&gt; status</span>
                         <span className="status-badge status-badge--live">
                             <span className="status-badge__dot" />
-                            Operational
+                            {dict.status}
                         </span>
                     </p>
                 </div>

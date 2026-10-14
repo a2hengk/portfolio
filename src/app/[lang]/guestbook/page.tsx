@@ -1,16 +1,23 @@
 import { desc, eq } from "drizzle-orm";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import PageIntro from "@/components/PageIntro";
 import { db } from "@/db";
 import { guestbookEntries } from "@/db/schema";
 import { GUESTBOOK_ENTRIES_LIMIT } from "@/lib/guestbook-constants";
 import StartLights from "@/components/Sections/StartLights";
 import { getLeaderboard, type LeaderboardEntry } from "@/lib/reaction-leaderboard";
+import { alternatesFor } from "@/i18n/config";
+import { getDictionary, hasLocale } from "../dictionaries";
 import GuestbookForm from "./GuestbookForm";
 
-export const metadata = {
-    title: "Pit Wall - Lunas",
-    description: "Leave a message - anonymous or signed in with Discord - and see how fast you are off the line.",
-};
+export async function generateMetadata({ params }: PageProps<"/[lang]/guestbook">): Promise<Metadata> {
+    const { lang } = await params;
+    if (!hasLocale(lang)) return {};
+    const dict = await getDictionary(lang);
+
+    return { ...dict.meta.guestbook, alternates: alternatesFor(lang, "/guestbook") };
+}
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +31,12 @@ async function loadLeaderboard(): Promise<LeaderboardEntry[]> {
     }
 }
 
-export default async function GuestbookPage() {
+export default async function GuestbookPage({ params }: PageProps<"/[lang]/guestbook">) {
+    const { lang } = await params;
+    if (!hasLocale(lang)) notFound();
+    const dict = await getDictionary(lang);
+    const t = dict.guestbook;
+
     const entries = await db
         .select()
         .from(guestbookEntries)
@@ -37,35 +49,35 @@ export default async function GuestbookPage() {
         <main id="top" className="route-page">
             <PageIntro
                 sector="07"
-                eyebrow="Pit Wall"
-                title="Leave a message on the pit wall."
-                description="Anonymous or signed in with Discord - anonymous notes get a quick look before they show up here. While you're here, see how fast you are off the line."
+                eyebrow={t.intro.eyebrow}
+                title={t.intro.title}
+                description={t.intro.description}
             />
 
             <section className="route-section">
                 <div className="section__heading">
                     <div className="section-marker">
-                        <span className="sector-tag">Radio check</span>
-                        <p className="eyebrow">Say something</p>
+                        <span className="sector-tag">{t.form.tag}</span>
+                        <p className="eyebrow">{t.form.eyebrow}</p>
                     </div>
-                    <h2>How does the site look from where you&apos;re sitting?</h2>
+                    <h2>{t.form.title}</h2>
                 </div>
-                <GuestbookForm />
+                <GuestbookForm lang={lang} dict={t.form} />
             </section>
 
-            <StartLights initialLeaderboard={leaderboard} />
+            <StartLights initialLeaderboard={leaderboard} dict={t.startLights} />
 
             <section className="route-section">
                 <div className="section__heading">
                     <div className="section-marker">
-                        <span className="sector-tag">Log</span>
-                        <p className="eyebrow">Messages</p>
+                        <span className="sector-tag">{t.log.tag}</span>
+                        <p className="eyebrow">{t.log.eyebrow}</p>
                     </div>
-                    <h2>What&apos;s come through so far.</h2>
+                    <h2>{t.log.title}</h2>
                 </div>
 
                 {entries.length === 0 ? (
-                    <p className="guestbook-empty">No messages yet - be the first one on the radio.</p>
+                    <p className="guestbook-empty">{t.log.empty}</p>
                 ) : (
                     <div className="guestbook-entries">
                         {entries.map((entry) => (
@@ -79,12 +91,12 @@ export default async function GuestbookPage() {
                                     <div className="guestbook-entry__top">
                                         <strong>{entry.displayName}</strong>
                                         <span className="guestbook-entry__source">
-                                            {entry.authType === "discord" ? "Discord" : "Guest"}
+                                            {entry.authType === "discord" ? t.log.discord : t.log.guest}
                                         </span>
                                     </div>
                                     <p className="guestbook-entry__message">{entry.message}</p>
                                     <time className="guestbook-entry__date" dateTime={entry.createdAt.toISOString()}>
-                                        {entry.createdAt.toLocaleDateString("en-GB", {
+                                        {entry.createdAt.toLocaleDateString(t.log.dateLocale, {
                                             day: "2-digit",
                                             month: "short",
                                             year: "numeric",

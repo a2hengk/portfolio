@@ -40,21 +40,22 @@ const submitSchema = z.object({
     reactionMs: z
         .number()
         .int()
-        .min(MIN_REACTION_MS, "That was a jump start.")
-        .max(MAX_SAVED_REACTION_MS, "Too slow for the leaderboard."),
+        .min(MIN_REACTION_MS, "jumpStart")
+        .max(MAX_SAVED_REACTION_MS, "tooSlow"),
     name: z
         .string()
         .transform((value) => value.normalize("NFKC").trim().replace(/\s+/g, " "))
         .pipe(
             z
                 .string()
-                .min(1, "Please enter a name.")
-                .max(PLAYER_NAME_MAX_LENGTH, "That name is too long.")
-                .regex(PLAYER_NAME_PATTERN, "Letters, numbers, spaces, . _ - only."),
+                .min(1, "nameRequired")
+                .max(PLAYER_NAME_MAX_LENGTH, "nameTooLong")
+                .regex(PLAYER_NAME_PATTERN, "nameInvalid"),
         ),
-    turnstileToken: z.string().min(1, "Please complete the spam check."),
+    turnstileToken: z.string().min(1, "spamCheckMissing"),
 });
 
+// `error` is a key into guestbook.startLights.errors in the dictionaries.
 export type SubmitTimeResult =
     | { ok: true; improved: boolean; leaderboard: LeaderboardEntry[] }
     | { ok: false; error: string };
@@ -67,30 +68,30 @@ export async function submitTime(input: {
 }): Promise<SubmitTimeResult> {
     const parsed = submitSchema.safeParse(input);
     if (!parsed.success) {
-        return { ok: false, error: parsed.error.issues[0]?.message ?? "Couldn't save that run." };
+        return { ok: false, error: parsed.error.issues[0]?.message ?? "invalid" };
     }
     const { token, reactionMs, name, turnstileToken } = parsed.data;
 
     const run = readRunToken(token);
     if (!run) {
-        return { ok: false, error: "This run expired - do another one." };
+        return { ok: false, error: "runExpired" };
     }
 
     const elapsed = Date.now() - run.iat;
     if (elapsed + TIMING_SLACK_MS < LIGHTS_SEQUENCE_MS + run.hold + reactionMs) {
-        return { ok: false, error: "That run doesn't add up." };
+        return { ok: false, error: "runInvalid" };
     }
 
     const ip = await getClientIp();
 
     const turnstileOk = await verifyTurnstileToken(turnstileToken, ip);
     if (!turnstileOk) {
-        return { ok: false, error: "Spam check failed - please try again." };
+        return { ok: false, error: "spamCheckFailed" };
     }
 
     const allowed = await checkAndRecordReactionRateLimit(ip);
     if (!allowed) {
-        return { ok: false, error: "Easy - wait a few seconds before saving again." };
+        return { ok: false, error: "rateLimited" };
     }
 
     // One row per (case-insensitive) name, only overwritten by a faster time.
@@ -104,7 +105,7 @@ export async function submitTime(input: {
         })
         .returning({ id: reactionScores.id });
 
-    revalidatePath("/guestbook");
+    revalidatePath("/[lang]/guestbook", "page");
 
     return { ok: true, improved: saved.length > 0, leaderboard: await getLeaderboard() };
 }
@@ -121,6 +122,6 @@ export async function deleteReactionScore(formData: FormData): Promise<void> {
     }
 
     await db.delete(reactionScores).where(eq(reactionScores.id, id));
-    revalidatePath("/guestbook");
-    revalidatePath("/guestbook/admin");
+    revalidatePath("/[lang]/guestbook", "page");
+    revalidatePath("/[lang]/guestbook/admin", "page");
 }

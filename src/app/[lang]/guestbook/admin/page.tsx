@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { guestbookEntries } from "@/db/schema";
 import { getAdminAccess } from "@/lib/admin";
 import { approveEntry, deleteEntry } from "../actions";
-import { deleteReactionScore } from "@/app/guestbook/reaction-actions";
+import { deleteReactionScore } from "../reaction-actions";
 import { getLeaderboard } from "@/lib/reaction-leaderboard";
 import AdminSignInButton from "./SignInButton";
 import SignOutButton from "./SignOutButton";

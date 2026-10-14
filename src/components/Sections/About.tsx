@@ -1,4 +1,6 @@
 import Button from "@/components/Buttons/button";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
+import { fill, localizedHref, type Locale } from "@/i18n/config";
 
 type SkillVariant = "frontend" | "backend" | "workflow" | "interests";
 
@@ -53,12 +55,7 @@ function SkillIcon({ variant }: { variant: SkillVariant }) {
     }
 }
 
-export default function AboutSection() {
-    const intro = {
-        title: "The person behind the code.",
-        description:
-            "Heyy I'm Kevin, 19 years old, doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG in Germany. Day to day I work in the backend team there, which I can't really show off here - so on my own time I mostly build fullstack and frontend stuff for fun, like this site.",
-    };
+export default function AboutSection({ lang, dict }: { lang: Locale; dict: Dictionary["about"] }) {
 
     // Counted straight from the tags on the projects listed on /projects -
     // what actually shows up when something ships, not a claimed skill level.
@@ -80,52 +77,48 @@ export default function AboutSection() {
     }[] = [
         {
             id: 1,
-            gear: "1st",
+            ...dict.skills.frontend,
             variant: "frontend",
-            title: "Frontend",
             tags: ["Next.js", "TypeScript", "React", "HTML", "CSS"],
         },
         {
             id: 2,
-            gear: "2nd",
+            ...dict.skills.backend,
             variant: "backend",
-            title: "Backend",
             tags: ["Node.js", "Python", "Postgres", "Drizzle ORM", "Docker", "C#", "Java", "REST APIs"],
         },
         {
             id: 3,
-            gear: "3rd",
+            ...dict.skills.workflow,
             variant: "workflow",
-            title: "Workflow",
             tags: ["Git", "GitHub", "VS Code", "WSL2", "Cloudflare", "Vercel"],
         },
         {
             id: 4,
-            gear: "4th",
+            // Interest tags are plain words, so they're translated too.
+            ...dict.skills.interests,
             variant: "interests",
-            title: "Interests",
-            tags: ["System Design", "Automation", "Game Development", "UI/UX"],
         },
     ];
 
     return (
         <section className="section section--about" id="about">
             <div className="section__heading">
-                <p className="eyebrow">About me</p>
-                <h2>{intro.title}</h2>
+                <p className="eyebrow">{dict.eyebrow}</p>
+                <h2>{dict.title}</h2>
             </div>
 
             <div className="about-intro">
-                <p>{intro.description}</p>
+                <p>{dict.description}</p>
             </div>
 
-            <aside className="about-panel about-panel--skills" aria-label="Skill overview">
+            <aside className="about-panel about-panel--skills" aria-label={dict.skillsAria}>
                 <div className="section__heading">
                     <div className="section-marker">
-                        <span className="sector-tag">Gearbox</span>
-                        <p className="eyebrow">Stack and skills</p>
+                        <span className="sector-tag">{dict.skillsTag}</span>
+                        <p className="eyebrow">{dict.skillsEyebrow}</p>
                     </div>
-                    <h2>The tools and areas I work with most.</h2>
+                    <h2>{dict.skillsTitle}</h2>
                     <div className="tick-divider" aria-hidden="true" />
                 </div>
                 <div className="skill-grid">
@@ -133,12 +126,12 @@ export default function AboutSection() {
                         <div key={skill.id} className={`skill-card skill-card--${skill.variant}`}>
                             <div className="skill-card__top">
                                 <span className="skill-card__gear">
-                                    <span>{skill.gear}</span> gear
+                                    <span>{skill.gear}</span> {dict.gear}
                                 </span>
                                 <SkillIcon variant={skill.variant} />
                             </div>
                             <strong>{skill.title}</strong>
-                            <div className="skill-card__tags" aria-label={`${skill.title} tools`}>
+                            <div className="skill-card__tags" aria-label={fill(dict.toolsAria, { title: skill.title })}>
                                 {skill.tags.map((tag) => (
                                     <span key={tag}>{tag}</span>
                                 ))}
@@ -147,12 +140,12 @@ export default function AboutSection() {
                     ))}
                 </div>
 
-                <div className="skill-bars" aria-label="Most used across my builds">
+                <div className="skill-bars" aria-label={dict.barsAria}>
                     {mostUsed.map((item) => (
                         <div key={item.name}>
                             <div className="skill-bar__label">
                                 <strong>{item.name}</strong>
-                                <span>{item.builds}/{item.of} builds</span>
+                                <span>{fill(dict.buildsOf, { builds: item.builds, of: item.of })}</span>
                             </div>
                             <div className="skill-bar__track">
                                 <div
@@ -167,14 +160,14 @@ export default function AboutSection() {
 
             <div className="subsection">
                 <div className="section__heading">
-                    <p className="eyebrow">Beyond the code</p>
-                    <h2>What I do when I log off.</h2>
+                    <p className="eyebrow">{dict.offDutyEyebrow}</p>
+                    <h2>{dict.offDutyTitle}</h2>
                 </div>
                 <p>
-                    Outside of work I'm usually deep in Sim Racing and Motorsport, working through a rotating cast of games, or catching up on an anime.
+                    {dict.offDutyText}
                 </p>
-                <Button href="/off-duty" variant="secondary">
-                    See what I&apos;m into off duty
+                <Button href={localizedHref(lang, "/off-duty")} variant="secondary">
+                    {dict.offDutyAction}
                 </Button>
             </div>
         </section>

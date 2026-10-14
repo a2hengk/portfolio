@@ -1,0 +1,482 @@
+{
+  "meta": {
+    "site": {
+      "title": "Lunas - FIAE",
+      "description": "Portfolio von Lunas, Azubi zum Fachinformatiker für Anwendungsentwicklung (FIAE) – mit Projekten, Skills und dem, was er in seiner Freizeit baut."
+    },
+    "about": {
+      "title": "Über mich - Lunas",
+      "description": "Hintergrund, Stack und Skills von Lunas, Azubi zum Fachinformatiker für Anwendungsentwicklung, der saubere Web-Erlebnisse baut."
+    },
+    "experience": {
+      "title": "Werdegang - Lunas",
+      "description": "Eine Timeline aus Schule, Arbeit und den Projekten, die geprägt haben, wie Lunas heute baut."
+    },
+    "projects": {
+      "title": "Projekte - Lunas",
+      "description": "Ausgewählte Builds und Experimente von Lunas – und wo jedes Projekt gerade steht."
+    },
+    "offDuty": {
+      "title": "Off Duty - Lunas",
+      "description": "Die Games, die ich zocke, und die Animes, zu denen ich nach Feierabend immer wieder zurückkomme."
+    },
+    "guestbook": {
+      "title": "Pit Wall - Lunas",
+      "description": "Hinterlass eine Nachricht – anonym oder mit Discord – und teste, wie schnell du vom Start wegkommst."
+    },
+    "links": {
+      "title": "Links - Lunas",
+      "description": "Die besten Wege, Lunas zu kontaktieren, ihm zu folgen oder ihm zu schreiben."
+    },
+    "uses": {
+      "title": "Uses - Lunas",
+      "description": "Die Software und das Setup hinter Lunas' Alltag."
+    },
+    "legal": {
+      "title": "Impressum - Lunas",
+      "description": "Impressum und rechtliche Infos."
+    }
+  },
+  "header": {
+    "brandAria": "Zum Anfang der Startseite",
+    "avatarAlt": "Profilbild",
+    "role": "FIAE @ Herrenknecht",
+    "menu": "Menü",
+    "close": "Schließen",
+    "navAria": "Hauptnavigation",
+    "nav": {
+      "home": { "label": "Home", "hint": "Start der Seite" },
+      "about": { "label": "Über mich", "hint": "Wer ich bin" },
+      "experience": { "label": "Werdegang", "hint": "Ausbildung und davor" },
+      "projects": { "label": "Projekte", "hint": "Was ich gebaut hab" },
+      "offDuty": { "label": "Off Duty", "hint": "Sim Racing, Games, Anime" },
+      "guestbook": { "label": "Pit Wall", "hint": "Nachricht dalassen, Reaktionszeit setzen" },
+      "links": { "label": "Links", "hint": "Wo du mich findest" },
+      "uses": { "label": "Uses", "hint": "Mein Setup" }
+    },
+    "language": {
+      "label": "Sprache",
+      "aria": "Sprache wechseln",
+      "names": { "en": "English", "de": "Deutsch" }
+    }
+  },
+  "footer": {
+    "eyebrow": "Kontakt",
+    "title": "Lust, Hallo zu sagen oder was zusammen zu bauen?",
+    "text": "Am schnellsten erreichst du mich über die Links-Seite oder direkt per GitHub und Mail.",
+    "linksAria": "Kontakt-Links",
+    "openLinks": "Links öffnen",
+    "email": "E-Mail",
+    "legal": "Impressum / Legal",
+    "hint": "// sector 00 dev note: ↑ ↑ ↓ ↓ ← → ← → B A schaltet was frei"
+  },
+  "notFound": {
+    "metaTitle": "Seite nicht gefunden - Lunas",
+    "title": "Diese Seite gibt's nicht.",
+    "description": "Vielleicht ist der Link veraltet oder die Seite ist umgezogen. Hier kannst du weitermachen.",
+    "home": "Zurück zur Startseite",
+    "projects": "Projekte ansehen"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Portfolio",
+      "kicker": "Hey, ich bin",
+      "lede": "Ich heiße Lunas und mache meine Ausbildung zum Fachinformatiker für Anwendungsentwicklung bei der Herrenknecht AG. Ich baue saubere Web-Erlebnisse, lerne aus echter Arbeit und bring mein Portfolio stetig weiter.",
+      "primaryAction": "Werdegang öffnen",
+      "secondaryAction": "Über mich",
+      "metricsAria": "Profil-Kennzahlen",
+      "metrics": {
+        "companyLabel": "Bei Herrenknecht",
+        "companyValue": "Seit",
+        "projectsLabel": "Projekte",
+        "projectsValue": "Builds",
+        "focusLabel": "Fokus",
+        "focusValue": "Backend"
+      },
+      "terminalAria": "Live-Build-Telemetrie",
+      "terminalTitle": "Telemetry // Lights out",
+      "status": "Operational"
+    },
+    "contact": {
+      "eyebrow": "Kontakt",
+      "title": "Du hast ein Projekt im Kopf oder willst einfach Hallo sagen?",
+      "text": "Auf der Links-Seite findest du die schnellsten Wege zu mir, und im Footer hast du die Kontaktwege auf jeder Seite parat.",
+      "action": "Kontakt-Links ansehen"
+    }
+  },
+  "about": {
+    "intro": {
+      "eyebrow": "Über mich",
+      "title": "Ein klarerer Blick darauf, wer ich bin.",
+      "description": "Hier siehst du den Hintergrund, den Stack und die Gewohnheiten, die prägen, wie ich baue.",
+      "primaryAction": "Werdegang ansehen",
+      "secondaryAction": "Projekte ansehen"
+    },
+    "eyebrow": "Über mich",
+    "title": "Der Mensch hinter dem Code.",
+    "description": "Heyy, ich bin Kevin, 19 Jahre alt und mache meine Ausbildung zum Fachinformatiker für Anwendungsentwicklung bei der Herrenknecht AG. Im Alltag arbeite ich dort im Backend-Team – das kann ich hier leider nicht wirklich zeigen. Deshalb baue ich in meiner Freizeit vor allem Fullstack- und Frontend-Sachen aus Spaß, so wie diese Seite.",
+    "skillsAria": "Skill-Übersicht",
+    "skillsTag": "Gearbox",
+    "skillsEyebrow": "Stack und Skills",
+    "skillsTitle": "Die Tools und Bereiche, mit denen ich am meisten arbeite.",
+    "gear": "Gang",
+    "toolsAria": "{title}-Tools",
+    "barsAria": "Am häufigsten in meinen Builds",
+    "buildsOf": "{builds}/{of} Builds",
+    "skills": {
+      "frontend": { "gear": "1.", "title": "Frontend" },
+      "backend": { "gear": "2.", "title": "Backend" },
+      "workflow": { "gear": "3.", "title": "Workflow" },
+      "interests": {
+        "gear": "4.",
+        "title": "Interessen",
+        "tags": ["System Design", "Automatisierung", "Spieleentwicklung", "UI/UX"]
+      }
+    },
+    "offDutyEyebrow": "Abseits vom Code",
+    "offDutyTitle": "Was ich mache, wenn ich offline bin.",
+    "offDutyText": "Nach der Arbeit stecke ich meistens tief im Sim Racing und Motorsport, zocke mich durch wechselnde Games oder hole bei einem Anime auf.",
+    "offDutyAction": "Schau, was ich off duty so mache"
+  },
+  "experience": {
+    "intro": {
+      "eyebrow": "Werdegang",
+      "title": "Der Weg, den ich bisher gefahren bin.",
+      "description": "Eine Timeline aus Schule, Arbeit und den Projekten, die geprägt haben, wie ich heute baue.",
+      "primaryAction": "Projekte durchstöbern",
+      "secondaryAction": "Zurück zu Über mich"
+    },
+    "tag": "Lap: Career",
+    "eyebrow": "Werdegang-Timeline",
+    "title": "Der Weg, den ich bisher gefahren bin.",
+    "text": "Aufgebaut auf meiner Lieblingsstrecke, der Nürburgring-Nordschleife – jeder Checkpoint unten ist eine Kurve auf der Runde, in der echten Reihenfolge, in der du sie fahren würdest.",
+    "mapAria": "Karte der Nürburgring-Nordschleife mit 7 Checkpoints für meinen Werdegang",
+    "mapCaption": "Nordschleife · 20,8 km · echte Streckengeometrie",
+    "highlightsAria": "Highlights {year}",
+    "milestones": {
+      "1": {
+        "year": "2022",
+        "title": "Interesse an IT",
+        "description": "In der 9. Klasse hab ich mich zum ersten Mal für IT interessiert. Ich hab Praktika bei Firmen in der Gegend gemacht, um ein Gefühl für die Branche zu kriegen und Einblicke in die verschiedenen Rollen und Aufgaben.",
+        "tags": ["IT", "Praktika", "Ausprobieren"]
+      },
+      "2": {
+        "year": "2023 - 2025",
+        "title": "Techn. Gymnasium",
+        "description": "Ich bin auf eine technisch ausgerichtete Schule gegangen, um mehr zu verstehen, und bin dort mit Programmieren und vielen anderen Technologien in Kontakt gekommen. Außerdem wollte ich dort die Hochschulreife machen, um studieren zu dürfen.",
+        "tags": ["Techn. Gymnasium", "Programmieren", "Ausprobieren"]
+      },
+      "3": {
+        "year": "2024 - 2025",
+        "title": "Side Projects",
+        "description": "Ich hab mit Side Projects angefangen, um Gelerntes anzuwenden und meinen Interessen weiter nachzugehen. Dabei sind ein paar Projekte entstanden, unter anderem ein Discord-Bot und kleine Python-Skripte, um Programmieren besser zu verstehen.",
+        "tags": ["Python", "Discord-Bots"]
+      },
+      "4": {
+        "year": "2025",
+        "title": "Herrenknecht AG",
+        "description": "Ich hab mich bei der Herrenknecht AG als dualer Student im IT-Bereich beworben, wurde genommen und hab im Juli 2025 dort angefangen.",
+        "tags": ["Herrenknecht AG", "Duales Studium", "IT"]
+      },
+      "5": {
+        "year": "2025 - 2026",
+        "title": "Dualer Student bei der Herrenknecht AG",
+        "description": "Neben der Arbeit bei der Herrenknecht AG war ich als dualer Student an der DHBW Karlsruhe eingeschrieben und hab meine Zeit zwischen Praxis und Theorie aufgeteilt.",
+        "tags": ["Herrenknecht AG", "DHBW Karlsruhe", "Duales Studium"]
+      },
+      "6": {
+        "year": "2026",
+        "title": "Richtungswechsel",
+        "description": "Ich hab das duale Studium an der DHBW Karlsruhe abgebrochen – Vorlesungen und Vollzeitarbeit unter einen Hut zu bringen, hat einfach nicht gepasst. Also hab ich mir einen Weg gesucht, der mehr Praxis bietet.",
+        "tags": ["DHBW Karlsruhe", "Kurskorrektur"]
+      },
+      "7": {
+        "year": "Sep 2026 - 2028",
+        "title": "Ausbildung: Fachinformatiker Anwendungsentwicklung",
+        "description": "Seit dem 1. September 2026 hab ich das geteilte duale Studium gegen eine volle Ausbildung zum Fachinformatiker für Anwendungsentwicklung bei der Herrenknecht AG getauscht – Vollzeit und komplett praxisnah bis 2028.",
+        "tags": ["Herrenknecht AG", "Fachinformatiker Anwendungsentwicklung", "Ausbildung"]
+      }
+    }
+  },
+  "projects": {
+    "intro": {
+      "eyebrow": "Projekte",
+      "title": "Ausgewählte Builds und die Probleme, die ich gern löse.",
+      "description": "Ein genauerer Blick auf die Apps, Experimente und Tools, an denen ich gearbeitet hab oder gerade baue.",
+      "primaryAction": "Schreib mir",
+      "secondaryAction": "Links öffnen"
+    },
+    "tag": "Sector 03",
+    "eyebrow": "Projekte und Builds",
+    "title": "Woran ich baue und wo jedes Projekt gerade steht.",
+    "status": {
+      "live": "Live",
+      "progress": "In Arbeit",
+      "featured": "Featured"
+    },
+    "stackAria": "Projekt-Stack",
+    "repoComingSoon": "Repo kommt bald",
+    "open": "Öffnen",
+    "details": "Mehr zu diesem Build",
+    "items": {
+      "1": {
+        "type": "Website",
+        "title": "Portfolio Platform",
+        "description": "Persönliches Portfolio mit Komponenten-Architektur, Animationen, Responsive Layout und Storytelling in Abschnitten.",
+        "about": "Diese Seite – gebaut, um Next.js wirklich richtig zu lernen, statt nur darüber zu lesen, und um was Eigenes online zu haben statt eines Templates. Alles läuft im BMW-M-/Racing-Theme, bis ins kleinste Detail.",
+        "highlights": [
+          "Selbstgebautes BMW-M-Livery-Theme und Animationen auf jeder Seite, nicht nur auf der Startseite",
+          "Die echte Streckengeometrie der Nürburgring-Nordschleife für die Timeline-Karte auf /experience nachgezeichnet",
+          "Ein paar versteckte Easter Eggs, unter anderem eine Launch-Control-Sequenz und ein kleines Race-Minigame"
+        ]
+      },
+      "2": {
+        "type": "Build",
+        "title": "Pygame",
+        "description": "Ich baue sowas wie Mario, um die Library zu lernen und meine Python-Skills aufzufrischen. Wird Open Source, sobald es vorzeigbar ist."
+      },
+      "3": {
+        "type": "Build",
+        "title": "Discord Bot",
+        "description": "Mein eigener Discord-Bot, um einen Server zu betreiben: Ticket-System, Audit-Log, Willkommensnachrichten, Moderationstools und ein paar Minigames.",
+        "about": "Eins meiner ersten Projekte, vor Kurzem komplett neu gebaut. Jedes Feature ist ein eigener Cog, der automatisch geladen wird – was Neues hinzufügen heißt also einfach: Datei in einen Ordner legen.",
+        "highlights": [
+          "Ticket-Panel mit Claim-/Close-Buttons – geschlossene Tickets werden als .txt-Transkript archiviert",
+          "Audit-Log für Joins, Leaves, gelöschte und bearbeitete Nachrichten, mit Wort-für-Wort-Diff bei Edits",
+          "Einstellungen pro Server über /config, die Neustarts überleben",
+          "Minigames wie Schere-Stein-Papier, Zahlenraten und ein Tipp-Speedtest, der Copy-Paste erkennt"
+        ]
+      },
+      "4": {
+        "type": "Build",
+        "title": "Personal Blog",
+        "description": "Ein persönlicher Blog, um meine Gedanken, Erfahrungen und Projekte mit der Welt zu teilen.",
+        "about": "Entwurf: Gerade ist das nur der Next.js-+-Tailwind-Starter, noch nicht ausgebaut. Geplant ist ein schlanker Blog, um über Projekte und alles andere zu schreiben, was so los ist."
+      },
+      "5": {
+        "type": "Website",
+        "title": "Karteikarten App",
+        "description": "Eine App, um digitale Karteikarten zu erstellen und damit zu lernen. Außerdem das Projekt für mein Studium an der DHBW.",
+        "about": "Eine Karteikarten-App, mit der du eigene Karten erstellst und lernst – gebaut als Praxisprojekt für mein Studium an der DHBW, mit echtem Postgres-/Drizzle-Backend statt nur lokalem State.",
+        "highlights": [
+          "Kartenübersicht, um eigene Karteikarten-Sets zu erstellen, zu bearbeiten und zu löschen",
+          "Lernmodus mit Flip-Animation, Fortschritt wird pro Karte gespeichert",
+          "Login/Registrierung, damit Karten und Fortschritt auf allen Geräten mitkommen"
+        ]
+      },
+      "6": {
+        "type": "Website",
+        "title": "LUNAS OS",
+        "description": "Mein persönliches Home-Dashboard im HUD-Stil für Alltag und Berufsschule: Todos, Termine, Stundenplan, Noten und ein privater Dateispeicher.",
+        "about": "Zuerst für mich selbst gebaut, mit der Berufsschule als Hauptanwendungsfall. Alles Schulische hängt an seinem Lernfeld, sodass Dateien, Todos, Termine und Noten für ein Fach auf einer Seite liegen. Nur ein User, Login nur über GitHub.",
+        "highlights": [
+          "Heute-Ansicht mit Countdown zur nächsten Prüfung, 14-Tage-Timeline und dem Stundenplan des Tages",
+          "Privater Dateispeicher mit Ordnern und Drag-and-Drop – Dateien werden erst nach serverseitigem Login-Check ausgeliefert",
+          "Seiten pro Fach mit Dateien, Todos, Terminen und Notendurchschnitt",
+          "Todos aufgeteilt in Schule, Privat und Arbeit"
+        ]
+      }
+    }
+  },
+  "offDuty": {
+    "intro": {
+      "eyebrow": "Off duty",
+      "title": "Was mich nach Feierabend begeistert.",
+      "description": "Sim Racing, wechselnde Games und ein paar Animes, zu denen ich immer wieder zurückkomme."
+    },
+    "games": {
+      "tag": "Pit lane",
+      "eyebrow": "Games, die ich zocke",
+      "title": "Meine aktuelle Rotation neben dem Coden.",
+      "text": "In letzter Zeit interessiere ich mich richtig für Sim Racing und Motorsport allgemein. Ich liebe den Realismus und den Wettkampf, der dazugehört. Abgesehen davon zocke ich gern alles Mögliche, um abzuschalten und Spaß zu haben.",
+      "modes": {
+        "competitive": "Competitive",
+        "forFun": "Just for fun",
+        "survivalCreative": "Survival + Creative",
+        "chilling": "Chillen"
+      }
+    },
+    "anime": {
+      "tag": "Watchlist",
+      "eyebrow": "Animes",
+      "title": "Animes, die ich mag",
+      "descriptions": {
+        "1": "Einer der ersten Animes, die ich geschaut hab. Ich wünschte immer noch, den NerveGear gäb's in echt.",
+        "2": "Wholesome Anime über einen Oberstufenschüler und das Mädchen von nebenan. Es geht darum, wie die beiden sich immer näherkommen.",
+        "3": "Actiongeladener Anime über eine Gruppe Teenager, die gegen außerirdische Invasoren kämpfen."
+      }
+    }
+  },
+  "links": {
+    "intro": {
+      "eyebrow": "Links",
+      "title": "Du willst dich melden? Fang hier an.",
+      "description": "Das sind die besten Wege, mich zu kontaktieren, meiner Arbeit zu folgen oder mir kurz zu schreiben."
+    },
+    "tag": "Comms",
+    "eyebrow": "Socials",
+    "title": "Ich freu mich, von dir zu hören – egal auf welcher Plattform.",
+    "followMe": "Folg mir hier",
+    "dmDirect": "Direkt per DM",
+    "directAria": "{name}: {handle}, füg mich direkt hinzu",
+    "categories": {
+      "github": "Code",
+      "discord": "Chat",
+      "instagram": "Fotos",
+      "tiktok": "Videos"
+    }
+  },
+  "uses": {
+    "intro": {
+      "eyebrow": "Uses",
+      "title": "Die Tools und das Setup hinter meinem Workflow.",
+      "description": "Ein Blick aufs Garage-Board: die Software, die bei mir offen ist, und das Setup, auf dem sie läuft."
+    },
+    "garage": {
+      "tag": "Garage",
+      "eyebrow": "Live loadout",
+      "title": "Was gerade läuft.",
+      "text": "Die Software, die an den meisten Tagen wirklich offen ist – gerankt und angezeigt wie ein Dash. Plus eine echte Live-Uhr, weil ein Garage-Board die echte Zeit zeigen sollte.",
+      "local": "Lokal",
+      "session": "Session"
+    },
+    "categories": {
+      "editor": "Editor",
+      "versionControl": "Versionskontrolle",
+      "devEnvironment": "Dev-Umgebung",
+      "aiPair": "KI-Pair",
+      "chat": "Chat",
+      "audio": "Audio",
+      "hosting": "Hosting",
+      "infra": "Infra",
+      "notes": "Notizen",
+      "design": "Design"
+    },
+    "setup": {
+      "tag": "Setup",
+      "eyebrow": "Aktuelles Setup",
+      "title": "Das Setup, das ich wirklich nutze."
+    },
+    "clockLocale": "de-DE"
+  },
+  "legal": {
+    "intro": {
+      "eyebrow": "Legal",
+      "title": "Impressum & rechtliche Infos.",
+      "description": "Das hier ist ein privates, nicht-kommerzielles Portfolio-Projekt."
+    },
+    "impressum": {
+      "eyebrow": "Impressum",
+      "title": "Betreiber der Seite",
+      "contact": "Kontakt:"
+    },
+    "privacy": {
+      "eyebrow": "Datenschutz",
+      "title": "Datenschutz",
+      "intro": "Der Großteil dieser Seite nutzt keine Analytics, kein Tracking und keine Cookies und sammelt keine personenbezogenen Daten. Die Ausnahme ist das Gästebuch auf der Pit Wall – hier steht, was es speichert und warum:",
+      "messagesTitle": "Gästebuch-Nachrichten.",
+      "messagesText": "Alles, was du auf der Pit Wall postest (dein Anzeigename und deine Nachricht, plus Discord-Name und Avatar, wenn du dich anmeldest), wird gespeichert und auf dieser Seite öffentlich angezeigt.",
+      "discordTitle": "Discord-Login.",
+      "discordBefore": "Die Anmeldung mit Discord läuft über Discords eigenen OAuth-Login – diese Seite bekommt deine Discord-User-ID, deinen Anzeigenamen und die URL deines Avatars. Die werden gespeichert, damit dein Eintrag als Discord-Post angezeigt werden kann. Wie Discord selbst mit deinen Daten umgeht, steht in der",
+      "discordLink": "Datenschutzerklärung von Discord",
+      "discordAfter": ".",
+      "spamTitle": "Spam-Schutz.",
+      "spamBefore": "Beim Absenden auf der Pit Wall läuft ein Cloudflare-Turnstile-Check, der ein paar technische Signale über deinen Browser bzw. die Anfrage verarbeitet, um Menschen von Bots zu unterscheiden – siehe",
+      "spamLink": "Datenschutzerklärung von Cloudflare",
+      "spamAfter": ". Außerdem wird ein gesalzener Einweg-Hash deiner IP-Adresse für bis zu 24 Stunden gespeichert, um wiederholtes Absenden zu begrenzen. Der Hash lässt sich nicht in eine IP-Adresse zurückrechnen und ist nicht mit deiner Nachricht verknüpft.",
+      "removal": "Du willst einen Gästebuch-Eintrag löschen lassen? Melde dich einfach über die Kontaktdaten oben."
+    },
+    "rights": {
+      "eyebrow": "Urheberrecht",
+      "title": "Rechte",
+      "text": "Alle Inhalte auf dieser Seite sind © des Seitenbetreibers, sofern nicht anders angegeben. Wenn du glaubst, dass Material auf dieser Seite dein Urheberrecht verletzt, melde dich bitte über die Kontaktdaten oben, damit das geklärt werden kann."
+    },
+    "back": "Zurück zur Startseite"
+  },
+  "guestbook": {
+    "intro": {
+      "eyebrow": "Pit Wall",
+      "title": "Hinterlass eine Nachricht an der Pit Wall.",
+      "description": "Anonym oder mit Discord angemeldet – anonyme Nachrichten schau ich mir kurz an, bevor sie hier auftauchen. Wenn du schon da bist: Teste, wie schnell du vom Start wegkommst."
+    },
+    "form": {
+      "tag": "Radio check",
+      "eyebrow": "Sag was",
+      "title": "Wie wirkt die Seite von deinem Platz aus?",
+      "postingAs": "Du postest als {name}",
+      "signOut": "Nicht du? Abmelden",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name deiner Pit Crew",
+      "messageLabel": "Nachricht",
+      "messagePlaceholder": "Wie sieht die Runde von deinem Platz aus?",
+      "sending": "Wird gesendet...",
+      "submit": "Über Funk raushauen",
+      "discord": "Weiter mit Discord",
+      "postedLive": "Gepostet – steht schon oben.",
+      "postedPending": "Gesendet – anonyme Nachrichten schau ich mir kurz an, bevor sie auftauchen.",
+      "errors": {
+        "nameRequired": "Bitte gib einen Namen ein.",
+        "nameTooLong": "Der Name ist zu lang.",
+        "messageRequired": "Bitte gib eine Nachricht ein.",
+        "messageTooLong": "Die Nachricht ist zu lang.",
+        "spamCheckMissing": "Bitte mach den Spam-Check.",
+        "invalid": "Check deine Nachricht und versuch's nochmal.",
+        "spamCheckFailed": "Spam-Check fehlgeschlagen – versuch's bitte nochmal.",
+        "rateLimited": "Du postest zu schnell – versuch's in ein paar Minuten nochmal."
+      }
+    },
+    "log": {
+      "tag": "Log",
+      "eyebrow": "Nachrichten",
+      "title": "Was bisher reingekommen ist.",
+      "empty": "Noch keine Nachrichten – sei der Erste am Funk.",
+      "discord": "Discord",
+      "guest": "Gast",
+      "dateLocale": "de-DE"
+    },
+    "startLights": {
+      "tag": "Grid",
+      "eyebrow": "Lights out",
+      "title": "Wie schnell kommst du vom Start weg?",
+      "text": "Fünf rote Lichter, eine zufällige Pause, dann grün. Deine Zeit läuft von grün bis zu deinem Klick – bist du zu früh, ist es ein Frühstart.",
+      "clickHere": "Klick hier zum ",
+      "tapHere": "Tipp hier zum ",
+      "pad": {
+        "idleTitle": "Starten",
+        "idleSub": "dann nochmal drücken, sobald die Lichter grün werden",
+        "waitTitle": "Warte auf grün...",
+        "waitSub": "Lichter {lit} / {total} – nicht zu früh",
+        "goTitle": "GO!",
+        "goSub": "jetzt jetzt jetzt",
+        "jumpTitle": "Frühstart",
+        "jumpEarly": "Du warst vor grün dran. Drück nochmal für einen neuen Versuch.",
+        "jumpAnticipated": "Unter {min} ms ist Raten, nicht Reagieren. Drück nochmal für einen neuen Versuch.",
+        "again": "Nochmal drücken für die nächste Runde",
+        "unranked": "Leaderboard nicht erreichbar – nur zum Spaß. Nochmal drücken für die nächste Runde"
+      },
+      "saveTitle": "Das ist eine Top-{size}-Zeit. Willst du deinen Namen drauf setzen?",
+      "nameLabel": "Name",
+      "namePlaceholder": "Fahrername",
+      "saving": "Wird gespeichert...",
+      "save": "Zeit speichern",
+      "savedImproved": "Gespeichert – du stehst auf dem Board.",
+      "savedSlower": "Für den Namen ist schon eine schnellere Zeit gespeichert, die bleibt also.",
+      "boardTitle": "Top {size}",
+      "yourBest": "Deine Bestzeit",
+      "emptyBoard": "Das Grid ist leer – der erste saubere Start holt P1.",
+      "errors": {
+        "jumpStart": "Das war ein Frühstart.",
+        "tooSlow": "Zu langsam fürs Leaderboard.",
+        "nameRequired": "Bitte gib einen Namen ein.",
+        "nameTooLong": "Der Name ist zu lang.",
+        "nameInvalid": "Nur Buchstaben, Zahlen, Leerzeichen und . _ -",
+        "spamCheckMissing": "Bitte mach den Spam-Check.",
+        "invalid": "Der Lauf konnte nicht gespeichert werden.",
+        "runExpired": "Der Lauf ist abgelaufen – fahr nochmal einen.",
+        "runInvalid": "Der Lauf geht nicht auf.",
+        "spamCheckFailed": "Spam-Check fehlgeschlagen – versuch's bitte nochmal.",
+        "rateLimited": "Langsam – warte ein paar Sekunden, bevor du nochmal speicherst."
+      }
+    }
+  }
+}

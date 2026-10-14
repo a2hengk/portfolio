@@ -245,6 +245,54 @@
     color: var(--accent-strong);
 }
 
+/* Language switch under the nav - same width, small pill toggles. */
+.language {
+    width: min(calc(100% - 2 * var(--gutter)), var(--content-width));
+    margin: -8px auto 0;
+    padding: 0 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.languageLabel {
+    margin-right: 6px;
+    font-size: 0.88rem;
+    color: var(--muted);
+}
+
+.languageLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.languageLink:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+}
+
+.languageLink:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
+.languageLinkActive {
+    border-color: rgba(79, 195, 247, 0.45);
+    background: rgba(79, 195, 247, 0.1);
+    color: var(--accent-strong);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .panelOpen {
         animation: none;
@@ -264,5 +312,10 @@
 
     .nav {
         padding: 8px 0 16px;
+    }
+
+    .language {
+        margin-top: 0;
+        padding-bottom: 16px;
     }
 }
