@@ -248,10 +248,17 @@
         ]
       },
       "4": {
-        "type": "Build",
-        "title": "Personal Blog",
-        "description": "Ein persönlicher Blog, um meine Gedanken, Erfahrungen und Projekte mit der Welt zu teilen.",
-        "about": "Entwurf: Gerade ist das nur der Next.js-+-Tailwind-Starter, noch nicht ausgebaut. Geplant ist ein schlanker Blog, um über Projekte und alles andere zu schreiben, was so los ist."
+        "type": "Website",
+        "title": "Lunair",
+        "description": "Ein Foto-Feed nur auf Einladung, für mich und meine Freunde – um Bilder, Gedanken und kleine Geschichten aus dem Alltag zu teilen.",
+        "about": "Hat als Blog-Idee angefangen und ist stattdessen ein kleiner privater Social Feed geworden. Es gibt keine öffentliche Registrierung – rein kommst du nur über einen Einladungslink, damit es unter Freunden bleibt. Beiträge können ein paar Fotos sein oder nur Text, und alles landet in einem gemeinsamen Feed.",
+        "highlights": [
+          "Login nur auf Einladung, mit Profilbild, Banner und einem Raster deiner eigenen Beiträge im Profil",
+          "Beiträge mit mehreren Fotos oder nur Text, alles in einem gemeinsamen Feed",
+          "Bis zu 3 Reaktionen pro Beitrag mit deinen eigenen Stickern",
+          "Kommentare mit Antworten – und Reaktionen gibt's auch auf Kommentare",
+          "Foto-Karussell, das du am PC durchblättern kannst, plus Vollbild mit Zoom"
+        ]
       },
       "5": {
         "type": "Website",
