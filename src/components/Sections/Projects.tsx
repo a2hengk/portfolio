@@ -81,15 +81,22 @@ export default function ProjectsSection() {
         },
         {
             id: 4,
-            type: "Build",
+            type: "Website",
             status: "progress",
-            title: "Personal Blog",
+            title: "Lunair",
             description:
-                "A personal blog to share my thoughts, experiences, and projects with the world.",
-            tags: ["Next.js", "Markdown", "Static Site Generation"],
+                "An invite-only photo feed for me and my friends to share pictures, thoughts and little stories from everyday life.",
+            tags: ["Next.js", "TypeScript", "Postgres", "Drizzle", "Better Auth", "Vercel Blob"],
             github: "https://github.com/a2hengk/Lunair",
             about:
-                "Draft: right now this is just the Next.js + Tailwind starting point, not built out yet. The plan is a lightweight blog for writing about projects and whatever else is going on.",
+                "Started as a blog idea and turned into a small private social feed instead. There's no public sign-up - you only get in with an invite link, so it stays between friends. Posts can be a few photos or just text, and everything lands in one shared feed.",
+            highlights: [
+                "Invite-only login, with a profile picture, banner and a grid of your own posts on your profile",
+                "Posts with multiple photos or text only, all in one shared feed",
+                "Up to 3 reactions per post using your own custom stickers",
+                "Comments with replies and reactions on comments too",
+                "Photo carousel you can flip through on desktop, plus a fullscreen view with zoom",
+            ],
         },
         {
             id: 5,
