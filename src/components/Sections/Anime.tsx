@@ -1,23 +1,26 @@
 import Image from "next/image";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
 
-export default function AnimeSection() {
+export default function AnimeSection({ dict }: { dict: Dictionary["offDuty"]["anime"] }) {
+    // Titles are the shows' names and stay as they are; descriptions come
+    // from the dictionary by id.
     const animes = [
         {
             id: 1,
             title: "1. Sword Art Online",
-            description: "One of the first animes I watched. Still wish the NerveGear would be available in real life.",
+            description: dict.descriptions["1"],
             image: "/anime/sword-art-online.png",
         },
         {
             id: 2,
             title: "2. The Angel next door spoils me rotten",
-            description: "Wholesome anime about a high school boy and a girl who lives next door. The story is about how they get closer and closer to each other.",
+            description: dict.descriptions["2"],
             image: "/anime/angel-next-door.jpg",
         },
         {
             id: 3,
             title: "3. World Trigger",
-            description: "Action-packed anime about a group of teenagers who fight against alien invaders.",
+            description: dict.descriptions["3"],
             image: "/anime/world-trigger.jpg",
         },
     ];
@@ -26,10 +29,10 @@ export default function AnimeSection() {
         <section className="route-section" id="anime">
             <div className="section__heading">
                 <div className="section-marker">
-                    <span className="sector-tag">Watchlist</span>
-                    <p className="eyebrow">Animes</p>
+                    <span className="sector-tag">{dict.tag}</span>
+                    <p className="eyebrow">{dict.eyebrow}</p>
                 </div>
-                <h2>Animes that i like</h2>
+                <h2>{dict.title}</h2>
             </div>
             <div className="anime-list">
                 {animes.map((anime) => (

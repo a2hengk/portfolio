@@ -17,25 +17,27 @@ const anonymousSchema = z.object({
     displayName: z
         .string()
         .trim()
-        .min(1, "Please enter a name.")
-        .max(DISPLAY_NAME_MAX_LENGTH, "That name is too long."),
+        .min(1, "nameRequired")
+        .max(DISPLAY_NAME_MAX_LENGTH, "nameTooLong"),
     message: z
         .string()
         .trim()
-        .min(1, "Please enter a message.")
-        .max(MESSAGE_MAX_LENGTH, "That message is too long."),
-    turnstileToken: z.string().min(1, "Please complete the spam check."),
+        .min(1, "messageRequired")
+        .max(MESSAGE_MAX_LENGTH, "messageTooLong"),
+    turnstileToken: z.string().min(1, "spamCheckMissing"),
 });
 
 const discordSchema = z.object({
     message: z
         .string()
         .trim()
-        .min(1, "Please enter a message.")
-        .max(MESSAGE_MAX_LENGTH, "That message is too long."),
-    turnstileToken: z.string().min(1, "Please complete the spam check."),
+        .min(1, "messageRequired")
+        .max(MESSAGE_MAX_LENGTH, "messageTooLong"),
+    turnstileToken: z.string().min(1, "spamCheckMissing"),
 });
 
+// `error` is a key into guestbook.form.errors in the dictionaries - the
+// form translates it, so the action doesn't need to know the language.
 export type SubmitEntryState = {
     error?: string;
     success?: boolean;
@@ -57,17 +59,17 @@ export async function submitEntry(_prevState: SubmitEntryState, formData: FormDa
     const parsed = session ? discordSchema.safeParse(raw) : anonymousSchema.safeParse(raw);
 
     if (!parsed.success) {
-        return { error: parsed.error.issues[0]?.message ?? "Please check your message and try again." };
+        return { error: parsed.error.issues[0]?.message ?? "invalid" };
     }
 
     const turnstileOk = await verifyTurnstileToken(parsed.data.turnstileToken, ip);
     if (!turnstileOk) {
-        return { error: "Spam check failed - please try again." };
+        return { error: "spamCheckFailed" };
     }
 
     const allowed = await checkAndRecordRateLimit(ip);
     if (!allowed) {
-        return { error: "You're posting too quickly - try again in a few minutes." };
+        return { error: "rateLimited" };
     }
 
     if (session) {
@@ -89,7 +91,7 @@ export async function submitEntry(_prevState: SubmitEntryState, formData: FormDa
         });
     }
 
-    revalidatePath("/guestbook");
+    revalidatePath("/[lang]/guestbook", "page");
     return { success: true };
 }
 
@@ -105,8 +107,8 @@ export async function approveEntry(formData: FormData): Promise<void> {
     }
 
     await db.update(guestbookEntries).set({ status: "approved" }).where(eq(guestbookEntries.id, id));
-    revalidatePath("/guestbook");
-    revalidatePath("/guestbook/admin");
+    revalidatePath("/[lang]/guestbook", "page");
+    revalidatePath("/[lang]/guestbook/admin", "page");
 }
 
 export async function deleteEntry(formData: FormData): Promise<void> {
@@ -121,6 +123,6 @@ export async function deleteEntry(formData: FormData): Promise<void> {
     }
 
     await db.delete(guestbookEntries).where(eq(guestbookEntries.id, id));
-    revalidatePath("/guestbook");
-    revalidatePath("/guestbook/admin");
+    revalidatePath("/[lang]/guestbook", "page");
+    revalidatePath("/[lang]/guestbook/admin", "page");
 }

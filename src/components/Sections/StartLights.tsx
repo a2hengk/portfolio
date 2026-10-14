@@ -2,7 +2,9 @@
 
 import Script from "next/script";
 import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type PointerEvent } from "react";
-import { startRun, submitTime } from "@/app/guestbook/reaction-actions";
+import { startRun, submitTime } from "@/app/[lang]/guestbook/reaction-actions";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
+import { fill } from "@/i18n/config";
 import type { LeaderboardEntry } from "@/lib/reaction-leaderboard";
 import {
     FIRST_LIGHT_DELAY_MS,
@@ -68,7 +70,13 @@ function nameKey(value: string): string {
     return value.normalize("NFKC").trim().replace(/\s+/g, " ").toLowerCase();
 }
 
-export default function StartLights({ initialLeaderboard }: { initialLeaderboard: LeaderboardEntry[] }) {
+export default function StartLights({
+    initialLeaderboard,
+    dict,
+}: {
+    initialLeaderboard: LeaderboardEntry[];
+    dict: Dictionary["guestbook"]["startLights"];
+}) {
     const [phase, setPhase] = useState<Phase>("idle");
     const [litCount, setLitCount] = useState(0);
     const [reactionMs, setReactionMs] = useState<number | null>(null);
@@ -250,7 +258,9 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
         const result = await submitTime({ token, reactionMs, name, turnstileToken });
 
         if (!result.ok) {
-            setSaveState({ status: "error", message: result.error });
+            // The action returns an error key; translate it here.
+            const message = (dict.errors as Record<string, string>)[result.error] ?? dict.errors.invalid;
+            setSaveState({ status: "error", message });
             window.turnstile?.reset();
             setTurnstileToken("");
             return;
@@ -261,9 +271,7 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
         setHighlightKey(nameKey(name));
         setSaveState({
             status: "saved",
-            message: result.improved
-                ? "Saved - you're on the board."
-                : "That name already has a faster time saved, so that one stays.",
+            message: result.improved ? dict.savedImproved : dict.savedSlower,
         });
     };
 
@@ -272,26 +280,24 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
     const pad = (() => {
         switch (phase) {
             case "idle":
-                return { title: "start", sub: "then hit it again the moment the lights turn green" };
+                return { title: dict.pad.idleTitle, sub: dict.pad.idleSub };
             case "arming":
             case "lights":
-                return { title: "Wait for green...", sub: `Lights ${litCount} / ${LIGHT_COUNT} - don't jump it` };
+                return { title: dict.pad.waitTitle, sub: fill(dict.pad.waitSub, { lit: litCount, total: LIGHT_COUNT }) };
             case "green":
-                return { title: "GO!", sub: "now now now" };
+                return { title: dict.pad.goTitle, sub: dict.pad.goSub };
             case "jumpstart":
                 return {
-                    title: "Jump start",
+                    title: dict.pad.jumpTitle,
                     sub:
                         jumpReason === "early"
-                            ? "You went before green. Press again to retry."
-                            : `Under ${MIN_REACTION_MS} ms is guessing, not reacting. Press again to retry.`,
+                            ? dict.pad.jumpEarly
+                            : fill(dict.pad.jumpAnticipated, { min: MIN_REACTION_MS }),
                 };
             case "result":
                 return {
                     title: `${formatSeconds(reactionMs ?? 0)} s`,
-                    sub: ranked
-                        ? "Press again for another go"
-                        : "Leaderboard unreachable - just for fun. Press again for another go",
+                    sub: ranked ? dict.pad.again : dict.pad.unranked,
                 };
         }
     })();
@@ -302,13 +308,12 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
 
             <div className="section__heading">
                 <div className="section-marker">
-                    <span className="sector-tag">Grid</span>
-                    <p className="eyebrow">Lights out</p>
+                    <span className="sector-tag">{dict.tag}</span>
+                    <p className="eyebrow">{dict.eyebrow}</p>
                 </div>
-                <h2>How fast are you off the line?</h2>
+                <h2>{dict.title}</h2>
                 <p>
-                    Five reds, a random hold, then green. Your time is from green to your click - go early and
-                    it&apos;s a jump start.
+                    {dict.text}
                 </p>
             </div>
 
@@ -352,8 +357,8 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
                         <strong className="start-lights__pad-title" aria-live="polite">
                             {phase === "idle" ? (
                                 <>
-                                    <span className="start-lights__verb-click">Click here to </span>
-                                    <span className="start-lights__verb-tap">Tap here to </span>
+                                    <span className="start-lights__verb-click">{dict.clickHere}</span>
+                                    <span className="start-lights__verb-tap">{dict.tapHere}</span>
                                     {pad.title}
                                 </>
                             ) : (
@@ -365,10 +370,10 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
 
                     {showSaveForm ? (
                         <form className="start-lights__save" onSubmit={onSave}>
-                            <p className="start-lights__save-title">That&apos;s a top {LEADERBOARD_SIZE} time. Put your name on it?</p>
+                            <p className="start-lights__save-title">{fill(dict.saveTitle, { size: LEADERBOARD_SIZE })}</p>
                             <div className="start-lights__save-row">
                                 <label htmlFor="start-lights-name" className="visually-hidden">
-                                    Name
+                                    {dict.nameLabel}
                                 </label>
                                 <input
                                     id="start-lights-name"
@@ -376,7 +381,7 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
                                     value={name}
                                     onChange={(event) => setName(event.target.value)}
                                     maxLength={PLAYER_NAME_MAX_LENGTH}
-                                    placeholder="Driver name"
+                                    placeholder={dict.namePlaceholder}
                                     autoComplete="nickname"
                                     required
                                 />
@@ -385,7 +390,7 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
                                     className="guestbook-form__submit"
                                     disabled={saveState.status === "saving" || (Boolean(siteKey) && !turnstileToken)}
                                 >
-                                    {saveState.status === "saving" ? "Saving..." : "Save time"}
+                                    {saveState.status === "saving" ? dict.saving : dict.save}
                                 </button>
                             </div>
                             {siteKey ? <div ref={turnstileContainerRef} className="start-lights__turnstile" /> : null}
@@ -402,14 +407,14 @@ export default function StartLights({ initialLeaderboard }: { initialLeaderboard
 
                 <aside className="start-lights__board" aria-labelledby="start-lights-board-title">
                     <div className="start-lights__board-head">
-                        <h3 id="start-lights-board-title">Top {LEADERBOARD_SIZE}</h3>
+                        <h3 id="start-lights-board-title">{fill(dict.boardTitle, { size: LEADERBOARD_SIZE })}</h3>
                         <span className="start-lights__best">
-                            Your best <strong>{best !== null ? `${formatSeconds(best)} s` : "--"}</strong>
+                            {dict.yourBest} <strong>{best !== null ? `${formatSeconds(best)} s` : "--"}</strong>
                         </span>
                     </div>
 
                     {leaderboard.length === 0 ? (
-                        <p className="guestbook-empty">Grid&apos;s empty - first clean start takes P1.</p>
+                        <p className="guestbook-empty">{dict.emptyBoard}</p>
                     ) : (
                         <ol className="start-lights__list">
                             {leaderboard.map((entry, index) => (

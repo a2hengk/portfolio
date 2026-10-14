@@ -1,9 +1,16 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import PageIntro from "@/components/PageIntro";
+import { alternatesFor, fill } from "@/i18n/config";
+import { getDictionary, hasLocale } from "../dictionaries";
 
-export const metadata = {
-    title: "Links - Lunas",
-    description: "The best places to contact, follow, or message Lunas.",
-};
+export async function generateMetadata({ params }: PageProps<"/[lang]/links">): Promise<Metadata> {
+    const { lang } = await params;
+    if (!hasLocale(lang)) return {};
+    const dict = await getDictionary(lang);
+
+    return { ...dict.meta.links, alternates: alternatesFor(lang, "/links") };
+}
 
 type SocialId = "github" | "discord" | "instagram" | "tiktok";
 
@@ -58,7 +65,12 @@ function SocialIcon({ id }: { id: SocialId }) {
     }
 }
 
-export default function LinksPage() {
+export default async function LinksPage({ params }: PageProps<"/[lang]/links">) {
+    const { lang } = await params;
+    if (!hasLocale(lang)) notFound();
+    const dict = await getDictionary(lang);
+    const t = dict.links;
+
     const socials: {
         id: SocialId;
         name: string;
@@ -70,28 +82,28 @@ export default function LinksPage() {
             id: "github",
             name: "GitHub",
             handle: "@a2hengk",
-            category: "Code",
+            category: t.categories.github,
             href: "https://github.com/a2hengk",
         },
         {
             id: "discord",
             name: "Discord",
             handle: "@lunas3407",
-            category: "Chat",
+            category: t.categories.discord,
             href: null,
         },
         {
             id: "instagram",
             name: "Instagram",
-            handle: "Follow me here",
-            category: "Photos",
+            handle: t.followMe,
+            category: t.categories.instagram,
             href: "https://www.instagram.com/hengkevin1405?igsh=MWF2aWZmb2tqdXhuNw==",
         },
         {
             id: "tiktok",
             name: "TikTok",
-            handle: "Follow me here",
-            category: "Video",
+            handle: t.followMe,
+            category: t.categories.tiktok,
             href: "https://www.tiktok.com/@lunas.118f20?_r=1&_t=ZG-95j9qvTOsWO",
         },
     ];
@@ -100,18 +112,18 @@ export default function LinksPage() {
         <main id="top" className="route-page">
             <PageIntro
                 sector="05"
-                eyebrow="Links"
-                title="Want to reach out? Start here."
-                description="These are the best places to contact me, follow my work, or send a quick message."
+                eyebrow={t.intro.eyebrow}
+                title={t.intro.title}
+                description={t.intro.description}
             />
 
             <section className="route-section">
                 <div className="section__heading">
                     <div className="section-marker">
-                        <span className="sector-tag">Comms</span>
-                        <p className="eyebrow">Socials</p>
+                        <span className="sector-tag">{t.tag}</span>
+                        <p className="eyebrow">{t.eyebrow}</p>
                     </div>
-                    <h2>I’m happy to hear from you on whichever platform fits best.</h2>
+                    <h2>{t.title}</h2>
                 </div>
                 <div className="links-grid">
                     {socials.map((social) => {
@@ -131,7 +143,7 @@ export default function LinksPage() {
                                     ) : (
                                         <>
                                             <span className="link-card__dot" aria-hidden="true" />
-                                            DM direct
+                                            {t.dmDirect}
                                         </>
                                     )}
                                 </span>
@@ -149,7 +161,7 @@ export default function LinksPage() {
                                 {content}
                             </a>
                         ) : (
-                            <div key={social.id} className="link-card" aria-label={`${social.name}: ${social.handle}, add me directly`}>
+                            <div key={social.id} className="link-card" aria-label={fill(t.directAria, { name: social.name, handle: social.handle })}>
                                 {content}
                             </div>
                         );

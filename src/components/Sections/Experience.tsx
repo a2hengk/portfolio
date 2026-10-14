@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
+import { fill } from "@/i18n/config";
 
 // The real Nürburgring Nordschleife outline - my favorite track. ROAD_PATH
 // is traced directly from the public-domain Nürburgring track map on
@@ -44,7 +46,7 @@ const CHECKPOINTS = [
     { id: 7, corner: "Döttinger Höhe", x: 1042.0, y: 964.9 },
 ];
 
-function NordschleifeMap() {
+function NordschleifeMap({ ariaLabel, caption }: { ariaLabel: string; caption: string }) {
     // SMIL's animateMotion doesn't listen to the CSS reduced-motion
     // override used everywhere else on the site, so it's gated here.
     const [animate, setAnimate] = useState(false);
@@ -60,7 +62,7 @@ function NordschleifeMap() {
             <span className="hud-corner hud-corner--bl" aria-hidden="true" />
             <span className="hud-corner hud-corner--br" aria-hidden="true" />
 
-            <svg className="track-map__svg" viewBox="180 -20 1490 1040" role="img" aria-label="Map of the Nürburgring Nordschleife with 7 checkpoints marking my career timeline">
+            <svg className="track-map__svg" viewBox="180 -20 1490 1040" role="img" aria-label={ariaLabel}>
                 <path className="track-map__road" d={ROAD_PATH} />
                 <path className="track-map__line" d={GUIDE_PATH} />
 
@@ -85,92 +87,34 @@ function NordschleifeMap() {
                 ))}
             </svg>
 
-            <p className="track-map__caption">Nordschleife · 20.8 km · real track geometry</p>
+            <p className="track-map__caption">{caption}</p>
         </div>
     );
 }
 
-export default function ExperienceSection() {
-    const milestones = [
-        {
-            checkpoint: 1,
-            corner: "Start/Ziel",
-            year: "2022",
-            title: "Interested in IT",
-            description:
-                "I was in 9th grade when I first got interested in IT. I started doing internships at local companies to get a feel for the industry and insights into the different roles and responsibilities.",
-            tags: ["IT", "Internships", "Exploration"],
-        },
-        {
-            checkpoint: 2,
-            corner: "Hatzenbach",
-            year: "2023 - 2025",
-            title: "Tech. Highschool",
-            description:
-                "I enrolled in a tech-focused school to get more understanding and got in touch with programming and a lot more of different technologies. I also enrolled to get permission to study at a highschool.",
-            tags: ["Tech highschool", "Programming", "Exploration"],
-        },
-        {
-            checkpoint: 3,
-            corner: "Flugplatz",
-            year: "2024 - 2025",
-            title: "Side projects",
-            description:
-                "I started working on side projects to apply what I learned and to explore my interests further. I built a few projects, including a Discord bot and just small Python scripts to get a better understanding of programming.",
-            tags: ["Python", "Discord bots"],
-        },
-        {
-            checkpoint: 4,
-            corner: "Adenauer Forst",
-            year: "2025",
-            title: "Herrenknecht AG",
-            description:
-                "I applied at Herrenknecht AG as a Dual Student in the field of IT. I got accepted and started working there in July 2025.",
-            tags: ["Herrenknecht AG", "Dual Student", "IT"],
-        },
-        {
-            checkpoint: 5,
-            corner: "Bergwerk",
-            year: "2025 - 2026",
-            title: "Dual Student at Herrenknecht AG",
-            description:
-                "Alongside working at Herrenknecht AG, I was enrolled as a dual student at DHBW Karlsruhe, splitting my time between practical work and theoretical coursework.",
-            tags: ["Herrenknecht AG", "DHBW Karlsruhe", "Dual Student"],
-        },
-        {
-            checkpoint: 6,
-            corner: "Karussell",
-            year: "2026",
-            title: "Changing direction",
-            description:
-                "I left the dual-study program at DHBW Karlsruhe - splitting time between lectures and full-time work wasn't the right fit, so I looked for a path that's more hands-on.",
-            tags: ["DHBW Karlsruhe", "Course correction"],
-        },
-        {
-            checkpoint: 7,
-            corner: "Döttinger Höhe",
-            year: "Sep 2026 - 2028",
-            title: "Ausbildung: Fachinformatiker Anwendungsentwicklung",
-            description:
-                "Since 1 September 2026, I've swapped the split dual-study model for a full apprenticeship (Ausbildung) as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG - full-time and fully hands-on through 2028.",
-            tags: ["Herrenknecht AG", "Fachinformatiker Anwendungsentwicklung", "Ausbildung"],
-        },
-    ];
+export default function ExperienceSection({ dict }: { dict: Dictionary["experience"] }) {
+    // Year, title, description and tags come from the dictionary per
+    // checkpoint; the corner names are real places and stay as they are.
+    const milestones = CHECKPOINTS.map((cp) => ({
+        checkpoint: cp.id,
+        corner: cp.corner,
+        ...dict.milestones[String(cp.id) as keyof typeof dict.milestones],
+    }));
 
     return (
         <section className="route-section" id="experience-details">
             <div className="section__heading">
                 <div className="section-marker">
-                    <span className="sector-tag">Lap: Career</span>
-                    <p className="eyebrow">Experience timeline</p>
+                    <span className="sector-tag">{dict.tag}</span>
+                    <p className="eyebrow">{dict.eyebrow}</p>
                 </div>
-                <h2>The road I’ve been taking so far.</h2>
+                <h2>{dict.title}</h2>
                 <p>
-                    Laid out on my favorite circuit, the Nürburgring Nordschleife - each checkpoint below is a corner on the lap, in the real order you'd drive them.
+                    {dict.text}
                 </p>
             </div>
 
-            <NordschleifeMap />
+            <NordschleifeMap ariaLabel={dict.mapAria} caption={dict.mapCaption} />
 
             <div className="timeline">
                 {milestones.map((milestone) => (
@@ -182,7 +126,7 @@ export default function ExperienceSection() {
                         <div className="timeline__content">
                             <strong>{milestone.title}</strong>
                             <p>{milestone.description}</p>
-                            <div className="timeline__tags" aria-label={`${milestone.year} highlights`}>
+                            <div className="timeline__tags" aria-label={fill(dict.highlightsAria, { year: milestone.year })}>
                                 {milestone.tags.map((tag) => (
                                     <span key={tag}>{tag}</span>
                                 ))}

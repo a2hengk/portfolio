@@ -1,0 +1,482 @@
+{
+  "meta": {
+    "site": {
+      "title": "Lunas - FIAE",
+      "description": "Portfolio of Lunas, a Fachinformatiker für Anwendungsentwicklung (FIAE) apprentice sharing projects, skills, and what he builds in his own time."
+    },
+    "about": {
+      "title": "About - Lunas",
+      "description": "Background, stack, and skills of Lunas, a Fachinformatiker für Anwendungsentwicklung apprentice building polished web experiences."
+    },
+    "experience": {
+      "title": "Experience - Lunas",
+      "description": "A timeline of study, work, and the projects that shaped how Lunas builds today."
+    },
+    "projects": {
+      "title": "Projects - Lunas",
+      "description": "Selected builds and experiments from Lunas, and where each project currently stands."
+    },
+    "offDuty": {
+      "title": "Off Duty - Lunas",
+      "description": "The games I play and the animes I keep coming back to when I log off."
+    },
+    "guestbook": {
+      "title": "Pit Wall - Lunas",
+      "description": "Leave a message - anonymous or signed in with Discord - and see how fast you are off the line."
+    },
+    "links": {
+      "title": "Links - Lunas",
+      "description": "The best places to contact, follow, or message Lunas."
+    },
+    "uses": {
+      "title": "Uses - Lunas",
+      "description": "The software and setup behind Lunas's daily workflow."
+    },
+    "legal": {
+      "title": "Legal - Lunas",
+      "description": "Impressum and legal information."
+    }
+  },
+  "header": {
+    "brandAria": "Go to the top of the homepage",
+    "avatarAlt": "Profile picture",
+    "role": "FIAE @ Herrenknecht",
+    "menu": "Menu",
+    "close": "Close",
+    "navAria": "Primary",
+    "nav": {
+      "home": { "label": "Home", "hint": "Start of the site" },
+      "about": { "label": "About", "hint": "Who I am" },
+      "experience": { "label": "Experience", "hint": "Apprenticeship and before" },
+      "projects": { "label": "Projects", "hint": "What I've built" },
+      "offDuty": { "label": "Off Duty", "hint": "Sim racing, games, anime" },
+      "guestbook": { "label": "Pit Wall", "hint": "Leave a message, set a reaction time" },
+      "links": { "label": "Links", "hint": "Where to find me" },
+      "uses": { "label": "Uses", "hint": "My setup" }
+    },
+    "language": {
+      "label": "Language",
+      "aria": "Switch language",
+      "names": { "en": "English", "de": "Deutsch" }
+    }
+  },
+  "footer": {
+    "eyebrow": "Contact",
+    "title": "Want to say hi or build something?",
+    "text": "The quickest way to reach me is through the links page, or directly via GitHub and email.",
+    "linksAria": "Contact links",
+    "openLinks": "Open links",
+    "email": "Email",
+    "legal": "Impressum / Legal",
+    "hint": "// sector 00 dev note: ↑ ↑ ↓ ↓ ← → ← → B A unlocks something"
+  },
+  "notFound": {
+    "metaTitle": "Page not found - Lunas",
+    "title": "This page doesn't exist.",
+    "description": "The link might be outdated, or the page moved. Here are a few places to pick back up.",
+    "home": "Back to home",
+    "projects": "See projects"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Portfolio",
+      "kicker": "Hey I'm",
+      "lede": "My name is Lunas and I’m doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG. I build polished web experiences, learn from real work, and keep pushing my portfolio forward.",
+      "primaryAction": "Open experience",
+      "secondaryAction": "About me",
+      "metricsAria": "Profile metrics",
+      "metrics": {
+        "companyLabel": "At Herrenknecht",
+        "companyValue": "Since",
+        "projectsLabel": "Projects",
+        "projectsValue": "builds",
+        "focusLabel": "Focus",
+        "focusValue": "Backend"
+      },
+      "terminalAria": "Live build telemetry",
+      "terminalTitle": "Telemetry // Lights out",
+      "status": "Operational"
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "Have a project in mind or just want to say hi?",
+      "text": "The links page has the fastest ways to reach me, and the footer keeps the contact paths close on every page.",
+      "action": "View contact links"
+    }
+  },
+  "about": {
+    "intro": {
+      "eyebrow": "About",
+      "title": "A clearer view of who I am.",
+      "description": "This page shows the background, stack, and habits that shape the way I build.",
+      "primaryAction": "View experience",
+      "secondaryAction": "See projects"
+    },
+    "eyebrow": "About me",
+    "title": "The person behind the code.",
+    "description": "Heyy I'm Kevin, 19 years old, doing my Ausbildung as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG in Germany. Day to day I work in the backend team there, which I can't really show off here - so on my own time I mostly build fullstack and frontend stuff for fun, like this site.",
+    "skillsAria": "Skill overview",
+    "skillsTag": "Gearbox",
+    "skillsEyebrow": "Stack and skills",
+    "skillsTitle": "The tools and areas I work with most.",
+    "gear": "gear",
+    "toolsAria": "{title} tools",
+    "barsAria": "Most used across my builds",
+    "buildsOf": "{builds}/{of} builds",
+    "skills": {
+      "frontend": { "gear": "1st", "title": "Frontend" },
+      "backend": { "gear": "2nd", "title": "Backend" },
+      "workflow": { "gear": "3rd", "title": "Workflow" },
+      "interests": {
+        "gear": "4th",
+        "title": "Interests",
+        "tags": ["System Design", "Automation", "Game Development", "UI/UX"]
+      }
+    },
+    "offDutyEyebrow": "Beyond the code",
+    "offDutyTitle": "What I do when I log off.",
+    "offDutyText": "Outside of work I'm usually deep in Sim Racing and Motorsport, working through a rotating cast of games, or catching up on an anime.",
+    "offDutyAction": "See what I'm into off duty"
+  },
+  "experience": {
+    "intro": {
+      "eyebrow": "Experience",
+      "title": "The road I’ve been taking so far.",
+      "description": "A timeline of study, work, and the projects that shaped how I build today.",
+      "primaryAction": "Browse projects",
+      "secondaryAction": "Back to about"
+    },
+    "tag": "Lap: Career",
+    "eyebrow": "Experience timeline",
+    "title": "The road I’ve been taking so far.",
+    "text": "Laid out on my favorite circuit, the Nürburgring Nordschleife - each checkpoint below is a corner on the lap, in the real order you'd drive them.",
+    "mapAria": "Map of the Nürburgring Nordschleife with 7 checkpoints marking my career timeline",
+    "mapCaption": "Nordschleife · 20.8 km · real track geometry",
+    "highlightsAria": "{year} highlights",
+    "milestones": {
+      "1": {
+        "year": "2022",
+        "title": "Interested in IT",
+        "description": "I was in 9th grade when I first got interested in IT. I started doing internships at local companies to get a feel for the industry and insights into the different roles and responsibilities.",
+        "tags": ["IT", "Internships", "Exploration"]
+      },
+      "2": {
+        "year": "2023 - 2025",
+        "title": "Tech. Highschool",
+        "description": "I enrolled in a tech-focused school to get more understanding and got in touch with programming and a lot more of different technologies. I also enrolled to get permission to study at a highschool.",
+        "tags": ["Tech highschool", "Programming", "Exploration"]
+      },
+      "3": {
+        "year": "2024 - 2025",
+        "title": "Side projects",
+        "description": "I started working on side projects to apply what I learned and to explore my interests further. I built a few projects, including a Discord bot and just small Python scripts to get a better understanding of programming.",
+        "tags": ["Python", "Discord bots"]
+      },
+      "4": {
+        "year": "2025",
+        "title": "Herrenknecht AG",
+        "description": "I applied at Herrenknecht AG as a Dual Student in the field of IT. I got accepted and started working there in July 2025.",
+        "tags": ["Herrenknecht AG", "Dual Student", "IT"]
+      },
+      "5": {
+        "year": "2025 - 2026",
+        "title": "Dual Student at Herrenknecht AG",
+        "description": "Alongside working at Herrenknecht AG, I was enrolled as a dual student at DHBW Karlsruhe, splitting my time between practical work and theoretical coursework.",
+        "tags": ["Herrenknecht AG", "DHBW Karlsruhe", "Dual Student"]
+      },
+      "6": {
+        "year": "2026",
+        "title": "Changing direction",
+        "description": "I left the dual-study program at DHBW Karlsruhe - splitting time between lectures and full-time work wasn't the right fit, so I looked for a path that's more hands-on.",
+        "tags": ["DHBW Karlsruhe", "Course correction"]
+      },
+      "7": {
+        "year": "Sep 2026 - 2028",
+        "title": "Ausbildung: Fachinformatiker Anwendungsentwicklung",
+        "description": "Since 1 September 2026, I've swapped the split dual-study model for a full apprenticeship (Ausbildung) as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG - full-time and fully hands-on through 2028.",
+        "tags": ["Herrenknecht AG", "Fachinformatiker Anwendungsentwicklung", "Ausbildung"]
+      }
+    }
+  },
+  "projects": {
+    "intro": {
+      "eyebrow": "Projects",
+      "title": "Selected builds and the problems I like solving.",
+      "description": "A clearer look at the apps, experiments, and tools I’ve worked on or am actively shaping.",
+      "primaryAction": "Start a conversation",
+      "secondaryAction": "Open links"
+    },
+    "tag": "Sector 03",
+    "eyebrow": "Projects and builds",
+    "title": "What I'm building and where each project stands.",
+    "status": {
+      "live": "Live",
+      "progress": "In Progress",
+      "featured": "Featured"
+    },
+    "stackAria": "Project stack",
+    "repoComingSoon": "Repo coming soon",
+    "open": "Open",
+    "details": "More about this build",
+    "items": {
+      "1": {
+        "type": "Website",
+        "title": "Portfolio Platform",
+        "description": "Personal portfolio with component architecture, motion, responsive layout, and section-based storytelling.",
+        "about": "This site - built to actually learn Next.js properly instead of just reading about it, and to have something online that's mine instead of a template. Everything runs on a BMW M / racing theme, down to the small stuff.",
+        "highlights": [
+          "Hand-built BMW M livery theme and motion carried through every page, not just the homepage",
+          "Traced the real Nürburgring Nordschleife track geometry for the /experience timeline map",
+          "A couple of hidden easter eggs, including a launch-control sequence and a small race mini-game"
+        ]
+      },
+      "2": {
+        "type": "Build",
+        "title": "Pygame",
+        "description": "Creating something like Mario to learn the library and refresh my python skills. It will be open sourced once it's in a presentable state."
+      },
+      "3": {
+        "type": "Build",
+        "title": "Discord Bot",
+        "description": "My own Discord bot for running a server: ticket system, audit log, welcome messages, moderation tools and a few minigames.",
+        "about": "One of my first projects, recently rebuilt from scratch. Every feature is its own cog that gets loaded automatically, so adding something new is just dropping a file into a folder.",
+        "highlights": [
+          "Ticket panel with claim/close buttons - closed tickets get archived as a .txt transcript",
+          "Audit log for joins, leaves, deleted and edited messages, with a word-level diff for edits",
+          "Per-server settings via /config that survive restarts",
+          "Minigames like rock-paper-scissors, number guessing and a typing speed test that catches copy-paste"
+        ]
+      },
+      "4": {
+        "type": "Build",
+        "title": "Personal Blog",
+        "description": "A personal blog to share my thoughts, experiences, and projects with the world.",
+        "about": "Draft: right now this is just the Next.js + Tailwind starting point, not built out yet. The plan is a lightweight blog for writing about projects and whatever else is going on."
+      },
+      "5": {
+        "type": "Website",
+        "title": "Karteikarten App",
+        "description": "A flashcard app for creating and studying digital flashcards. Also the project for my studies at DHBW.",
+        "about": "A flashcard app for creating and studying your own cards - built as the practical project for my studies at DHBW, with a real Postgres/Drizzle backend behind it instead of just local state.",
+        "highlights": [
+          "Card overview to create, edit, and delete your own flashcard sets",
+          "Self-study mode with a flip-card animation, progress saved per card",
+          "Login/register so cards and progress follow you across devices"
+        ]
+      },
+      "6": {
+        "type": "Website",
+        "title": "LUNAS OS",
+        "description": "My personal HUD-style home dashboard for everyday life and vocational school: todos, appointments, timetable, grades and a private file storage.",
+        "about": "Built for myself first, with my vocational school (Berufsschule) as the main use case. Everything school-related hangs off its Lernfeld, so files, todos, appointments and grades for one subject live on one page. Single user, GitHub login only.",
+        "highlights": [
+          "Today view with a countdown to the next exam, a 14-day timeline and the day's timetable",
+          "Private file storage with folders and drag-and-drop - files are only served after a server-side login check",
+          "Per-subject pages with files, todos, appointments and a grade average",
+          "Todos split into school, private and work"
+        ]
+      }
+    }
+  },
+  "offDuty": {
+    "intro": {
+      "eyebrow": "Off duty",
+      "title": "What I'm into when I log off.",
+      "description": "Sim racing, a rotating cast of games, and a few animes I keep coming back to."
+    },
+    "games": {
+      "tag": "Pit lane",
+      "eyebrow": "Games I play",
+      "title": "My current rotation outside coding hours.",
+      "text": "Lately, I've been really interested in Sim Racing and Motorsport in general. I love the realism and competition that comes with it. Outside that, I enjoy playing a variety of games to unwind and have fun.",
+      "modes": {
+        "competitive": "Competitive",
+        "forFun": "For fun",
+        "survivalCreative": "Survival + Creative",
+        "chilling": "Chilling"
+      }
+    },
+    "anime": {
+      "tag": "Watchlist",
+      "eyebrow": "Animes",
+      "title": "Animes that i like",
+      "descriptions": {
+        "1": "One of the first animes I watched. Still wish the NerveGear would be available in real life.",
+        "2": "Wholesome anime about a high school boy and a girl who lives next door. The story is about how they get closer and closer to each other.",
+        "3": "Action-packed anime about a group of teenagers who fight against alien invaders."
+      }
+    }
+  },
+  "links": {
+    "intro": {
+      "eyebrow": "Links",
+      "title": "Want to reach out? Start here.",
+      "description": "These are the best places to contact me, follow my work, or send a quick message."
+    },
+    "tag": "Comms",
+    "eyebrow": "Socials",
+    "title": "I’m happy to hear from you on whichever platform fits best.",
+    "followMe": "Follow me here",
+    "dmDirect": "DM direct",
+    "directAria": "{name}: {handle}, add me directly",
+    "categories": {
+      "github": "Code",
+      "discord": "Chat",
+      "instagram": "Photos",
+      "tiktok": "Video"
+    }
+  },
+  "uses": {
+    "intro": {
+      "eyebrow": "Uses",
+      "title": "The tools and setup behind my workflow.",
+      "description": "A garage-board look at the software I keep open and the setup it runs on."
+    },
+    "garage": {
+      "tag": "Garage",
+      "eyebrow": "Live loadout",
+      "title": "What's running right now.",
+      "text": "The software that's actually open most days, ranked and read out like a dash - plus a genuinely live clock, because a garage board should tell real time.",
+      "local": "Local",
+      "session": "Session"
+    },
+    "categories": {
+      "editor": "Editor",
+      "versionControl": "Version control",
+      "devEnvironment": "Dev environment",
+      "aiPair": "AI pair",
+      "chat": "Chat",
+      "audio": "Audio",
+      "hosting": "Hosting",
+      "infra": "Infra",
+      "notes": "Notes",
+      "design": "Design"
+    },
+    "setup": {
+      "tag": "Setup",
+      "eyebrow": "Current setup",
+      "title": "The setup I actually use."
+    },
+    "clockLocale": "en-GB"
+  },
+  "legal": {
+    "intro": {
+      "eyebrow": "Legal",
+      "title": "Impressum & legal information.",
+      "description": "This is a private, non-commercial portfolio project."
+    },
+    "impressum": {
+      "eyebrow": "Impressum",
+      "title": "Site owner",
+      "contact": "Contact:"
+    },
+    "privacy": {
+      "eyebrow": "Privacy",
+      "title": "Data protection",
+      "intro": "Most of this site does not use analytics, tracking, or cookies, and does not collect any personal data. The Pit Wall guestbook is the exception - here is what it collects and why:",
+      "messagesTitle": "Guestbook messages.",
+      "messagesText": "Anything you post to the Pit Wall (your display name and message, plus your Discord name and avatar if you sign in) is stored and shown publicly on that page.",
+      "discordTitle": "Discord sign-in.",
+      "discordBefore": "Signing in with Discord is handled by Discord's own OAuth login - this site receives your Discord user ID, display name, and avatar URL, which are stored so your entry can show up as a Discord post. See",
+      "discordLink": "Discord's privacy policy",
+      "discordAfter": "for how Discord itself handles your data.",
+      "spamTitle": "Spam protection.",
+      "spamBefore": "Submitting to the Pit Wall runs a Cloudflare Turnstile check, which processes some technical signals about your browser/request to tell humans from bots - see",
+      "spamLink": "Cloudflare's privacy policy",
+      "spamAfter": ". A salted, one-way hash of your IP address is also stored for up to 24 hours to rate-limit repeated submissions; the hash cannot be reversed back into an IP address, and it is not linked to your message.",
+      "removal": "Want a guestbook entry removed? Get in touch using the contact details above."
+    },
+    "rights": {
+      "eyebrow": "Copyright",
+      "title": "Rights",
+      "text": "All content on this site is © the site owner unless otherwise stated. If you believe material on this site infringes your copyright, please get in touch using the contact details above so the issue can be resolved."
+    },
+    "back": "Back to home"
+  },
+  "guestbook": {
+    "intro": {
+      "eyebrow": "Pit Wall",
+      "title": "Leave a message on the pit wall.",
+      "description": "Anonymous or signed in with Discord - anonymous notes get a quick look before they show up here. While you're here, see how fast you are off the line."
+    },
+    "form": {
+      "tag": "Radio check",
+      "eyebrow": "Say something",
+      "title": "How does the site look from where you're sitting?",
+      "postingAs": "Posting as {name}",
+      "signOut": "Not you? Sign out",
+      "nameLabel": "Name",
+      "namePlaceholder": "Pit crew name",
+      "messageLabel": "Message",
+      "messagePlaceholder": "How's the lap looking from where you're sitting?",
+      "sending": "Sending...",
+      "submit": "Send it over the radio",
+      "discord": "Continue with Discord",
+      "postedLive": "Posted - it's live above.",
+      "postedPending": "Sent - anonymous notes get a quick look before they show up.",
+      "errors": {
+        "nameRequired": "Please enter a name.",
+        "nameTooLong": "That name is too long.",
+        "messageRequired": "Please enter a message.",
+        "messageTooLong": "That message is too long.",
+        "spamCheckMissing": "Please complete the spam check.",
+        "invalid": "Please check your message and try again.",
+        "spamCheckFailed": "Spam check failed - please try again.",
+        "rateLimited": "You're posting too quickly - try again in a few minutes."
+      }
+    },
+    "log": {
+      "tag": "Log",
+      "eyebrow": "Messages",
+      "title": "What's come through so far.",
+      "empty": "No messages yet - be the first one on the radio.",
+      "discord": "Discord",
+      "guest": "Guest",
+      "dateLocale": "en-GB"
+    },
+    "startLights": {
+      "tag": "Grid",
+      "eyebrow": "Lights out",
+      "title": "How fast are you off the line?",
+      "text": "Five reds, a random hold, then green. Your time is from green to your click - go early and it's a jump start.",
+      "clickHere": "Click here to ",
+      "tapHere": "Tap here to ",
+      "pad": {
+        "idleTitle": "start",
+        "idleSub": "then hit it again the moment the lights turn green",
+        "waitTitle": "Wait for green...",
+        "waitSub": "Lights {lit} / {total} - don't jump it",
+        "goTitle": "GO!",
+        "goSub": "now now now",
+        "jumpTitle": "Jump start",
+        "jumpEarly": "You went before green. Press again to retry.",
+        "jumpAnticipated": "Under {min} ms is guessing, not reacting. Press again to retry.",
+        "again": "Press again for another go",
+        "unranked": "Leaderboard unreachable - just for fun. Press again for another go"
+      },
+      "saveTitle": "That's a top {size} time. Put your name on it?",
+      "nameLabel": "Name",
+      "namePlaceholder": "Driver name",
+      "saving": "Saving...",
+      "save": "Save time",
+      "savedImproved": "Saved - you're on the board.",
+      "savedSlower": "That name already has a faster time saved, so that one stays.",
+      "boardTitle": "Top {size}",
+      "yourBest": "Your best",
+      "emptyBoard": "Grid's empty - first clean start takes P1.",
+      "errors": {
+        "jumpStart": "That was a jump start.",
+        "tooSlow": "Too slow for the leaderboard.",
+        "nameRequired": "Please enter a name.",
+        "nameTooLong": "That name is too long.",
+        "nameInvalid": "Letters, numbers, spaces, . _ - only.",
+        "spamCheckMissing": "Please complete the spam check.",
+        "invalid": "Couldn't save that run.",
+        "runExpired": "This run expired - do another one.",
+        "runInvalid": "That run doesn't add up.",
+        "spamCheckFailed": "Spam check failed - please try again.",
+        "rateLimited": "Easy - wait a few seconds before saving again."
+      }
+    }
+  }
+}

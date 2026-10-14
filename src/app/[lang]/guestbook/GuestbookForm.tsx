@@ -5,10 +5,12 @@ import Script from "next/script";
 import { authClient } from "@/lib/auth-client";
 import { submitEntry, type SubmitEntryState } from "./actions";
 import { DISPLAY_NAME_MAX_LENGTH, MESSAGE_MAX_LENGTH } from "@/lib/guestbook-constants";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
+import { fill, localizedHref, type Locale } from "@/i18n/config";
 
 const initialState: SubmitEntryState = {};
 
-export default function GuestbookForm() {
+export default function GuestbookForm({ lang, dict }: { lang: Locale; dict: Dictionary["guestbook"]["form"] }) {
     const { data: session } = authClient.useSession();
     const [state, formAction, isSubmitting] = useActionState(submitEntry, initialState);
     const formRef = useRef<HTMLFormElement>(null);
@@ -23,6 +25,10 @@ export default function GuestbookForm() {
     }, [state.success]);
 
     const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+    // The action returns an error key, translated here.
+    const errorText = state.error
+        ? (dict.errors as Record<string, string>)[state.error] ?? dict.errors.invalid
+        : null;
 
     return (
         <form ref={formRef} action={formAction} className="guestbook-form">
@@ -34,9 +40,9 @@ export default function GuestbookForm() {
                         <img src={session.user.image} alt="" className="guestbook-form__avatar" />
                     ) : null}
                     <div>
-                        <strong>Posting as {session.user.name}</strong>
+                        <strong>{fill(dict.postingAs, { name: session.user.name })}</strong>
                         <button type="button" className="guestbook-form__signout" onClick={() => authClient.signOut()}>
-                            Not you? Sign out
+                            {dict.signOut}
                         </button>
                     </div>
                 </div>
@@ -46,13 +52,13 @@ export default function GuestbookForm() {
                 // nothing - most visitors aren't signed in, and this avoids a
                 // form that's briefly missing its name field on first paint.
                 <div className="guestbook-form__field">
-                    <label htmlFor="displayName">Name</label>
+                    <label htmlFor="displayName">{dict.nameLabel}</label>
                     <input
                         id="displayName"
                         name="displayName"
                         type="text"
                         maxLength={DISPLAY_NAME_MAX_LENGTH}
-                        placeholder="Pit crew name"
+                        placeholder={dict.namePlaceholder}
                         required
                         className="guestbook-input"
                     />
@@ -60,12 +66,12 @@ export default function GuestbookForm() {
             )}
 
             <div className="guestbook-form__field">
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message">{dict.messageLabel}</label>
                 <textarea
                     id="message"
                     name="message"
                     maxLength={MESSAGE_MAX_LENGTH}
-                    placeholder="How's the lap looking from where you're sitting?"
+                    placeholder={dict.messagePlaceholder}
                     required
                     rows={4}
                     className="guestbook-textarea"
@@ -76,25 +82,25 @@ export default function GuestbookForm() {
 
             <div className="guestbook-form__actions">
                 <button type="submit" className="guestbook-form__submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Sending..." : "Send it over the radio"}
+                    {isSubmitting ? dict.sending : dict.submit}
                 </button>
                 {!session ? (
                     <button
                         type="button"
                         className="guestbook-form__discord"
-                        onClick={() => authClient.signIn.social({ provider: "discord", callbackURL: "/guestbook" })}
+                        onClick={() =>
+                            authClient.signIn.social({ provider: "discord", callbackURL: localizedHref(lang, "/guestbook") })
+                        }
                     >
-                        Continue with Discord
+                        {dict.discord}
                     </button>
                 ) : null}
             </div>
 
-            {state.error ? <p className="guestbook-form__error">{state.error}</p> : null}
+            {errorText ? <p className="guestbook-form__error">{errorText}</p> : null}
             {state.success ? (
                 <p className="guestbook-form__success">
-                    {session
-                        ? "Posted - it's live above."
-                        : "Sent - anonymous notes get a quick look before they show up."}
+                    {session ? dict.postedLive : dict.postedPending}
                 </p>
             ) : null}
         </form>

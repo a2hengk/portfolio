@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
 
 type SoftwareItem = {
     name: string;
-    category: string;
+    // Key into the dictionary's uses.categories.
+    category: keyof Dictionary["uses"]["categories"];
     load: number;
 };
 
@@ -20,16 +22,16 @@ type SetupPart = {
 // in), just an honest ordering by feel, styled like a dash so it fits the
 // rest of the site.
 const SOFTWARE: SoftwareItem[] = [
-    { name: "VS Code", category: "Editor", load: 96 },
-    { name: "GitHub", category: "Version control", load: 90 },
-    { name: "WSL2", category: "Dev environment", load: 85 },
-    { name: "Copilot", category: "AI pair", load: 80 },
-    { name: "Discord", category: "Chat", load: 74 },
-    { name: "Spotify", category: "Audio", load: 69 },
-    { name: "Vercel", category: "Hosting", load: 61 },
-    { name: "Cloudflare", category: "Infra", load: 54 },
-    { name: "Notion", category: "Notes", load: 46 },
-    { name: "Canva", category: "Design", load: 33 },
+    { name: "VS Code", category: "editor", load: 96 },
+    { name: "GitHub", category: "versionControl", load: 90 },
+    { name: "WSL2", category: "devEnvironment", load: 85 },
+    { name: "Copilot", category: "aiPair", load: 80 },
+    { name: "Discord", category: "chat", load: 74 },
+    { name: "Spotify", category: "audio", load: 69 },
+    { name: "Vercel", category: "hosting", load: 61 },
+    { name: "Cloudflare", category: "infra", load: 54 },
+    { name: "Notion", category: "notes", load: 46 },
+    { name: "Canva", category: "design", load: 33 },
 ];
 
 const SETUP: SetupPart[] = [
@@ -125,11 +127,11 @@ function SetupIcon({ id }: { id: SetupPart["id"] }) {
     }
 }
 
-function formatClock(date: Date | null) {
+function formatClock(date: Date | null, locale: string) {
     if (!date) {
         return "--:--:--";
     }
-    return date.toLocaleTimeString("en-GB", { hour12: false });
+    return date.toLocaleTimeString(locale, { hour12: false });
 }
 
 function formatSession(totalSeconds: number) {
@@ -158,7 +160,7 @@ function useGarageClock() {
     return { now, sessionSeconds };
 }
 
-export default function UsesSection() {
+export default function UsesSection({ dict }: { dict: Dictionary["uses"] }) {
     const { now, sessionSeconds } = useGarageClock();
 
     return (
@@ -171,24 +173,24 @@ export default function UsesSection() {
 
                 <div className="section__heading">
                     <div className="section-marker">
-                        <span className="sector-tag">Garage</span>
-                        <p className="eyebrow">Live loadout</p>
+                        <span className="sector-tag">{dict.garage.tag}</span>
+                        <p className="eyebrow">{dict.garage.eyebrow}</p>
                     </div>
-                    <h2>What&apos;s running right now.</h2>
+                    <h2>{dict.garage.title}</h2>
                     <p>
-                        The software that&apos;s actually open most days, ranked and read out like a dash - plus a genuinely live clock, because a garage board should tell real time.
+                        {dict.garage.text}
                     </p>
                 </div>
 
                 <div className="garage-readout" role="status" aria-live="off">
                     <span className="garage-readout__dot" aria-hidden="true" />
                     <span className="garage-readout__item">
-                        <span className="garage-readout__label">Local</span>
-                        {formatClock(now)}
+                        <span className="garage-readout__label">{dict.garage.local}</span>
+                        {formatClock(now, dict.clockLocale)}
                     </span>
                     <span className="garage-readout__sep" aria-hidden="true" />
                     <span className="garage-readout__item">
-                        <span className="garage-readout__label">Session</span>
+                        <span className="garage-readout__label">{dict.garage.session}</span>
                         {formatSession(sessionSeconds)}
                     </span>
                 </div>
@@ -198,7 +200,7 @@ export default function UsesSection() {
                         <div key={item.name} className="software-card">
                             <div className="software-card__top">
                                 <strong>{item.name}</strong>
-                                <span className="software-card__category">{item.category}</span>
+                                <span className="software-card__category">{dict.categories[item.category]}</span>
                             </div>
                             <div className="software-card__meter">
                                 <div className="software-card__track">
@@ -214,10 +216,10 @@ export default function UsesSection() {
             <section className="route-section">
                 <div className="section__heading">
                     <div className="section-marker">
-                        <span className="sector-tag">Setup</span>
-                        <p className="eyebrow">Current setup</p>
+                        <span className="sector-tag">{dict.setup.tag}</span>
+                        <p className="eyebrow">{dict.setup.eyebrow}</p>
                     </div>
-                    <h2>The setup I actually use.</h2>
+                    <h2>{dict.setup.title}</h2>
                 </div>
                 <div className="setup-grid">
                     {SETUP.map((part) => (

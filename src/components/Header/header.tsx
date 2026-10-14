@@ -4,25 +4,32 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { Dictionary } from "@/app/[lang]/dictionaries";
+import { locales, localizedHref, stripLocale, type Locale } from "@/i18n/config";
 import styles from "./header.module.css";
 
+// Labels and hints come from the dictionary, keyed by `key`.
 const navItems = [
-    { href: "/", label: "Home", hint: "Start of the site" },
-    { href: "/about", label: "About", hint: "Who I am" },
-    { href: "/experience", label: "Experience", hint: "Apprenticeship and before" },
-    { href: "/projects", label: "Projects", hint: "What I've built" },
-    { href: "/off-duty", label: "Off Duty", hint: "Sim racing, games, anime" },
-    { href: "/guestbook", label: "Pit Wall", hint: "Leave a message, set a reaction time" },
-    { href: "/links", label: "Links", hint: "Where to find me" },
-    { href: "/uses", label: "Uses", hint: "My setup" },
-];
+    { href: "/", key: "home" },
+    { href: "/about", key: "about" },
+    { href: "/experience", key: "experience" },
+    { href: "/projects", key: "projects" },
+    { href: "/off-duty", key: "offDuty" },
+    { href: "/guestbook", key: "guestbook" },
+    { href: "/links", key: "links" },
+    { href: "/uses", key: "uses" },
+] as const;
 
-export default function Header() {
+export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary["header"] }) {
     const pathname = usePathname();
+    // Path without the /en or /de prefix - used for the active link and
+    // so the language switch stays on the same page (/en/about <-> /de/about).
+    const basePath = stripLocale(pathname);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+    const langRefs = useRef<(HTMLAnchorElement | null)[]>([]);
     // Easter egg: 5 clicks on the brand within ~1.6s fires launch control
     // instead of navigating home. Header lives outside <main> in the root
     // layout, so it never remounts between routes and this ref survives
@@ -60,9 +67,9 @@ export default function Header() {
             return;
         }
 
-        const activeIndex = navItems.findIndex((item) => item.href === pathname);
+        const activeIndex = navItems.findIndex((item) => item.href === basePath);
         linkRefs.current[activeIndex >= 0 ? activeIndex : 0]?.focus();
-    }, [isMenuOpen, pathname]);
+    }, [isMenuOpen, basePath]);
 
     // Click or tap outside the header closes the menu.
     useEffect(() => {
@@ -95,7 +102,12 @@ export default function Header() {
         }
 
         const links = linkRefs.current.filter((link): link is HTMLAnchorElement => link !== null);
-        const focusables: HTMLElement[] = buttonRef.current ? [buttonRef.current, ...links] : [...links];
+        const langLinks = langRefs.current.filter((link): link is HTMLAnchorElement => link !== null);
+        // The language links sit after the nav, so Tab still cycles through
+        // everything inside the open menu.
+        const focusables: HTMLElement[] = buttonRef.current
+            ? [buttonRef.current, ...links, ...langLinks]
+            : [...links, ...langLinks];
         const currentIndex = focusables.indexOf(document.activeElement as HTMLElement);
 
         if (event.key === "Tab") {
@@ -128,10 +140,10 @@ export default function Header() {
     return (
         <header ref={headerRef} className={styles.header} onKeyDown={handleKeyDown}>
             <div className={styles.inner}>
-                <Link className={styles.brand} href="/" aria-label="Go to the top of the homepage" onClick={handleBrandClick}>
+                <Link className={styles.brand} href={localizedHref(lang, "/")} aria-label={dict.brandAria} onClick={handleBrandClick}>
                     <Image
                         src="/profil.png"
-                        alt="Profile picture"
+                        alt={dict.avatarAlt}
                         width={56}
                         height={56}
                         priority
@@ -139,7 +151,7 @@ export default function Header() {
                     />
                     <span>
                         <strong>Lunas</strong>
-                        <small>FIAE @ Herrenknecht</small>
+                        <small>{dict.role}</small>
                     </span>
                 </Link>
 
@@ -151,16 +163,17 @@ export default function Header() {
                     aria-controls="primary-navigation"
                     onClick={() => setIsMenuOpen((current) => !current)}
                 >
-                    <span>{isMenuOpen ? "Close" : "Menu"}</span>
+                    <span>{isMenuOpen ? dict.close : dict.menu}</span>
                     <span aria-hidden="true" className={`${styles.menuButtonIcon} ${isMenuOpen ? styles.menuButtonIconOpen : ""}`} />
                 </button>
             </div>
 
             <div className={`${styles.panel} ${isMenuOpen ? styles.panelOpen : ""}`} hidden={!isMenuOpen}>
                 <span className={styles.panelStripe} aria-hidden="true" />
-                <nav id="primary-navigation" className={styles.nav} aria-label="Primary">
+                <nav id="primary-navigation" className={styles.nav} aria-label={dict.navAria}>
                     {navItems.map((item, index) => {
-                        const isActive = pathname === item.href;
+                        const isActive = basePath === item.href;
+                        const copy = dict.nav[item.key];
 
                         return (
                             <Link
@@ -168,17 +181,42 @@ export default function Header() {
                                 ref={(element) => {
                                     linkRefs.current[index] = element;
                                 }}
-                                href={item.href}
+                                href={localizedHref(lang, item.href)}
                                 aria-current={isActive ? "page" : undefined}
                                 className={`${styles.navLink} ${isActive ? styles.navLinkActive : ""}`}
                                 onClick={() => closeMenu(false)}
                             >
-                                <span className={styles.navLabel}>{item.label}</span>
-                                <span className={styles.navHint}>{item.hint}</span>
+                                <span className={styles.navLabel}>{copy.label}</span>
+                                <span className={styles.navHint}>{copy.hint}</span>
                             </Link>
                         );
                     })}
                 </nav>
+
+                <div className={styles.language} role="group" aria-label={dict.language.aria}>
+                    <span className={styles.languageLabel}>{dict.language.label}</span>
+                    {locales.map((locale, index) => {
+                        const isCurrent = locale === lang;
+
+                        return (
+                            <Link
+                                key={locale}
+                                ref={(element) => {
+                                    langRefs.current[index] = element;
+                                }}
+                                href={localizedHref(locale, basePath)}
+                                hrefLang={locale}
+                                lang={locale}
+                                aria-current={isCurrent ? "true" : undefined}
+                                aria-label={dict.language.names[locale]}
+                                className={`${styles.languageLink} ${isCurrent ? styles.languageLinkActive : ""}`}
+                                onClick={() => closeMenu(false)}
+                            >
+                                {locale.toUpperCase()}
+                            </Link>
+                        );
+                    })}
+                </div>
             </div>
         </header>
     );
