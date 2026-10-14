@@ -2295,6 +2295,12 @@ main {
         padding: 44px 0;
     }
 
+    /* On phones the corner stripes of a content section run into its
+       heading; only the hero keeps them there. */
+    .section .livery-stripe {
+        display: none;
+    }
+
     .hero {
         padding: 20px 0 44px;
     }
