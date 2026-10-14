@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type PointerEvent } from "react";
-import { startRun, submitTime } from "@/app/off-duty/actions";
+import { startRun, submitTime } from "@/app/guestbook/reaction-actions";
 import type { LeaderboardEntry } from "@/lib/reaction-leaderboard";
 import {
     FIRST_LIGHT_DELAY_MS,

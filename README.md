@@ -8,8 +8,8 @@ Personal portfolio, built to learn Next.js properly and to have something online
 - **About** — background, skills ("gearbox")
 - **Experience** — timeline laid out on a traced Nürburgring Nordschleife map
 - **Projects** — builds and where each one stands, with expandable details
-- **Guestbook ("Pit Wall")** — visitors leave a message, anonymously or signed in with Discord
-- **Off Duty** — games, anime, and a start-lights reaction test with a top 5 leaderboard
+- **Guestbook ("Pit Wall")** — visitors leave a message, anonymously or signed in with Discord, and can set a time in the start-lights reaction test (top 5 leaderboard)
+- **Off Duty** — games and anime
 - **Links**, **Uses**, **Legal**
 
 ## Tech stack
@@ -31,7 +31,7 @@ The one part of this site with a real backend. Visitors can leave a note either 
 
 ## Start lights
 
-Reaction test on `/off-duty`: five reds come on one per second, hold for a random 0.5–3s, then go green. The time from green to the press is the score; pressing early (or under 100 ms) is a jump start.
+Reaction test on the Pit Wall (`/guestbook`): five reds come on one per second, hold for a random 0.5–3s, then go green. The time from green to the press is the score; pressing early (or under 100 ms) is a jump start.
 
 - **Measuring**: input is read on `pointerdown`/`keydown` using `event.timeStamp`, and green is set directly on the DOM inside `requestAnimationFrame`, so React rendering isn't part of the measured time.
 - **Leaderboard**: one row per (case-insensitive) name, only replaced by a faster time; the page shows the top 5. Saving needs Turnstile and is rate-limited per hashed IP (same scheme as the guestbook, separate table). Names go live without review — the top 20 are listed with a delete button on `/guestbook/admin`.

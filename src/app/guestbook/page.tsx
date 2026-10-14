@@ -3,14 +3,26 @@ import PageIntro from "@/components/PageIntro";
 import { db } from "@/db";
 import { guestbookEntries } from "@/db/schema";
 import { GUESTBOOK_ENTRIES_LIMIT } from "@/lib/guestbook-constants";
+import StartLights from "@/components/Sections/StartLights";
+import { getLeaderboard, type LeaderboardEntry } from "@/lib/reaction-leaderboard";
 import GuestbookForm from "./GuestbookForm";
 
 export const metadata = {
     title: "Pit Wall - Lunas",
-    description: "Leave a message - anonymous or signed in with Discord.",
+    description: "Leave a message - anonymous or signed in with Discord - and see how fast you are off the line.",
 };
 
 export const dynamic = "force-dynamic";
+
+async function loadLeaderboard(): Promise<LeaderboardEntry[]> {
+    try {
+        return await getLeaderboard();
+    } catch {
+        // A leaderboard hiccup shouldn't take the guestbook down with it -
+        // the game still runs, it just starts with an empty board.
+        return [];
+    }
+}
 
 export default async function GuestbookPage() {
     const entries = await db
@@ -19,6 +31,7 @@ export default async function GuestbookPage() {
         .where(eq(guestbookEntries.status, "approved"))
         .orderBy(desc(guestbookEntries.createdAt))
         .limit(GUESTBOOK_ENTRIES_LIMIT);
+    const leaderboard = await loadLeaderboard();
 
     return (
         <main id="top" className="route-page">
@@ -26,7 +39,7 @@ export default async function GuestbookPage() {
                 sector="07"
                 eyebrow="Pit Wall"
                 title="Leave a message on the pit wall."
-                description="Anonymous or signed in with Discord - anonymous notes get a quick look before they show up here."
+                description="Anonymous or signed in with Discord - anonymous notes get a quick look before they show up here. While you're here, see how fast you are off the line."
             />
 
             <section className="route-section">
@@ -39,6 +52,8 @@ export default async function GuestbookPage() {
                 </div>
                 <GuestbookForm />
             </section>
+
+            <StartLights initialLeaderboard={leaderboard} />
 
             <section className="route-section">
                 <div className="section__heading">

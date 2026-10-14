@@ -104,7 +104,7 @@ export async function submitTime(input: {
         })
         .returning({ id: reactionScores.id });
 
-    revalidatePath("/off-duty");
+    revalidatePath("/guestbook");
 
     return { ok: true, improved: saved.length > 0, leaderboard: await getLeaderboard() };
 }
@@ -121,6 +121,6 @@ export async function deleteReactionScore(formData: FormData): Promise<void> {
     }
 
     await db.delete(reactionScores).where(eq(reactionScores.id, id));
-    revalidatePath("/off-duty");
+    revalidatePath("/guestbook");
     revalidatePath("/guestbook/admin");
 }

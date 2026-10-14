@@ -125,7 +125,7 @@ export const guestbookRateLimits = pgTable("guestbook_rate_limits", {
     lastSubmittedAt: timestamp("last_submitted_at").notNull().defaultNow(),
 });
 
-// --- start lights (reaction game on /off-duty) ---------------------------
+// --- start lights (reaction game on the pit wall, /guestbook) -------------
 
 // One row per name: a new run only replaces the stored time when it's
 // faster, so the top 5 can't be filled by the same person five times.
