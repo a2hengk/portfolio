@@ -53,7 +53,7 @@ const projects: Project[] = [
     {
         id: "4",
         status: "progress",
-        tags: ["Next.js", "Markdown", "Static Site Generation"],
+        tags: ["Next.js", "TypeScript", "Postgres", "Drizzle", "Better Auth", "Vercel Blob"],
         github: "https://github.com/a2hengk/Lunair",
     },
     {
