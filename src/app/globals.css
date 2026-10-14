@@ -24,7 +24,10 @@
     --neon-cyan: var(--m-blue-light);
     --neon-cyan-soft: rgba(79, 195, 247, 0.5);
     --grid-line: rgba(79, 195, 247, 0.07);
-    --content-width: 1120px;
+    /* Full-width layout: content spans the viewport with a fluid side
+       gutter, capped only on very wide screens. Was a 1120px column. */
+    --content-width: 1680px;
+    --gutter: clamp(20px, 4.5vw, 88px);
     --font-display: var(--font-cormorant), "Georgia", serif;
     --font-body: "Avenir Next", "Trebuchet MS", sans-serif;
     --font-tech: var(--font-big-shoulders), "Arial Narrow", sans-serif;
@@ -229,40 +232,29 @@ a {
 }
 
 main {
-    width: min(calc(100% - 32px), var(--content-width));
+    width: min(100%, var(--content-width));
     margin: 0 auto;
-    padding: 24px 0 72px;
+    padding: 24px var(--gutter) 72px;
+    /* Sections no longer clip their own decorations (the card wrapper is
+       gone), so stripes and circuit lines are clipped here, at main's
+       outer edge, which is the viewport edge below the content cap. */
+    overflow-x: clip;
     animation: fadeIn 400ms ease-out;
 }
 
 .hero,
 .section,
 .section--contact {
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
-    backdrop-filter: blur(18px);
-    box-shadow: var(--shadow);
-    border-radius: 28px;
+    /* No card: sections sit directly on the page and are separated by a
+       hairline + spacing, so the content can use the full width. */
     position: relative;
-    overflow: hidden;
-}
-
-.hero::before,
-.section::before,
-.section--contact::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(63, 140, 232, 0.1), transparent 28%, transparent 72%, rgba(108, 140, 245, 0.08));
-    pointer-events: none;
 }
 
 .hero {
     display: grid;
     grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.9fr);
-    gap: 32px;
-    padding: 56px;
-    margin-top: 28px;
+    gap: 48px;
+    padding: 48px 0 72px;
     align-items: center;
     animation: fadeInUp 800ms ease-out;
 }
@@ -350,6 +342,7 @@ main {
 .project-card p,
 .anime-list span {
     color: var(--muted);
+    max-width: 72ch;
     line-height: 1.7;
     font-size: 1.02rem;
 }
@@ -680,7 +673,9 @@ main {
    both). Decorative only - never a status color. */
 .livery-stripe {
     position: absolute;
-    right: -70px;
+    /* Anchored past the page gutter so the stripes run off the right edge
+       of the viewport now that sections have no card corner to sit in. */
+    right: calc(-1 * var(--gutter) - 70px);
     width: 220px;
     height: 9px;
     transform: rotate(45deg);
@@ -760,8 +755,8 @@ main {
 
 .section,
 .section--contact {
-    margin-top: 24px;
-    padding: 36px 40px;
+    padding: 72px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     animation: fadeInUp 600ms ease-out backwards;
 }
 
@@ -825,7 +820,7 @@ main {
 
 .skill-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
     gap: 12px;
 }
 
@@ -1366,13 +1361,11 @@ main {
 }
 
 .route-section {
+    /* Same as .section: no card, just a hairline and spacing. */
     display: grid;
     gap: 18px;
-    padding: 34px 38px;
-    border-radius: 28px;
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-    box-shadow: var(--shadow);
+    padding: 64px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     animation: fadeInUp 650ms ease-out backwards;
 }
 
@@ -1820,7 +1813,7 @@ main {
 .links-grid {
     display: grid;
     gap: 14px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
 }
 
 .link-card {
@@ -1910,7 +1903,7 @@ main {
 .uses-grid {
     display: grid;
     gap: 18px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
 }
 
 .uses-card {
@@ -2052,7 +2045,7 @@ main {
 .setup-grid {
     display: grid;
     gap: 14px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
 }
 
 .setup-card {
@@ -2209,7 +2202,7 @@ main {
 }
 
 .site-footer {
-    width: min(calc(100% - 32px), var(--content-width));
+    width: min(calc(100% - 2 * var(--gutter)), var(--content-width));
     margin: 18px auto 24px;
     padding: 18px 0 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -2276,12 +2269,12 @@ main {
     }
 
     .hero {
-        padding: 36px;
+        padding: 32px 0 56px;
     }
 
     .section,
     .section--contact {
-        padding: 28px;
+        padding: 56px 0;
     }
 
     .hero h1 {
@@ -2295,18 +2288,20 @@ main {
 
 @media (max-width: 720px) {
     main {
-        width: min(calc(100% - 20px), var(--content-width));
         padding-top: 14px;
     }
 
+    .route-section {
+        padding: 44px 0;
+    }
+
     .hero {
-        padding: 26px;
-        margin-top: 18px;
+        padding: 20px 0 44px;
     }
 
     .section,
     .section--contact {
-        padding: 22px;
+        padding: 44px 0;
     }
 
     .hero__actions {
@@ -2326,7 +2321,6 @@ main {
     }
 
     .site-footer {
-        width: min(calc(100% - 20px), var(--content-width));
         margin-bottom: 18px;
     }
 
@@ -2489,7 +2483,7 @@ main {
 .guestbook-entries {
     display: grid;
     gap: 14px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
 }
 
 .guestbook-entry {
