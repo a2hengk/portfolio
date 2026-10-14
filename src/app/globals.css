@@ -2609,3 +2609,367 @@ main {
         flex-direction: column;
     }
 }
+/* Start lights (reaction game on /off-duty). The gantry is one big button:
+   five pods, two lamps each like the real F1 gantry. Reds are driven by
+   .is-lit from React; green is driven by [data-phase="green"], which the
+   component also sets directly on the DOM so the paint isn't waiting on a
+   React render. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.start-lights__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.start-lights__stage {
+    display: grid;
+    gap: 16px;
+}
+
+.start-lights__gantry {
+    --lamp-off: #161a22;
+    --lamp-red: var(--m-red);
+    --lamp-green: #2fe07f;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(8px, 2vw, 16px);
+    width: 100%;
+    padding: 30px clamp(14px, 3vw, 28px) 22px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 6px),
+        linear-gradient(180deg, #10141c, #07090d);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), var(--shadow);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    font: inherit;
+    color: inherit;
+}
+
+/* Overhead rail the pods hang from. */
+.start-lights__gantry::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--m-blue-light), var(--m-blue-dark) 40%, var(--m-red) 75%, var(--m-white));
+    opacity: 0.55;
+}
+
+.start-lights__pod {
+    display: grid;
+    gap: clamp(6px, 1.4vw, 12px);
+    justify-items: center;
+    padding: clamp(8px, 1.6vw, 14px) 0;
+    border-radius: 14px;
+    background: #0b0d12;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.start-lights__lamp {
+    width: min(100%, 56px);
+    max-width: 72%;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, #262b35, var(--lamp-off) 70%);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.7);
+    transition: background 60ms linear, box-shadow 60ms linear;
+}
+
+.start-lights__pod.is-lit .start-lights__lamp {
+    background: radial-gradient(circle at 35% 30%, #ff8a80, var(--lamp-red) 55%, #8f0f08);
+    box-shadow: 0 0 22px rgba(226, 35, 26, 0.75), 0 0 4px rgba(255, 138, 128, 0.9) inset;
+}
+
+/* No transition into green - it has to appear in the very next frame. */
+.start-lights__gantry[data-phase="green"] .start-lights__lamp {
+    transition: none;
+    background: radial-gradient(circle at 35% 30%, #b8ffd3, var(--lamp-green) 55%, #0d7a3c);
+    box-shadow: 0 0 26px rgba(47, 224, 127, 0.75), 0 0 4px rgba(184, 255, 211, 0.9) inset;
+}
+
+.start-lights__gantry[data-phase="jumpstart"] {
+    border-color: rgba(226, 35, 26, 0.55);
+}
+
+/* The big "press here" pad. Same data-phase trick as the gantry: green is
+   set on the DOM in the same frame as the lights. */
+.start-lights__pad {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    width: 100%;
+    min-height: 104px;
+    padding: 16px 18px;
+    border-radius: 22px;
+    border: 2px dashed rgba(79, 195, 247, 0.55);
+    background: linear-gradient(180deg, rgba(79, 195, 247, 0.14), rgba(47, 111, 209, 0.08));
+    color: var(--text);
+    font: inherit;
+    text-align: center;
+    align-content: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.start-lights__pad:hover {
+    border-color: var(--m-blue-light);
+}
+
+.start-lights__pad:active {
+    transform: scale(0.99);
+}
+
+.start-lights__pad:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 4px;
+}
+
+.start-lights__pad-icon {
+    display: inline-flex;
+    color: var(--m-blue-light);
+}
+
+.start-lights__pad-title {
+    font-family: var(--font-tech);
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+}
+
+.start-lights__pad-sub {
+    color: var(--muted);
+    font-size: 0.84rem;
+    max-width: 46ch;
+}
+
+/* "Click" for mouse users, "Tap" on touch screens. */
+.start-lights__verb-tap {
+    display: none;
+}
+
+@media (hover: none) {
+    .start-lights__verb-click {
+        display: none;
+    }
+
+    .start-lights__verb-tap {
+        display: inline;
+    }
+}
+
+/* Idle: a slow pulse so it reads as "press me" without any text. */
+.start-lights__pad[data-phase="idle"] {
+    animation: startLightsPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes startLightsPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.35);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(79, 195, 247, 0);
+    }
+}
+
+.start-lights__pad[data-phase="arming"],
+.start-lights__pad[data-phase="lights"] {
+    border-style: solid;
+    border-color: rgba(226, 35, 26, 0.45);
+    background: linear-gradient(180deg, rgba(226, 35, 26, 0.12), rgba(226, 35, 26, 0.04));
+}
+
+.start-lights__pad[data-phase="arming"] .start-lights__pad-icon,
+.start-lights__pad[data-phase="lights"] .start-lights__pad-icon {
+    color: var(--m-red);
+}
+
+.start-lights__pad[data-phase="green"] {
+    transition: none;
+    border-style: solid;
+    border-color: #2fe07f;
+    background: linear-gradient(180deg, rgba(47, 224, 127, 0.4), rgba(47, 224, 127, 0.18));
+}
+
+.start-lights__pad[data-phase="green"] .start-lights__pad-icon,
+.start-lights__pad[data-phase="green"] .start-lights__pad-title {
+    color: #b8ffd3;
+}
+
+.start-lights__pad[data-phase="result"] {
+    border-style: solid;
+    border-color: rgba(111, 227, 171, 0.45);
+    background: linear-gradient(180deg, rgba(111, 227, 171, 0.12), rgba(111, 227, 171, 0.04));
+}
+
+.start-lights__pad[data-phase="result"] .start-lights__pad-title,
+.start-lights__pad[data-phase="result"] .start-lights__pad-icon {
+    color: var(--racing-green);
+}
+
+.start-lights__pad[data-phase="jumpstart"] {
+    border-style: solid;
+    border-color: rgba(226, 35, 26, 0.65);
+    background: linear-gradient(180deg, rgba(226, 35, 26, 0.2), rgba(226, 35, 26, 0.08));
+}
+
+.start-lights__pad[data-phase="jumpstart"] .start-lights__pad-title,
+.start-lights__pad[data-phase="jumpstart"] .start-lights__pad-icon {
+    color: var(--m-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .start-lights__pad[data-phase="idle"] {
+        animation: none;
+    }
+}
+
+.start-lights__save {
+    display: grid;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(111, 227, 171, 0.06);
+    border: 1px solid rgba(111, 227, 171, 0.3);
+}
+
+.start-lights__save-title {
+    margin: 0;
+    font-weight: 700;
+}
+
+.start-lights__save-row {
+    display: flex;
+    gap: 10px;
+}
+
+.start-lights__save-row .guestbook-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.start-lights__save-row .guestbook-form__submit {
+    padding: 12px 18px;
+    white-space: nowrap;
+}
+
+.start-lights__board {
+    display: grid;
+    gap: 14px;
+    padding: 20px;
+    border-radius: 22px;
+    background: rgba(10, 14, 22, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.start-lights__board-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.start-lights__board-head h3 {
+    margin: 0;
+    font-family: var(--font-tech);
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.start-lights__best {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.start-lights__best strong {
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+
+.start-lights__list {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.start-lights__row {
+    display: grid;
+    grid-template-columns: 3ch minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+}
+
+.start-lights__row:first-child .start-lights__pos {
+    color: var(--racing-amber);
+}
+
+.start-lights__row.is-you {
+    border-color: rgba(111, 227, 171, 0.45);
+    background: rgba(111, 227, 171, 0.08);
+}
+
+.start-lights__pos {
+    font-family: var(--font-tech);
+    font-weight: 800;
+    color: var(--accent-soft);
+}
+
+.start-lights__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.start-lights__time {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 980px) {
+    .start-lights__layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .start-lights__save-row {
+        flex-direction: column;
+    }
+}

@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, varchar, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, varchar, index, integer } from "drizzle-orm/pg-core";
 
 // --- better-auth tables -----------------------------------------------
 // Generated from src/lib/auth.ts via `npx @better-auth/cli generate` and
@@ -121,6 +121,36 @@ export const guestbookEntries = pgTable("guestbook_entries", {
 // hashed IP can be deleted after 24h without touching the entries
 // themselves (see src/lib/rate-limit.ts for the lazy-cleanup query).
 export const guestbookRateLimits = pgTable("guestbook_rate_limits", {
+    ipHash: text("ip_hash").primaryKey(),
+    lastSubmittedAt: timestamp("last_submitted_at").notNull().defaultNow(),
+});
+
+// --- start lights (reaction game on /off-duty) ---------------------------
+
+// One row per name: a new run only replaces the stored time when it's
+// faster, so the top 5 can't be filled by the same person five times.
+// `nameKey` is the lowercased name used for that uniqueness (wider than
+// the name itself since lowercasing can lengthen some Unicode letters);
+// `displayName` keeps the casing of the run that set the current best.
+export const reactionScores = pgTable(
+    "reaction_scores",
+    {
+        id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+        nameKey: varchar("name_key", { length: 32 }).notNull().unique(),
+        displayName: varchar("display_name", { length: 16 }).notNull(),
+        reactionMs: integer("reaction_ms").notNull(),
+        createdAt: timestamp("created_at").notNull().defaultNow(),
+        updatedAt: timestamp("updated_at")
+            .notNull()
+            .defaultNow()
+            .$onUpdate(() => new Date()),
+    },
+    (table) => [index("reaction_scores_reaction_ms_idx").on(table.reactionMs)],
+);
+
+// Separate from guestbookRateLimits so posting a lap time doesn't lock
+// someone out of the guestbook (and vice versa). Same lazy-cleanup idea.
+export const reactionRateLimits = pgTable("reaction_rate_limits", {
     ipHash: text("ip_hash").primaryKey(),
     lastSubmittedAt: timestamp("last_submitted_at").notNull().defaultNow(),
 });
