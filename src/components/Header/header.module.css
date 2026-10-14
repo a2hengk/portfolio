@@ -7,7 +7,9 @@
     background: rgba(9, 12, 18, 0.72);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     animation: slideDown 600ms ease-out;
-    overflow: hidden;
+    /* Clip only sideways (for the scan line); the menu panel hangs below
+       the header and must not be cut off. */
+    overflow-x: clip;
 }
 
 .header::after {
@@ -89,67 +91,41 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.nav {
+.menuButton {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: background 300ms ease, border-color 300ms ease;
-}
-
-.nav:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-}
-
-.nav a {
-    padding: 10px 14px;
-    border-radius: 999px;
-    color: var(--muted);
-    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
-}
-
-.activeNavLink {
-    background: rgba(63, 140, 232, 0.16);
-    color: var(--text) !important;
-    border: 1px solid rgba(63, 140, 232, 0.3);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-.nav a:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text);
-    transform: translateY(-1px);
-}
-
-.nav a.activeNavLink:hover {
-    background: rgba(63, 140, 232, 0.22);
-    transform: translateY(-1px);
-}
-
-.menuButton {
-    display: none;
-    align-items: center;
-    justify-content: space-between;
     gap: 12px;
-    padding: 12px 14px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(79, 195, 247, 0.45);
+    background: rgba(79, 195, 247, 0.08);
     color: var(--text);
     font: inherit;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 200ms ease, border-color 200ms ease;
 }
 
+.menuButton:hover {
+    background: rgba(79, 195, 247, 0.14);
+    border-color: rgba(79, 195, 247, 0.7);
+}
+
+.menuButton:focus-visible,
+.navLink:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
+/* Three bars that fold into an X while the menu is open. */
 .menuButtonIcon {
+    position: relative;
     width: 18px;
     height: 2px;
     border-radius: 999px;
     background: var(--accent-strong);
-    position: relative;
+    transition: background 200ms ease;
 }
 
 .menuButtonIcon::before,
@@ -161,6 +137,7 @@
     height: 2px;
     border-radius: 999px;
     background: var(--accent-strong);
+    transition: transform 200ms ease, top 200ms ease;
 }
 
 .menuButtonIcon::before {
@@ -171,41 +148,121 @@
     top: 6px;
 }
 
+.menuButtonIconOpen {
+    background: transparent;
+}
+
+.menuButtonIconOpen::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.menuButtonIconOpen::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+/* The dropdown: full width under the header, same on desktop and phone.
+   Absolutely positioned so opening it overlays the page instead of
+   pushing the content down. */
+.panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100dvh - 100%);
+    overflow-y: auto;
+    background: #111826;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.panelOpen {
+    animation: panelIn 180ms ease-out;
+}
+
+@keyframes panelIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* M tricolor along the top edge of the panel. */
+.panelStripe {
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg,
+            var(--m-blue-light) 0 50%,
+            var(--m-blue-dark) 50% 83%,
+            var(--m-red) 83% 100%);
+}
+
+.nav {
+    width: min(calc(100% - 2 * var(--gutter)), var(--content-width));
+    margin: 0 auto;
+    padding: 16px 0 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    column-gap: 32px;
+}
+
+.navLink {
+    display: grid;
+    gap: 2px;
+    min-height: 44px;
+    padding: 12px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    transition: background 160ms ease;
+}
+
+.navLink:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.navLabel {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+.navHint {
+    font-size: 0.88rem;
+    color: var(--muted);
+}
+
+.navLinkActive {
+    background: rgba(79, 195, 247, 0.1);
+}
+
+.navLinkActive .navLabel {
+    color: var(--accent-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panelOpen {
+        animation: none;
+    }
+
+    .menuButtonIcon,
+    .menuButtonIcon::before,
+    .menuButtonIcon::after {
+        transition: none;
+    }
+}
+
 @media (max-width: 720px) {
     .header {
         padding: 14px 0;
     }
 
-    .inner {
-        width: min(calc(100% - 2 * var(--gutter)), var(--content-width));
-        flex-wrap: wrap;
-        align-items: center;
-    }
-
-    .menuButton {
-        display: inline-flex;
-        margin-left: auto;
-    }
-
     .nav {
-        display: none;
-        width: 100%;
-        justify-content: flex-start;
-        gap: 8px;
-        overflow-x: auto;
-        padding: 10px;
-        margin-top: 4px;
-        border-radius: 22px;
-    }
-
-    .navOpen {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .nav a {
-        white-space: nowrap;
-        width: calc(50% - 4px);
-        text-align: center;
+        padding: 8px 0 16px;
     }
 }
