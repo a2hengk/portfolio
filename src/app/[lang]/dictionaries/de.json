@@ -216,6 +216,7 @@
     },
     "stackAria": "Projekt-Stack",
     "repoComingSoon": "Repo kommt bald",
+    "privateRepo": "Privates Repo",
     "open": "Öffnen",
     "details": "Mehr zu diesem Build",
     "items": {
@@ -257,14 +258,15 @@
           "Beiträge mit mehreren Fotos oder nur Text, alles in einem gemeinsamen Feed",
           "Bis zu 3 Reaktionen pro Beitrag mit deinen eigenen Stickern",
           "Kommentare mit Antworten – und Reaktionen gibt's auch auf Kommentare",
-          "Foto-Karussell, das du am PC durchblättern kannst, plus Vollbild mit Zoom"
+          "Foto-Karussell, das du am PC durchblättern kannst, plus Vollbild mit Zoom",
+          "Ein gemeinsames Pet namens Luni, das alle zusammen füttern und streicheln – mit Streak, solange sich jeden Tag jemand kümmert"
         ]
       },
       "5": {
         "type": "Website",
         "title": "Karteikarten App",
-        "description": "Eine App, um digitale Karteikarten zu erstellen und damit zu lernen. Außerdem das Projekt für mein Studium an der DHBW.",
-        "about": "Eine Karteikarten-App, mit der du eigene Karten erstellst und lernst – gebaut als Praxisprojekt für mein Studium an der DHBW, mit echtem Postgres-/Drizzle-Backend statt nur lokalem State.",
+        "description": "Eine App, um digitale Karteikarten zu erstellen und damit zu lernen. Entstanden als Projekt in meinem Studium an der DHBW.",
+        "about": "Eine Karteikarten-App, mit der du eigene Karten erstellst und lernst – gebaut als Praxisprojekt während meines Studiums an der DHBW, mit echtem Postgres-/Drizzle-Backend statt nur lokalem State.",
         "highlights": [
           "Kartenübersicht, um eigene Karteikarten-Sets zu erstellen, zu bearbeiten und zu löschen",
           "Lernmodus mit Flip-Animation, Fortschritt wird pro Karte gespeichert",
@@ -274,13 +276,25 @@
       "6": {
         "type": "Website",
         "title": "LUNAS OS",
-        "description": "Mein persönliches Home-Dashboard im HUD-Stil für Alltag und Berufsschule: Todos, Termine, Stundenplan, Noten und ein privater Dateispeicher.",
-        "about": "Zuerst für mich selbst gebaut, mit der Berufsschule als Hauptanwendungsfall. Alles Schulische hängt an seinem Lernfeld, sodass Dateien, Todos, Termine und Noten für ein Fach auf einer Seite liegen. Nur ein User, Login nur über GitHub.",
+        "description": "Mein persönliches Home-Dashboard im HUD-Stil für Alltag und Berufsschule: Todos, Termine, Stundenplan, Noten, Notizen aus Obsidian – und eine animierte Live2D-Figur in der Mitte.",
+        "about": "Zuerst für mich selbst gebaut, mit der Berufsschule als Hauptanwendungsfall. Die Startseite ist ein One-Pager: in der Mitte eine Live2D-Figur, drumherum die Daten des Tages als Satelliten. Alles Schulische hängt an seinem Lernfeld. Nur ein User, Login nur über GitHub – deshalb ist das Repo auch privat.",
         "highlights": [
-          "Heute-Ansicht mit Countdown zur nächsten Prüfung, 14-Tage-Timeline und dem Stundenplan des Tages",
-          "Privater Dateispeicher mit Ordnern und Drag-and-Drop – Dateien werden erst nach serverseitigem Login-Check ausgeliefert",
-          "Seiten pro Fach mit Dateien, Todos, Terminen und Notendurchschnitt",
-          "Todos aufgeteilt in Schule, Privat und Arbeit"
+          "One-Pager mit Live2D-Figur, die der Maus folgt, und den Tagesdaten drumherum – Countdown zur nächsten Prüfung, Stundenplan, 14-Tage-Timeline",
+          "Begrüßung und Tagesbrief zum Vorlesen über die Web Speech API, Todos per Diktieren erfassen",
+          "Notizen kommen direkt aus meinem Obsidian-Vault, inklusive Wiki-Links, Bildern und Callouts",
+          "Erfolge als Graph im Stil der Obsidian-Graph-Ansicht, mit d3-force auf Canvas gezeichnet",
+          "Wetter für Offenburg, privater Dateispeicher und Seiten pro Fach mit Dateien, Todos, Terminen und Notenschnitt"
+        ]
+      },
+      "7": {
+        "type": "Tool",
+        "title": "lunagraph",
+        "description": "Ein Code-Knowledge-Graph für Next.js-/TypeScript-Projekte, damit Claude Code ein Projekt nachschlagen kann, statt es jedes Mal neu zu durchsuchen.",
+        "about": "Lernprojekt. lunagraph indexiert ein Projekt einmal in eine SQLite-Datei – wer importiert was, später auch wer ruft was und welche Route welche Tabelle anfasst. Am Ende soll ein MCP-Server das Ganze für Claude Code abfragbar machen. Getestet wird gegen LUNAS OS.",
+        "highlights": [
+          "Phase 1 steht: Files und Imports werden indexiert, inklusive @/-Alias und Barrel-Files",
+          "Gegen LUNAS OS: 52 Files und 228 Import-Kanten in unter einer halben Sekunde, keine unaufgelösten Imports",
+          "Als Nächstes: Symbole und Aufrufe, Next.js-Routes und Drizzle-Tabellen, dann der MCP-Server"
         ]
       }
     }
