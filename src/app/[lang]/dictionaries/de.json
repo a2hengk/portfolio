@@ -212,7 +212,8 @@
     "status": {
       "live": "Live",
       "progress": "In Arbeit",
-      "featured": "Featured"
+      "featured": "Featured",
+      "planned": "Geplant"
     },
     "stackAria": "Projekt-Stack",
     "repoComingSoon": "Repo kommt bald",
@@ -296,6 +297,12 @@
           "Gegen LUNAS OS: 52 Files und 228 Import-Kanten in unter einer halben Sekunde, keine unaufgelösten Imports",
           "Als Nächstes: Symbole und Aufrufe, Next.js-Routes und Drizzle-Tabellen, dann der MCP-Server"
         ]
+      },
+      "8": {
+        "type": "Tool",
+        "title": "lunaracing",
+        "description": "Ein Telemetrie-Tracker für Le Mans Ultimate: Runden mitschreiben, speichern und danach vergleichen – Sektorzeiten, Bremspunkte, wo ich Zeit liegen lasse.",
+        "about": "Kommt als Nächstes. Ein kleiner Ingest-Service liest die Live-Telemetrie aus dem Shared Memory von LMU, schreibt jede Runde in Postgres, und ein Next.js-Frontend zeigt Rundenvergleiche. Verbindet mein Sim-Racing-Hobby mit dem, was ich in der Arbeit mache: Backend, Datenmodell und viele Schreibzugriffe."
       }
     }
   },

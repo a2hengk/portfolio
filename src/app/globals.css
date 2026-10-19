@@ -753,6 +753,11 @@ main {
     color: var(--accent-soft);
 }
 
+.position-badge--planned {
+    border: 1px dashed rgba(244, 240, 232, 0.4);
+    color: var(--muted);
+}
+
 .section,
 .section--contact {
     padding: 72px 0;
@@ -1072,6 +1077,12 @@ main {
     background: rgba(108, 140, 245, 0.16);
     border: 1px solid rgba(108, 140, 245, 0.45);
     color: var(--accent-soft);
+}
+
+.status-badge--planned {
+    background: rgba(244, 240, 232, 0.05);
+    border: 1px dashed rgba(244, 240, 232, 0.35);
+    color: var(--muted);
 }
 
 .project-tags {

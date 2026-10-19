@@ -1,12 +1,13 @@
 import Link from "next/link";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 
-type StatusKey = "live" | "progress" | "featured";
+type StatusKey = "live" | "progress" | "featured" | "planned";
 
 const statusMeta: Record<StatusKey, { badgeClass: string; positionClass: string }> = {
     live: { badgeClass: "status-badge--live", positionClass: "position-badge--live" },
     progress: { badgeClass: "status-badge--progress", positionClass: "position-badge--progress" },
     featured: { badgeClass: "status-badge--featured", positionClass: "position-badge--featured" },
+    planned: { badgeClass: "status-badge--planned", positionClass: "position-badge--planned" },
 };
 
 // Not every project has about/highlights yet, so those stay optional.
@@ -76,6 +77,13 @@ const projects: Project[] = [
         status: "progress",
         tags: ["TypeScript", "Node.js", "SQLite", "MCP"],
         github: "https://github.com/a2hengk/lunagraph",
+    },
+    {
+        id: "8",
+        status: "planned",
+        // Ingest language (C#/.NET vs Node) not decided yet, so it's not in the tags.
+        tags: ["Le Mans Ultimate", "Shared Memory", "Postgres", "Next.js"],
+        repoComingSoon: true,
     },
 ];
 

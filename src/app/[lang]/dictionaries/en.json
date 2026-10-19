@@ -212,7 +212,8 @@
     "status": {
       "live": "Live",
       "progress": "In Progress",
-      "featured": "Featured"
+      "featured": "Featured",
+      "planned": "Planned"
     },
     "stackAria": "Project stack",
     "repoComingSoon": "Repo coming soon",
@@ -296,6 +297,12 @@
           "Against LUNAS OS: 52 files and 228 import edges in under half a second, zero unresolved imports",
           "Up next: symbols and calls, Next.js routes and Drizzle tables, then the MCP server"
         ]
+      },
+      "8": {
+        "type": "Tool",
+        "title": "lunaracing",
+        "description": "A telemetry tracker for Le Mans Ultimate: record laps, store them and compare them afterwards - sector times, braking points, where I'm leaving time on the table.",
+        "about": "Up next. A small ingest service reads the live telemetry from LMU's shared memory, writes every lap to Postgres, and a Next.js frontend shows lap comparisons. It brings my sim racing hobby together with what I do at work: backend, data modelling and lots of writes."
       }
     }
   },
