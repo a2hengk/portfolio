@@ -212,10 +212,12 @@
     "status": {
       "live": "Live",
       "progress": "In Progress",
-      "featured": "Featured"
+      "featured": "Featured",
+      "planned": "Planned"
     },
     "stackAria": "Project stack",
     "repoComingSoon": "Repo coming soon",
+    "privateRepo": "Private repo",
     "open": "Open",
     "details": "More about this build",
     "items": {
@@ -257,14 +259,15 @@
           "Posts with multiple photos or text only, all in one shared feed",
           "Up to 3 reactions per post using your own custom stickers",
           "Comments with replies and reactions on comments too",
-          "Photo carousel you can flip through on desktop, plus a fullscreen view with zoom"
+          "Photo carousel you can flip through on desktop, plus a fullscreen view with zoom",
+          "A shared pet called Luni that everyone feeds and pets together - with a streak that keeps going as long as someone looks after it each day"
         ]
       },
       "5": {
         "type": "Website",
         "title": "Karteikarten App",
-        "description": "A flashcard app for creating and studying digital flashcards. Also the project for my studies at DHBW.",
-        "about": "A flashcard app for creating and studying your own cards - built as the practical project for my studies at DHBW, with a real Postgres/Drizzle backend behind it instead of just local state.",
+        "description": "A flashcard app for creating and studying digital flashcards. Built as a project during my studies at DHBW.",
+        "about": "A flashcard app for creating and studying your own cards - built as the practical project during my studies at DHBW, with a real Postgres/Drizzle backend behind it instead of just local state.",
         "highlights": [
           "Card overview to create, edit, and delete your own flashcard sets",
           "Self-study mode with a flip-card animation, progress saved per card",
@@ -274,14 +277,32 @@
       "6": {
         "type": "Website",
         "title": "LUNAS OS",
-        "description": "My personal HUD-style home dashboard for everyday life and vocational school: todos, appointments, timetable, grades and a private file storage.",
-        "about": "Built for myself first, with my vocational school (Berufsschule) as the main use case. Everything school-related hangs off its Lernfeld, so files, todos, appointments and grades for one subject live on one page. Single user, GitHub login only.",
+        "description": "My personal HUD-style home dashboard for everyday life and vocational school: todos, appointments, timetable, grades, notes from Obsidian - and an animated Live2D character in the middle.",
+        "about": "Built for myself first, with my vocational school (Berufsschule) as the main use case. The start page is a one-pager: a Live2D character in the center, with the day's data orbiting around it as satellites. Everything school-related hangs off its Lernfeld. Single user, GitHub login only - which is also why the repo is private.",
         "highlights": [
-          "Today view with a countdown to the next exam, a 14-day timeline and the day's timetable",
-          "Private file storage with folders and drag-and-drop - files are only served after a server-side login check",
-          "Per-subject pages with files, todos, appointments and a grade average",
-          "Todos split into school, private and work"
+          "One-pager with a Live2D character that follows your cursor, surrounded by the day's data - countdown to the next exam, timetable, 14-day timeline",
+          "Greeting and a daily brief read aloud via the Web Speech API, plus adding todos by dictation",
+          "Notes pulled straight from my Obsidian vault, including wiki links, images and callouts",
+          "Achievements as a graph styled like Obsidian's graph view, drawn on canvas with d3-force",
+          "Weather for Offenburg, private file storage and per-subject pages with files, todos, appointments and a grade average"
         ]
+      },
+      "7": {
+        "type": "Tool",
+        "title": "lunagraph",
+        "description": "A code knowledge graph for Next.js/TypeScript projects, so Claude Code can look a project up instead of searching through it from scratch every time.",
+        "about": "A learning project. lunagraph indexes a project once into a SQLite file - who imports what, and later who calls what and which route touches which table. The end goal is an MCP server that lets Claude Code query all of it. LUNAS OS is the test project.",
+        "highlights": [
+          "Phase 1 is done: files and imports get indexed, including the @/ alias and barrel files",
+          "Against LUNAS OS: 52 files and 228 import edges in under half a second, zero unresolved imports",
+          "Up next: symbols and calls, Next.js routes and Drizzle tables, then the MCP server"
+        ]
+      },
+      "8": {
+        "type": "Tool",
+        "title": "lunaracing",
+        "description": "A telemetry tracker for Le Mans Ultimate: record laps, store them and compare them afterwards - sector times, braking points, where I'm leaving time on the table.",
+        "about": "Up next. A small ingest service reads the live telemetry from LMU's shared memory, writes every lap to Postgres, and a Next.js frontend shows lap comparisons. It brings my sim racing hobby together with what I do at work: backend, data modelling and lots of writes."
       }
     }
   },

@@ -1,12 +1,13 @@
 import Link from "next/link";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 
-type StatusKey = "live" | "progress" | "featured";
+type StatusKey = "live" | "progress" | "featured" | "planned";
 
 const statusMeta: Record<StatusKey, { badgeClass: string; positionClass: string }> = {
     live: { badgeClass: "status-badge--live", positionClass: "position-badge--live" },
     progress: { badgeClass: "status-badge--progress", positionClass: "position-badge--progress" },
     featured: { badgeClass: "status-badge--featured", positionClass: "position-badge--featured" },
+    planned: { badgeClass: "status-badge--planned", positionClass: "position-badge--planned" },
 };
 
 // Not every project has about/highlights yet, so those stay optional.
@@ -19,6 +20,8 @@ type Project = {
     github?: string;
     // No public repo to link yet - renders a "repo coming soon" note instead of a link.
     repoComingSoon?: boolean;
+    // Repo exists but is private (personal data / licensed assets) - renders a note instead of a link.
+    privateRepo?: boolean;
     demo?: string;
 };
 
@@ -59,14 +62,28 @@ const projects: Project[] = [
     {
         id: "5",
         status: "progress",
-        tags: ["React", "Next.js", "TypeScript", "Sqlite"],
+        tags: ["React", "Next.js", "TypeScript", "Postgres", "Drizzle"],
         github: "https://github.com/a2hengk/Die-Kleinen-Einsteins",
     },
     {
         id: "6",
         status: "live",
-        tags: ["Next.js", "TypeScript", "Tailwind", "Drizzle", "Postgres", "Vercel Blob"],
-        github: "https://github.com/a2hengk/home-dashboard",
+        tags: ["Next.js", "TypeScript", "Tailwind", "Drizzle", "Postgres", "Live2D", "Web Speech API"],
+        // Repo went private (personal data, Live2D model license doesn't allow redistribution).
+        privateRepo: true,
+    },
+    {
+        id: "7",
+        status: "progress",
+        tags: ["TypeScript", "Node.js", "SQLite", "MCP"],
+        github: "https://github.com/a2hengk/lunagraph",
+    },
+    {
+        id: "8",
+        status: "planned",
+        // Ingest language (C#/.NET vs Node) not decided yet, so it's not in the tags.
+        tags: ["Le Mans Ultimate", "Shared Memory", "Postgres", "Next.js"],
+        repoComingSoon: true,
     },
 ];
 
@@ -122,6 +139,8 @@ export default function ProjectsSection({ dict }: { dict: Dictionary["projects"]
                                     <a href={project.github} target="_blank" rel="noopener noreferrer">
                                         GitHub
                                     </a>
+                                ) : project.privateRepo ? (
+                                    <span className="project-links__note">{dict.privateRepo}</span>
                                 ) : project.repoComingSoon ? (
                                     <span className="project-links__note">{dict.repoComingSoon}</span>
                                 ) : null}
