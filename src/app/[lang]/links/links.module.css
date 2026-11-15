@@ -1,0 +1,154 @@
+.main {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px 72px;
+    padding-block: clamp(32px, 5vw, 72px);
+}
+
+.intro {
+    flex: 1 1 340px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.who {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.who div {
+    display: flex;
+    flex-direction: column;
+}
+
+.who strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+.who span {
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.avatar {
+    display: block;
+    width: 72px;
+    height: 72px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    object-fit: cover;
+}
+
+.title p:last-child {
+    max-width: 460px;
+}
+
+.list {
+    flex: 1.3 1 400px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Rows that aren't links (Discord) stay put on hover. */
+div.row:hover {
+    transform: none;
+    border-color: var(--line);
+}
+
+div.row:hover::after {
+    transform: translateX(-120%);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 18px;
+    min-height: 88px;
+    padding: 14px 22px 14px 18px;
+    border-radius: 24px;
+}
+
+.ico {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.name {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.sub {
+    font-size: 15px;
+    line-height: 22px;
+    overflow-wrap: anywhere;
+}
+
+.arrow {
+    transition: transform 0.3s;
+}
+
+a.row:hover .arrow {
+    transform: translate(3px, -3px);
+}
+
+.copy {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 22px;
+    background: #fff;
+    color: #000;
+    font-size: 14.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.3s var(--ease);
+}
+
+.copy:hover {
+    transform: translateY(-2px);
+}
+
+/* Narrow phones: the copy button drops under the handle. */
+@media (max-width: 420px) {
+    div.row {
+        grid-template-columns: 48px minmax(0, 1fr);
+    }
+
+    div.row > :last-child {
+        grid-column: 2;
+        justify-self: start;
+        margin-top: 8px;
+    }
+}

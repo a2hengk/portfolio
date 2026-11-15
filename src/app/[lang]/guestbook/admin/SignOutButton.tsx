@@ -9,7 +9,7 @@ export default function SignOutButton() {
     return (
         <button
             type="button"
-            className="guestbook-form__discord"
+            className="btn btn-w"
             onClick={() =>
                 authClient.signOut({
                     fetchOptions: {

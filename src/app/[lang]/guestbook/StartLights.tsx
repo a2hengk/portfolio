@@ -6,6 +6,7 @@ import { startRun, submitTime } from "@/app/[lang]/guestbook/reaction-actions";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
 import { fill } from "@/i18n/config";
 import type { LeaderboardEntry } from "@/lib/reaction-leaderboard";
+import styles from "./pitwall.module.css";
 import {
     FIRST_LIGHT_DELAY_MS,
     HOLD_MAX_MS,
@@ -303,133 +304,108 @@ export default function StartLights({
     })();
 
     return (
-        <section className="route-section start-lights" id="start-lights">
+        <section className={`glass ld ${styles.panel} ${styles.lights}`} aria-labelledby="start-lights-title" style={{ animationDelay: "0.45s" }}>
             <Script src={TURNSTILE_SRC} strategy="afterInteractive" onReady={() => setTurnstileReady(true)} />
 
-            <div className="section__heading">
-                <div className="section-marker">
-                    <span className="sector-tag">{dict.tag}</span>
-                    <p className="eyebrow">{dict.eyebrow}</p>
-                </div>
-                <h2>{dict.title}</h2>
-                <p>
-                    {dict.text}
-                </p>
+            <div className={styles.panelHead}>
+                <h2 id="start-lights-title">{dict.title}</h2>
+                <p className="mut">{dict.text}</p>
             </div>
 
-            <div className="start-lights__layout">
-                <div className="start-lights__stage">
-                    {/* Decorative but still clickable for people who do go for the
-                        lights - the pad below is the real (focusable) control. */}
-                    <div
-                        ref={gantryRef}
-                        className="start-lights__gantry"
-                        data-phase={phase}
-                        onPointerDown={onPointerDown}
-                        aria-hidden="true"
-                    >
-                        {Array.from({ length: LIGHT_COUNT }, (_, index) => (
-                            <span
-                                key={index}
-                                className={`start-lights__pod${phase === "lights" && litCount > index ? " is-lit" : ""}`}
-                            >
-                                <span className="start-lights__lamp" />
-                                <span className="start-lights__lamp" />
-                            </span>
-                        ))}
+            {/* Decorative but still clickable for people who do go for the
+                lights - the pad below is the real (focusable) control. */}
+            <div ref={gantryRef} className={styles.gantry} data-phase={phase} onPointerDown={onPointerDown} aria-hidden="true">
+                {Array.from({ length: LIGHT_COUNT }, (_, index) => (
+                    <span key={index} className={`${styles.lamp} ${phase === "lights" && litCount > index ? styles.lit : ""}`} />
+                ))}
+            </div>
+
+            <button
+                ref={padRef}
+                type="button"
+                className={styles.pad}
+                data-phase={phase}
+                onPointerDown={onPointerDown}
+                onKeyDown={onKeyDown}
+            >
+                <span className={`disp ${styles.padTitle}`} aria-live="polite">
+                    {phase === "idle" ? (
+                        <>
+                            <span className={styles.verbClick}>{dict.clickHere}</span>
+                            <span className={styles.verbTap}>{dict.tapHere}</span>
+                            {pad.title}
+                        </>
+                    ) : (
+                        pad.title
+                    )}
+                </span>
+                <span className={styles.padSub}>{pad.sub}</span>
+            </button>
+
+            {showSaveForm ? (
+                <form className={styles.save} onSubmit={onSave}>
+                    <p className={styles.saveTitle}>{fill(dict.saveTitle, { size: LEADERBOARD_SIZE })}</p>
+                    <div className={styles.saveRow}>
+                        <div className={styles.field}>
+                            <label htmlFor="start-lights-name">{dict.nameLabel}</label>
+                            <input
+                                id="start-lights-name"
+                                className={styles.input}
+                                value={name}
+                                onChange={(event) => setName(event.target.value)}
+                                maxLength={PLAYER_NAME_MAX_LENGTH}
+                                placeholder={dict.namePlaceholder}
+                                autoComplete="nickname"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="btn btn-w"
+                            disabled={saveState.status === "saving" || (Boolean(siteKey) && !turnstileToken)}
+                        >
+                            {saveState.status === "saving" ? dict.saving : dict.save}
+                        </button>
                     </div>
-
-                    <button
-                        ref={padRef}
-                        type="button"
-                        className="start-lights__pad"
-                        data-phase={phase}
-                        onPointerDown={onPointerDown}
-                        onKeyDown={onKeyDown}
-                    >
-                        <span className="start-lights__pad-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10" />
-                                <path d="M12 9.5a1.5 1.5 0 0 1 3 0V11" />
-                                <path d="M15 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4.3 15.6a1.5 1.5 0 0 1 2.3-1.9L9 16" />
-                            </svg>
-                        </span>
-                        <strong className="start-lights__pad-title" aria-live="polite">
-                            {phase === "idle" ? (
-                                <>
-                                    <span className="start-lights__verb-click">{dict.clickHere}</span>
-                                    <span className="start-lights__verb-tap">{dict.tapHere}</span>
-                                    {pad.title}
-                                </>
-                            ) : (
-                                pad.title
-                            )}
-                        </strong>
-                        <span className="start-lights__pad-sub">{pad.sub}</span>
-                    </button>
-
-                    {showSaveForm ? (
-                        <form className="start-lights__save" onSubmit={onSave}>
-                            <p className="start-lights__save-title">{fill(dict.saveTitle, { size: LEADERBOARD_SIZE })}</p>
-                            <div className="start-lights__save-row">
-                                <label htmlFor="start-lights-name" className="visually-hidden">
-                                    {dict.nameLabel}
-                                </label>
-                                <input
-                                    id="start-lights-name"
-                                    className="guestbook-input"
-                                    value={name}
-                                    onChange={(event) => setName(event.target.value)}
-                                    maxLength={PLAYER_NAME_MAX_LENGTH}
-                                    placeholder={dict.namePlaceholder}
-                                    autoComplete="nickname"
-                                    required
-                                />
-                                <button
-                                    type="submit"
-                                    className="guestbook-form__submit"
-                                    disabled={saveState.status === "saving" || (Boolean(siteKey) && !turnstileToken)}
-                                >
-                                    {saveState.status === "saving" ? dict.saving : dict.save}
-                                </button>
-                            </div>
-                            {siteKey ? <div ref={turnstileContainerRef} className="start-lights__turnstile" /> : null}
-                            {saveState.status === "error" ? (
-                                <p className="guestbook-form__error">{saveState.message}</p>
-                            ) : null}
-                        </form>
+                    {siteKey ? <div ref={turnstileContainerRef} className={styles.turnstile} /> : null}
+                    {saveState.status === "error" ? (
+                        <p className={styles.error} role="alert">
+                            {saveState.message}
+                        </p>
                     ) : null}
+                </form>
+            ) : null}
 
-                    {saveState.status === "saved" ? (
-                        <p className="guestbook-form__success">{saveState.message}</p>
-                    ) : null}
+            {saveState.status === "saved" ? (
+                <p className={styles.success} role="status">
+                    {saveState.message}
+                </p>
+            ) : null}
+
+            <div className={styles.board}>
+                <div className={styles.boardHead}>
+                    <h3>{fill(dict.boardTitle, { size: LEADERBOARD_SIZE })}</h3>
+                    <span className="mut">
+                        {dict.yourBest}: <strong>{best !== null ? `${formatSeconds(best)} s` : dict.noBest}</strong>
+                    </span>
                 </div>
 
-                <aside className="start-lights__board" aria-labelledby="start-lights-board-title">
-                    <div className="start-lights__board-head">
-                        <h3 id="start-lights-board-title">{fill(dict.boardTitle, { size: LEADERBOARD_SIZE })}</h3>
-                        <span className="start-lights__best">
-                            {dict.yourBest} <strong>{best !== null ? `${formatSeconds(best)} s` : "--"}</strong>
-                        </span>
-                    </div>
-
-                    {leaderboard.length === 0 ? (
-                        <p className="guestbook-empty">{dict.emptyBoard}</p>
-                    ) : (
-                        <ol className="start-lights__list">
-                            {leaderboard.map((entry, index) => (
-                                <li
-                                    key={entry.id}
-                                    className={`start-lights__row${nameKey(entry.displayName) === highlightKey ? " is-you" : ""}`}
-                                >
-                                    <span className="start-lights__pos">P{index + 1}</span>
-                                    <span className="start-lights__name">{entry.displayName}</span>
-                                    <span className="start-lights__time">{formatSeconds(entry.reactionMs)}</span>
-                                </li>
-                            ))}
-                        </ol>
-                    )}
-                </aside>
+                {leaderboard.length === 0 ? (
+                    <p className={`mut ${styles.boardEmpty}`}>{dict.emptyBoard}</p>
+                ) : (
+                    <ol className={styles.boardList}>
+                        {leaderboard.map((entry, index) => (
+                            <li
+                                key={entry.id}
+                                className={`${styles.boardRow} ${nameKey(entry.displayName) === highlightKey ? styles.you : ""}`}
+                            >
+                                <span className="disp">P{index + 1}</span>
+                                <span className={styles.boardName}>{entry.displayName}</span>
+                                <span>{formatSeconds(entry.reactionMs)} s</span>
+                            </li>
+                        ))}
+                    </ol>
+                )}
             </div>
         </section>
     );

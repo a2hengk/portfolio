@@ -80,18 +80,6 @@ svg {
     color: #000;
 }
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
 /* ---------- layout ---------- */
 
 .wrap {
@@ -110,15 +98,15 @@ svg {
     scroll-margin-top: 72px;
 }
 
-/* Page body below the nav: holds the orbs, clips their overflow sideways
-   (clip, not hidden, so nothing becomes a scroll container) and pushes
-   the footer down. */
+/* Page body below the nav: holds the orbs, clips their overflow (clip, not
+   hidden, so nothing becomes a scroll container) and pushes the footer
+   down. */
 .page {
     position: relative;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    overflow-x: clip;
+    overflow: clip;
 }
 
 /* ---------- type ---------- */

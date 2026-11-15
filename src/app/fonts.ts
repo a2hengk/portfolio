@@ -9,6 +9,10 @@ export const bigShoulders = Big_Shoulders({
   weight: ["700", "800", "900"],
   variable: "--font-big-shoulders",
   display: "swap",
+  // No metric override exists for Big Shoulders, so fall back to something
+  // narrow instead of a wide sans that would blow up the giant headlines.
+  adjustFontFallback: false,
+  fallback: ["Arial Narrow", "sans-serif-condensed", "sans-serif"],
 });
 
 // Everything else.
