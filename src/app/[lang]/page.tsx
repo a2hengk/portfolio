@@ -19,9 +19,11 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
 	const t = dict.home;
 
 	return (
-		<>
+		// The nav sits inside .page so the hero light runs up behind it
+		// instead of being cut off at the top of <main>.
+		<div className="page">
 			<Nav lang={lang} dict={dict.nav} />
-			<main id="top" className="page">
+			<main id="top" style={{ flex: "1 0 auto", display: "flex", flexDirection: "column" }}>
 				<HeroSection lang={lang} dict={t.hero} />
 				<AboutSection lang={lang} dict={t.about} />
 				<BuildsSection dict={t.builds} />
@@ -34,6 +36,6 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
 					footer={<SiteFooter lang={lang} dict={dict.footer} languages={dict.nav.language} path="/" inline />}
 				/>
 			</main>
-		</>
+		</div>
 	);
 }
