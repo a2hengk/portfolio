@@ -48,7 +48,7 @@ export default function Nav({ lang, dict }: { lang: Locale; dict: Dictionary["na
                     onClick={handleBrandClick}
                 >
                     <Image src="/profil.png" alt="" width={32} height={32} priority className={styles.avatar} />
-                    <span>Lunas</span>
+                    <span className={styles.brandName}>Lunas</span>
                 </Link>
 
                 {ITEMS.map((item) => (

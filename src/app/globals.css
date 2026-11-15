@@ -50,7 +50,6 @@ body {
     font-family: var(--font-body);
     font-size: 17px;
     line-height: 1.55;
-    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -111,13 +110,15 @@ svg {
     scroll-margin-top: 72px;
 }
 
-/* Subpages (links, pit wall, legal ...) - holds the orbs and pushes the
-   footer down. */
+/* Page body below the nav: holds the orbs, clips their overflow sideways
+   (clip, not hidden, so nothing becomes a scroll container) and pushes
+   the footer down. */
 .page {
     position: relative;
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
+    overflow-x: clip;
 }
 
 /* ---------- type ---------- */

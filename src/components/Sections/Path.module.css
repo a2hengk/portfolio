@@ -1,0 +1,268 @@
+.lead {
+    max-width: 620px;
+    margin: 16px 0 0;
+    text-wrap: pretty;
+}
+
+.panel {
+    margin-top: 48px;
+    padding: clamp(16px, 2vw, 28px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px 48px;
+}
+
+.mapCol {
+    flex: 3 1 420px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.map {
+    position: relative;
+}
+
+.map svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+/* The track: a single line, not an outline. Total length 4726 units. */
+.base {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 8;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.draw {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-dasharray: 4726;
+    stroke-dashoffset: 0;
+}
+
+/* Light-blue runner lapping the track. */
+.runner {
+    fill: none;
+    stroke: var(--lb);
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 70 4656;
+    filter: drop-shadow(0 0 10px #4fc3f7);
+    animation: lap 18s linear infinite;
+}
+
+@keyframes lap {
+    to {
+        stroke-dashoffset: -4726;
+    }
+}
+
+@keyframes draw {
+    from {
+        stroke-dashoffset: 4726;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* The white line draws itself in as the map scrolls into view. */
+@supports (animation-timeline: view()) {
+    .draw {
+        animation: draw linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 150%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .runner {
+        opacity: 0;
+    }
+}
+
+/* Checkpoints: real buttons on top of the map. */
+.cp {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: clamp(30px, 3.4vw, 44px);
+    height: clamp(30px, 3.4vw, 44px);
+    padding: 0;
+    border: 0;
+    background: none;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.cp span {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.78);
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.cp:hover span {
+    border-color: #fff;
+}
+
+.cp.on span {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 0 6px rgba(79, 195, 247, 0.3);
+    animation: ring 1.8s ease-out infinite;
+}
+
+.cp:focus-visible {
+    outline: none;
+}
+
+.cp:focus-visible span {
+    outline: 2px solid var(--lb);
+    outline-offset: 3px;
+}
+
+@keyframes ring {
+    from {
+        box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.6);
+    }
+
+    to {
+        box-shadow: 0 0 0 14px rgba(79, 195, 247, 0);
+    }
+}
+
+.caption {
+    margin: 0;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+/* Stations: an accordion that follows the map. */
+.stations {
+    flex: 2 1 340px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.st {
+    border-top: 1px solid var(--line);
+}
+
+.st:first-child {
+    border-top: 0;
+}
+
+.stBtn {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 16px;
+    width: 100%;
+    min-height: 56px;
+    padding: 8px 4px;
+    border: 0;
+    background: none;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.74);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.stBtn:hover,
+.st.on .stBtn {
+    color: #fff;
+}
+
+.stBtn:focus-visible {
+    outline-offset: 2px;
+    border-radius: 14px;
+}
+
+.stNo {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.st.on .stNo {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+.stName {
+    display: flex;
+    flex-direction: column;
+}
+
+.stTitle {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.stCorner {
+    font-size: 13.5px;
+    line-height: 18px;
+    opacity: 0.74;
+}
+
+.stYear {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.stBody {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s var(--ease);
+}
+
+.st.on .stBody {
+    grid-template-rows: 1fr;
+}
+
+.stBody > div {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.stBody p {
+    max-width: 54ch;
+    margin: 0;
+    padding: 0 4px 18px 50px;
+    font-size: 15.5px;
+    color: var(--mut);
+}

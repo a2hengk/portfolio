@@ -2,22 +2,38 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Layout/Nav";
 import SiteFooter from "@/components/Layout/SiteFooter";
 import HeroSection from "@/components/Sections/Hero";
+import AboutSection from "@/components/Sections/About";
+import BuildsSection from "@/components/Sections/Builds";
+import PathSection from "@/components/Sections/Path";
+import StackSection from "@/components/Sections/Stack";
+import OffDutySection from "@/components/Sections/OffDuty";
 import ContactSection from "@/components/Sections/Contact";
 import { getDictionary, hasLocale } from "./dictionaries";
 
+// The one-pager. Everything except the pit wall and the links page lives
+// here, reachable by anchor: #about, #builds, #path, #stack, #offduty, #contact.
 export default async function Page({ params }: PageProps<"/[lang]">) {
 	const { lang } = await params;
 	if (!hasLocale(lang)) notFound();
 	const dict = await getDictionary(lang);
+	const t = dict.home;
 
 	return (
 		<>
 			<Nav lang={lang} dict={dict.nav} />
-			<main id="top">
-				<HeroSection lang={lang} dict={dict.home.hero} />
-				<ContactSection lang={lang} dict={dict.home.contact} />
+			<main id="top" className="page">
+				<HeroSection lang={lang} dict={t.hero} />
+				<AboutSection lang={lang} dict={t.about} />
+				<BuildsSection dict={t.builds} />
+				<PathSection dict={t.path} />
+				<StackSection dict={t.stack} />
+				<OffDutySection dict={t.offDuty} />
+				<ContactSection
+					lang={lang}
+					dict={t.contact}
+					footer={<SiteFooter lang={lang} dict={dict.footer} languages={dict.nav.language} path="/" inline />}
+				/>
 			</main>
-			<SiteFooter lang={lang} dict={dict.footer} languages={dict.nav.language} path="/" />
 		</>
 	);
 }

@@ -73,6 +73,22 @@
     }
 }
 
+/* Narrow phones: the avatar alone carries the brand so the pill stays on
+   one line (the link keeps its aria-label). */
+@media (max-width: 420px) {
+    .nav {
+        padding-inline: 8px;
+    }
+
+    .inner a {
+        padding: 0 9px;
+    }
+
+    .brandName {
+        display: none;
+    }
+}
+
 /* 2px light-blue scroll progress along the very top. */
 .progress {
     position: fixed;

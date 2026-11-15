@@ -1,0 +1,43 @@
+.contact {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+}
+
+.inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: clamp(110px, 24vw, 360px);
+    gap: 0 0.18em;
+}
+
+/* The scroll thaw is on the heading; the words don't rise on load. */
+.title .still {
+    animation: none;
+}
+
+.text {
+    max-width: 520px;
+    margin: 20px 0 0;
+    font-size: clamp(18px, 1.5vw, 20px);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.86);
+    text-wrap: pretty;
+}
+
+.actions {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Breathing room before the footer line. */
+.inner > footer {
+    padding-top: 88px;
+}
