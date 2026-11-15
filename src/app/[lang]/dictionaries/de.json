@@ -37,45 +37,37 @@
       "description": "Impressum und rechtliche Infos."
     }
   },
-  "header": {
-    "brandAria": "Zum Anfang der Startseite",
-    "avatarAlt": "Profilbild",
-    "role": "FIAE @ Herrenknecht",
-    "menu": "Menü",
-    "close": "Schließen",
-    "navAria": "Hauptnavigation",
-    "nav": {
-      "home": { "label": "Home", "hint": "Start der Seite" },
-      "about": { "label": "Über mich", "hint": "Wer ich bin" },
-      "experience": { "label": "Werdegang", "hint": "Ausbildung und davor" },
-      "projects": { "label": "Projekte", "hint": "Was ich gebaut hab" },
-      "offDuty": { "label": "Off Duty", "hint": "Sim Racing, Games, Anime" },
-      "guestbook": { "label": "Pit Wall", "hint": "Nachricht dalassen, Reaktionszeit setzen" },
-      "links": { "label": "Links", "hint": "Wo du mich findest" },
-      "uses": { "label": "Uses", "hint": "Mein Setup" }
+  "nav": {
+    "aria": "Abschnitte",
+    "brandAria": "Lunas, zurück nach oben",
+    "items": {
+      "about": "Über mich",
+      "builds": "Builds",
+      "path": "Werdegang",
+      "setup": "Setup",
+      "offDuty": "Off duty",
+      "pitWall": "Pit Wall",
+      "links": "Links"
     },
     "language": {
-      "label": "Sprache",
-      "aria": "Sprache wechseln",
-      "names": { "en": "English", "de": "Deutsch" }
+      "switchTo": "Sprache wechseln zu {name}",
+      "names": {
+        "en": "English",
+        "de": "Deutsch"
+      }
     }
   },
+  "back": "Zurück zum Portfolio",
   "footer": {
-    "eyebrow": "Kontakt",
-    "title": "Lust, Hallo zu sagen oder was zusammen zu bauen?",
-    "text": "Am schnellsten erreichst du mich über die Links-Seite oder direkt per GitHub und Mail.",
-    "linksAria": "Kontakt-Links",
-    "openLinks": "Links öffnen",
-    "email": "E-Mail",
-    "legal": "Impressum / Legal",
-    "hint": "// sector 00 dev note: ↑ ↑ ↓ ↓ ← → ← → B A schaltet was frei"
+    "hint": "sector 00 dev note: ↑ ↑ ↓ ↓ ← → ← → B A schaltet was frei",
+    "legal": "Impressum / Legal"
   },
   "notFound": {
     "metaTitle": "Seite nicht gefunden - Lunas",
     "title": "Diese Seite gibt's nicht.",
     "description": "Vielleicht ist der Link veraltet oder die Seite ist umgezogen. Hier kannst du weitermachen.",
     "home": "Zurück zur Startseite",
-    "projects": "Projekte ansehen"
+    "builds": "Builds ansehen"
   },
   "home": {
     "hero": {
@@ -124,13 +116,27 @@
     "barsAria": "Am häufigsten in meinen Builds",
     "buildsOf": "{builds}/{of} Builds",
     "skills": {
-      "frontend": { "gear": "1.", "title": "Frontend" },
-      "backend": { "gear": "2.", "title": "Backend" },
-      "workflow": { "gear": "3.", "title": "Workflow" },
+      "frontend": {
+        "gear": "1.",
+        "title": "Frontend"
+      },
+      "backend": {
+        "gear": "2.",
+        "title": "Backend"
+      },
+      "workflow": {
+        "gear": "3.",
+        "title": "Workflow"
+      },
       "interests": {
         "gear": "4.",
         "title": "Interessen",
-        "tags": ["System Design", "Automatisierung", "Spieleentwicklung", "UI/UX"]
+        "tags": [
+          "System Design",
+          "Automatisierung",
+          "Spieleentwicklung",
+          "UI/UX"
+        ]
       }
     },
     "offDutyEyebrow": "Abseits vom Code",
@@ -158,43 +164,69 @@
         "year": "2022",
         "title": "Interesse an IT",
         "description": "In der 9. Klasse hab ich mich zum ersten Mal für IT interessiert. Ich hab Praktika bei Firmen in der Gegend gemacht, um ein Gefühl für die Branche zu kriegen und Einblicke in die verschiedenen Rollen und Aufgaben.",
-        "tags": ["IT", "Praktika", "Ausprobieren"]
+        "tags": [
+          "IT",
+          "Praktika",
+          "Ausprobieren"
+        ]
       },
       "2": {
         "year": "2023 - 2025",
         "title": "Techn. Gymnasium",
         "description": "Ich bin auf eine technisch ausgerichtete Schule gegangen, um mehr zu verstehen, und bin dort mit Programmieren und vielen anderen Technologien in Kontakt gekommen. Außerdem wollte ich dort die Hochschulreife machen, um studieren zu dürfen.",
-        "tags": ["Techn. Gymnasium", "Programmieren", "Ausprobieren"]
+        "tags": [
+          "Techn. Gymnasium",
+          "Programmieren",
+          "Ausprobieren"
+        ]
       },
       "3": {
         "year": "2024 - 2025",
         "title": "Side Projects",
         "description": "Ich hab mit Side Projects angefangen, um Gelerntes anzuwenden und meinen Interessen weiter nachzugehen. Dabei sind ein paar Projekte entstanden, unter anderem ein Discord-Bot und kleine Python-Skripte, um Programmieren besser zu verstehen.",
-        "tags": ["Python", "Discord-Bots"]
+        "tags": [
+          "Python",
+          "Discord-Bots"
+        ]
       },
       "4": {
         "year": "2025",
         "title": "Herrenknecht AG",
         "description": "Ich hab mich bei der Herrenknecht AG als dualer Student im IT-Bereich beworben, wurde genommen und hab im Juli 2025 dort angefangen.",
-        "tags": ["Herrenknecht AG", "Duales Studium", "IT"]
+        "tags": [
+          "Herrenknecht AG",
+          "Duales Studium",
+          "IT"
+        ]
       },
       "5": {
         "year": "2025 - 2026",
         "title": "Dualer Student bei der Herrenknecht AG",
         "description": "Neben der Arbeit bei der Herrenknecht AG war ich als dualer Student an der DHBW Karlsruhe eingeschrieben und hab meine Zeit zwischen Praxis und Theorie aufgeteilt.",
-        "tags": ["Herrenknecht AG", "DHBW Karlsruhe", "Duales Studium"]
+        "tags": [
+          "Herrenknecht AG",
+          "DHBW Karlsruhe",
+          "Duales Studium"
+        ]
       },
       "6": {
         "year": "2026",
         "title": "Richtungswechsel",
         "description": "Ich hab das duale Studium an der DHBW Karlsruhe abgebrochen – Vorlesungen und Vollzeitarbeit unter einen Hut zu bringen, hat einfach nicht gepasst. Also hab ich mir einen Weg gesucht, der mehr Praxis bietet.",
-        "tags": ["DHBW Karlsruhe", "Kurskorrektur"]
+        "tags": [
+          "DHBW Karlsruhe",
+          "Kurskorrektur"
+        ]
       },
       "7": {
         "year": "Sep 2026 - 2028",
         "title": "Ausbildung: Fachinformatiker Anwendungsentwicklung",
         "description": "Seit dem 1. September 2026 hab ich das geteilte duale Studium gegen eine volle Ausbildung zum Fachinformatiker für Anwendungsentwicklung bei der Herrenknecht AG getauscht – Vollzeit und komplett praxisnah bis 2028.",
-        "tags": ["Herrenknecht AG", "Fachinformatiker Anwendungsentwicklung", "Ausbildung"]
+        "tags": [
+          "Herrenknecht AG",
+          "Fachinformatiker Anwendungsentwicklung",
+          "Ausbildung"
+        ]
       }
     }
   },

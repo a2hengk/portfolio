@@ -1,2986 +1,456 @@
+/* Milk glass on black. Section styles live in CSS Modules next to their
+   components - this file only holds the tokens and the handful of
+   primitives every page shares (glass, light orbs, buttons, status dots,
+   the load/scroll "defrost" animations). */
+
 :root {
     color-scheme: dark;
-    --bg: #0b0f17;
-    --bg-elevated: rgba(255, 255, 255, 0.06);
-    --bg-soft: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.12);
-    --text: #f4f0e8;
-    --muted: rgba(244, 240, 232, 0.72);
-    /* BMW M Motorsport tricolor - the real stripe order sampled from the
-       Schaeffler livery (custom_paint_frontAngle.webp): light blue, dark
-       blue, red, white. Every "accent" tone below is derived from these
-       four so the whole site stays on the real palette instead of a
-       generic neon cyan/purple. */
-    --m-blue-light: #4fc3f7;
-    --m-blue-dark: #0a3d91;
-    --m-red: #e2231a;
-    --m-white: #ffffff;
-    --accent: #2f6fd1;
-    --accent-strong: var(--m-blue-light);
-    --accent-soft: #6ea3e6;
-    --racing-green: #6fe3ab;
-    --racing-amber: #f2a35f;
-    --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-    --neon-cyan: var(--m-blue-light);
-    --neon-cyan-soft: rgba(79, 195, 247, 0.5);
-    --grid-line: rgba(79, 195, 247, 0.07);
-    /* Full-width layout: content spans the viewport with a fluid side
-       gutter, capped only on very wide screens. Was a 1120px column. */
-    --content-width: 1680px;
-    --gutter: clamp(20px, 4.5vw, 88px);
-    --font-display: var(--font-cormorant), "Georgia", serif;
-    --font-body: "Avenir Next", "Trebuchet MS", sans-serif;
-    --font-tech: var(--font-big-shoulders), "Arial Narrow", sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+    --bg: #000;
+    --text: #fff;
+    --mut: rgba(255, 255, 255, 0.72);
+    --line: rgba(255, 255, 255, 0.16);
+
+    /* BMW M colours, only as contrast: light blue = active/focus,
+       red = live/now, dark blue = light behind the glass. */
+    --lb: #4fc3f7;
+    --db: #0a3d91;
+    --rd: #e2231a;
+    /* Start lights only. */
+    --go: #6fe3ab;
+
+    --frost: 24px;
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --gutter: clamp(20px, 5vw, 72px);
+    --sec-pad: clamp(72px, 8vw, 112px);
+
+    --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+    --font-body: var(--font-hanken), "Avenir Next", "Segoe UI", sans-serif;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(32px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-@keyframes terminalLineReveal {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-        clip-path: inset(0 100% 0 0);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        clip-path: inset(0 0 0 0);
-    }
-}
-
-@keyframes terminalCursorBlink {
-
-    0%,
-    49% {
-        opacity: 1;
-    }
-
-    50%,
-    100% {
-        opacity: 0;
-    }
-}
-
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
-    --mx: 50%;
-    --my: 0%;
+    background: var(--bg);
 }
 
 body {
-    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
-    font-family: var(--font-body);
-    background:
-        radial-gradient(circle at top left, rgba(63, 140, 232, 0.16), transparent 30%),
-        radial-gradient(circle at top right, rgba(142, 205, 251, 0.12), transparent 25%),
-        linear-gradient(180deg, #0d111a 0%, #0b0f17 45%, #090c12 100%);
+    margin: 0;
+    background: var(--bg);
     color: var(--text);
-    background-attachment: fixed;
-    position: relative;
-}
-
-/* Futuristic base layer: a slowly drifting Tron-style grid fading toward
-   the horizon, plus a faint CRT scanline pass. Fixed + negative z-index so
-   it sits under every in-flow element without needing z-index bumps
-   everywhere else. Purely decorative - disabled under reduced motion via
-   the global media query below. */
-@keyframes gridDrift {
-    from {
-        background-position: center top;
-    }
-
-    to {
-        background-position: center 480px;
-    }
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background-image:
-        linear-gradient(var(--grid-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 48px 48px;
-    background-position: center top;
-    mask-image: radial-gradient(circle at 50% 0%, black, transparent 72%);
-    -webkit-mask-image: radial-gradient(circle at 50% 0%, black, transparent 72%);
-    animation: gridDrift 34s linear infinite;
-    pointer-events: none;
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0px, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 3px);
-    opacity: 0.4;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-}
-
-/* Cursor-reactive glow rendered by <BackgroundFX>; --mx/--my are updated
-   from a throttled mousemove listener, defaulting to top-center so the
-   page still looks intentional before the first move / on touch. */
-.cursor-glow {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(360px circle at var(--mx) var(--my), rgba(0, 231, 255, 0.09), transparent 70%);
-}
-
-.neon-text {
-    color: var(--neon-cyan);
-    text-shadow: 0 0 6px rgba(0, 231, 255, 0.8), 0 0 22px rgba(0, 231, 255, 0.4);
-}
-
-/* Glitch hover - two mistimed color-split copies of the element's own
-   text, clipped top/bottom and nudged apart. Needs data-text matching
-   the visible content. */
-.glitch {
-    position: relative;
-    display: inline-block;
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-}
-
-@keyframes glitchShift {
-    0% {
-        transform: translate(0, 0);
-    }
-
-    50% {
-        transform: translate(-2px, 1px);
-    }
-
-    100% {
-        transform: translate(2px, -1px);
-    }
-}
-
-.glitch:hover::before,
-.glitch:hover::after {
-    opacity: 1;
-}
-
-.glitch:hover::before {
-    color: var(--m-red);
-    clip-path: inset(0 0 60% 0);
-    transform: translate(-2px, -1px);
-    animation: glitchShift 340ms steps(2, end) infinite;
-}
-
-.glitch:hover::after {
-    color: var(--neon-cyan);
-    clip-path: inset(40% 0 0 0);
-    transform: translate(2px, 1px);
-    animation: glitchShift 420ms steps(2, end) infinite reverse;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
 }
 
 a {
     color: inherit;
     text-decoration: none;
-    transition: color 200ms ease;
 }
 
-main {
-    width: min(100%, var(--content-width));
-    margin: 0 auto;
-    padding: 24px var(--gutter) 72px;
-    /* Sections no longer clip their own decorations (the card wrapper is
-       gone), so stripes and circuit lines are clipped here, at main's
-       outer edge, which is the viewport edge below the content cap. */
-    overflow-x: clip;
-    animation: fadeIn 400ms ease-out;
-}
-
-.hero,
-.section,
-.section--contact {
-    /* No card: sections sit directly on the page and are separated by a
-       hairline + spacing, so the content can use the full width. */
-    position: relative;
-}
-
-.hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.9fr);
-    gap: 48px;
-    padding: 48px 0 72px;
-    align-items: center;
-    animation: fadeInUp 800ms ease-out;
-}
-
-.hero__content,
-.hero__card,
-.section,
-.section--contact {
-    position: relative;
-    z-index: 1;
-}
-
-.eyebrow {
-    margin: 0 0 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.24em;
-    font-size: 0.76rem;
-    color: var(--accent-strong);
-}
-
-.hero h1,
-.section__heading h2,
-.section--contact h2 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-}
-
-.hero__title {
-    display: grid;
-    gap: 2px;
-    max-width: none;
-}
-
-.hero__title-kicker {
-    font-size: clamp(1.1rem, 2.4vw, 1.7rem);
-    line-height: 1;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent-soft);
-    font-family: var(--font-body);
-    font-weight: 700;
-}
-
-.hero__title-name {
-    font-size: clamp(3.8rem, 8vw, 7rem);
-    line-height: 0.9;
-    text-shadow: 0 0 22px rgba(63, 140, 232, 0.4), 0 0 46px rgba(0, 231, 255, 0.2);
-}
-
-.hero__typing {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin: 16px 0 0;
-    min-height: 1.6rem;
-    font-size: clamp(1rem, 2vw, 1.15rem);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-strong);
-}
-
-.hero__typing-label {
-    display: inline-block;
-}
-
-.hero__typing-cursor {
-    width: 0.7em;
-    height: 1.1em;
-    border-radius: 2px;
-    background: linear-gradient(180deg, var(--accent), var(--accent-soft));
-    animation: terminalCursorBlink 0.9s steps(2, end) infinite;
-}
-
-.hero h1 {
-    font-size: clamp(3.4rem, 8vw, 6.8rem);
-    max-width: 9ch;
-}
-
-.lede,
-.section p,
-.section--contact p,
-.project-card p,
-.anime-list span {
-    color: var(--muted);
-    max-width: 72ch;
-    line-height: 1.7;
-    font-size: 1.02rem;
-}
-
-.lede {
-    max-width: 60ch;
-    margin: 24px 0 0;
-}
-
-.hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 32px;
-}
-
-.hero__metrics {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 24px;
-}
-
-.hero__metric {
-    display: grid;
-    gap: 8px;
-    padding: 16px 18px;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeInUp 700ms ease-out backwards;
-}
-
-.hero__metric:nth-child(1) {
-    animation-delay: 120ms;
-}
-
-.hero__metric:nth-child(2) {
-    animation-delay: 220ms;
-}
-
-.hero__metric:nth-child(3) {
-    animation-delay: 320ms;
-}
-
-.hero__metric:nth-child(4) {
-    animation-delay: 420ms;
-}
-
-.hero__metric span {
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.7rem;
-    color: var(--accent-soft);
-}
-
-.hero__metric strong {
-    font-family: var(--font-tech);
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.01em;
-    color: var(--text);
-    line-height: 1.4;
-}
-
-.hero__card {
-    padding: 28px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    animation: fadeInUp 800ms ease-out 200ms backwards, float 4s ease-in-out 1s infinite;
-}
-
-.hero__terminal {
-    padding: 0;
-}
-
-.hero__terminal-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 18px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(0, 0, 0, 0.18);
-    border-radius: 16px 16px 0 0;
-}
-
-.hero__terminal-title {
-    color: var(--muted);
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-family: var(--font-mono);
-}
-
-/* Ambient BMW drive-by track, rendered by <BmwDriveBy> along the bottom
-   edge of the hero. Host (.hero) already has position: relative +
-   overflow: hidden. */
-.bmw-driveby-track {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 10px;
-    height: 90px;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.bmw-driveby {
-    position: absolute;
-    top: 0;
-    width: 210px;
-    filter: drop-shadow(0 0 10px var(--neon-cyan-soft));
-    animation: bmwDrive 2.6s cubic-bezier(0.45, 0, 0.4, 1) forwards;
-}
-
-.bmw-car {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.bmw-driveby__trail {
-    position: absolute;
-    right: 100%;
-    top: 46%;
-    width: 200px;
-    height: 5px;
-    background: linear-gradient(90deg, transparent, var(--neon-cyan-soft));
-    filter: blur(2px);
-}
-
-@keyframes bmwDrive {
-    0% {
-        left: -230px;
-        opacity: 0;
-    }
-
-    8% {
-        opacity: 1;
-    }
-
-    92% {
-        opacity: 1;
-    }
-
-    100% {
-        left: 100%;
-        opacity: 0;
-    }
-}
-
-.tick-divider {
-    height: 8px;
-    margin: 0 20px;
-    background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 11px);
-    background-position: top;
-    background-repeat: repeat-x;
-    background-size: auto 6px;
-}
-
-.hero__terminal-body {
-    padding: 16px 20px 4px;
-    display: grid;
-    gap: 4px;
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
-    line-height: 1.55;
-}
-
-.hero__terminal-line {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 12px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    opacity: 0;
-}
-
-.hero__terminal-line:first-child {
-    border-top: 0;
-}
-
-.hero__terminal-line span:first-child {
-    color: var(--muted);
-}
-
-.hero__terminal-line--delay-1 {
-    animation: terminalLineReveal 700ms ease-out 350ms forwards;
-}
-
-.hero__terminal-line--delay-2 {
-    animation: terminalLineReveal 700ms ease-out 950ms forwards;
-}
-
-.hero__terminal-line--delay-3 {
-    animation: terminalLineReveal 700ms ease-out 1550ms forwards;
-}
-
-.hero__terminal-line--ready {
-    padding-bottom: 18px;
-    animation: terminalLineReveal 700ms ease-out 2150ms forwards;
-}
-
-/* Start lights: five lamps igniting in sequence, "lights out" when the
-   telemetry card is ready - the F1 start sequence, doubling as a loading
-   tell for the panel itself. */
-@keyframes lightUp {
-    from {
-        opacity: 0.25;
-        box-shadow: none;
-    }
-
-    to {
-        opacity: 1;
-        box-shadow: 0 0 8px rgba(111, 227, 171, 0.8);
-    }
-}
-
-.start-lights {
-    display: flex;
-    gap: 4px;
-}
-
-.start-light {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: var(--racing-green);
-    opacity: 0.25;
-    animation: lightUp 220ms ease-out forwards;
-}
-
-.start-light:nth-child(1) {
-    animation-delay: 200ms;
-}
-
-.start-light:nth-child(2) {
-    animation-delay: 340ms;
-}
-
-.start-light:nth-child(3) {
-    animation-delay: 480ms;
-}
-
-.start-light:nth-child(4) {
-    animation-delay: 620ms;
-}
-
-.start-light:nth-child(5) {
-    animation-delay: 760ms;
-}
-
-/* HUD corner brackets - a targeting-reticle accent for telemetry-style
-   panels. Host element needs position: relative (hero__card already has it). */
-.hud-corner {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border: 0 solid var(--neon-cyan);
-    opacity: 0.8;
-    filter: drop-shadow(0 0 4px var(--neon-cyan-soft));
-    pointer-events: none;
-}
-
-.hud-corner--tl {
-    top: -8px;
-    left: -8px;
-    border-top-width: 2px;
-    border-left-width: 2px;
-}
-
-.hud-corner--tr {
-    top: -8px;
-    right: -8px;
-    border-top-width: 2px;
-    border-right-width: 2px;
-}
-
-.hud-corner--bl {
-    bottom: -8px;
-    left: -8px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-}
-
-.hud-corner--br {
-    bottom: -8px;
-    right: -8px;
-    border-bottom-width: 2px;
-    border-right-width: 2px;
-}
-
-/* Sector tag - a small timing-tower marker used next to section eyebrows. */
-.section-marker {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-}
-
-.section-marker .eyebrow {
-    margin: 0;
-}
-
-.sector-tag {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--racing-green);
-    border: 1px solid rgba(111, 227, 171, 0.4);
-    background: rgba(111, 227, 171, 0.12);
-    border-radius: 4px;
-    padding: 3px 7px;
-}
-
-/* Livery stripe - the real BMW Motorsport tricolor (light blue / dark
-   blue / red / white) as a corner flourish. Host element needs
-   position: relative + overflow: hidden (hero and section already have
-   both). Decorative only - never a status color. */
-.livery-stripe {
-    position: absolute;
-    /* Anchored past the page gutter so the stripes run off the right edge
-       of the viewport now that sections have no card corner to sit in. */
-    right: calc(-1 * var(--gutter) - 70px);
-    width: 220px;
-    height: 9px;
-    transform: rotate(45deg);
-    opacity: 0.9;
-    pointer-events: none;
-}
-
-.livery-stripe--1 {
-    top: 10px;
-    background: var(--m-blue-light);
-}
-
-.livery-stripe--2 {
-    top: 20px;
-    background: var(--m-blue-dark);
-}
-
-.livery-stripe--3 {
-    top: 30px;
-    background: var(--m-red);
-}
-
-.livery-stripe--4 {
-    top: 40px;
-    background: var(--m-white);
-}
-
-.circuit-line {
-    position: absolute;
-    opacity: 0.07;
-    pointer-events: none;
-}
-
-/* Skewed technical numerals - a livery-number treatment for stat figures. */
-.stat-figure {
-    font-family: var(--font-tech);
-    font-weight: 700;
-    display: inline-block;
-    transform: skewX(-8deg);
-}
-
-/* Position badges - P1..P5 markers on project cards, colored to match
-   each card's status. Host element needs position: relative
-   (.project-card already has it). */
-.position-badge {
-    position: absolute;
-    top: -14px;
-    left: 20px;
-    display: inline-flex;
-    padding: 3px 9px;
-    border-radius: 6px;
-    background: #11141c;
-    font-family: var(--font-tech);
-    font-weight: 700;
-    font-size: 0.85rem;
-}
-
-.position-badge span {
-    display: inline-block;
-    transform: skewX(-8deg);
-}
-
-.position-badge--live {
-    border: 1px solid rgba(111, 227, 171, 0.5);
-    color: var(--racing-green);
-}
-
-.position-badge--progress {
-    border: 1px solid rgba(242, 163, 95, 0.5);
-    color: var(--racing-amber);
-}
-
-.position-badge--featured {
-    border: 1px solid rgba(108, 140, 245, 0.5);
-    color: var(--accent-soft);
-}
-
-.position-badge--planned {
-    border: 1px dashed rgba(244, 240, 232, 0.4);
-    color: var(--muted);
-}
-
-.section,
-.section--contact {
-    padding: 72px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeInUp 600ms ease-out backwards;
-}
-
-.section {
-    animation-delay: 100ms;
-}
-
-/* Lighter-weight sibling for content that lives inside another section
-   (e.g. Games/Anime inside About) - a divider instead of another full
-   card, so a page isn't just a stack of identical boxes. */
-.subsection {
-    padding-top: 32px;
-    margin-top: 32px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeInUp 600ms ease-out backwards;
-}
-
-.section__heading {
-    max-width: 760px;
-    margin-bottom: 28px;
-}
-
-.section--contact h2 {
-    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
-    max-width: 32ch;
-}
-
-.anime-list,
-.project-grid {
-    display: grid;
-    gap: 18px;
-}
-
-.about-panel {
-    padding: 24px;
-    border-radius: 22px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.about-panel p {
-    margin: 0;
-}
-
-.about-panel p+p {
-    margin-top: 14px;
-}
-
-.about-panel--skills {
-    display: grid;
-    gap: 16px;
-}
-
-.about-panel__label {
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.78rem;
-    color: var(--accent-strong);
-}
-
-.skill-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-    gap: 12px;
-}
-
-/* Skill cards read like shifting up a sequential gearbox - each category
-   is a "gear" with its own tachometer-style accent color, an icon, and
-   its tools as individual chips instead of one flat sentence of text. */
-.skill-card {
-    position: relative;
-    display: grid;
-    gap: 12px;
-    align-content: start;
-    padding: 16px 16px 14px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
-    animation: fadeInUp 600ms ease-out backwards;
-    transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), border-color 220ms ease, box-shadow 220ms ease;
-}
-
-.skill-card:nth-child(1) {
-    animation-delay: 80ms;
-}
-
-.skill-card:nth-child(2) {
-    animation-delay: 160ms;
-}
-
-.skill-card:nth-child(3) {
-    animation-delay: 240ms;
-}
-
-.skill-card:nth-child(4) {
-    animation-delay: 320ms;
-}
-
-.skill-card:hover {
-    transform: translateY(-5px);
-}
-
-.skill-card__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.skill-card__gear {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 9px;
-    border-radius: 6px;
-    background: #11141c;
-    font-family: var(--font-tech);
-    font-weight: 700;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-}
-
-.skill-card__gear span {
-    display: inline-block;
-    transform: skewX(-8deg);
-}
-
-.skill-card__icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-}
-
-.skill-card strong {
-    font-size: 1rem;
-    color: var(--text);
-}
-
-.skill-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.skill-card__tags span {
-    padding: 4px 9px;
-    border-radius: 999px;
-    font-size: 0.74rem;
-    color: var(--muted);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.skill-card--frontend .skill-card__gear,
-.skill-card--frontend .skill-card__icon {
-    color: var(--accent-strong);
-}
-
-.skill-card--frontend .skill-card__gear {
-    border: 1px solid rgba(63, 140, 232, 0.4);
-}
-
-.skill-card--frontend:hover {
-    border-color: rgba(63, 140, 232, 0.4);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(63, 140, 232, 0.18);
-}
-
-.skill-card--backend .skill-card__gear,
-.skill-card--backend .skill-card__icon {
-    color: var(--racing-green);
-}
-
-.skill-card--backend .skill-card__gear {
-    border: 1px solid rgba(111, 227, 171, 0.4);
-}
-
-.skill-card--backend:hover {
-    border-color: rgba(111, 227, 171, 0.4);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(111, 227, 171, 0.18);
-}
-
-.skill-card--workflow .skill-card__gear,
-.skill-card--workflow .skill-card__icon {
-    color: var(--racing-amber);
-}
-
-.skill-card--workflow .skill-card__gear {
-    border: 1px solid rgba(242, 163, 95, 0.4);
-}
-
-.skill-card--workflow:hover {
-    border-color: rgba(242, 163, 95, 0.4);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(242, 163, 95, 0.18);
-}
-
-.skill-card--interests .skill-card__gear,
-.skill-card--interests .skill-card__icon {
-    color: var(--neon-cyan);
-}
-
-.skill-card--interests .skill-card__gear {
-    border: 1px solid rgba(0, 231, 255, 0.4);
-}
-
-.skill-card--interests:hover {
-    border-color: rgba(0, 231, 255, 0.4);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(0, 231, 255, 0.22);
-}
-
-@media (max-width: 640px) {
-    .skill-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Most-used-across-my-builds bars: a small, honest companion to the
-   skill grid, driven by real tag counts from the projects list rather
-   than a claimed proficiency level. */
-.skill-bars {
-    display: grid;
-    gap: 14px;
-    margin-top: 18px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.skill-bar__label {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 6px;
-    font-size: 0.88rem;
-}
-
-.skill-bar__label strong {
-    color: var(--text);
-}
-
-.skill-bar__label span {
-    color: var(--muted);
-    font-size: 0.78rem;
-}
-
-.skill-bar__track {
-    height: 6px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-}
-
-.skill-bar__fill {
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-}
-
-.games-grid {
-    display: grid;
-    gap: 18px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.project-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.project-card {
-    display: grid;
-    gap: 12px;
-}
-
-.project-card__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 10px;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-}
-
-.status-badge__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: currentColor;
-}
-
-.status-badge--live {
-    background: rgba(111, 227, 171, 0.14);
-    border: 1px solid rgba(111, 227, 171, 0.4);
-    color: var(--racing-green);
-}
-
-.status-badge--progress {
-    background: rgba(242, 163, 95, 0.14);
-    border: 1px solid rgba(242, 163, 95, 0.4);
-    color: var(--racing-amber);
-}
-
-.status-badge--featured {
-    background: rgba(108, 140, 245, 0.16);
-    border: 1px solid rgba(108, 140, 245, 0.45);
-    color: var(--accent-soft);
-}
-
-.status-badge--planned {
-    background: rgba(244, 240, 232, 0.05);
-    border: 1px dashed rgba(244, 240, 232, 0.35);
-    color: var(--muted);
-}
-
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.project-tags span {
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.project-links {
-    display: flex;
-    gap: 14px;
-    margin-top: 2px;
-}
-
-.project-links a {
-    color: var(--accent-strong);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.74rem;
-    font-weight: 700;
-}
-
-.project-links a:hover {
-    color: var(--accent);
-}
-
-.project-links__note {
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.74rem;
-}
-
-.project-card__details {
-    margin-top: 2px;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.project-card__details summary {
-    cursor: pointer;
-    list-style: none;
-    color: var(--accent-strong);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.74rem;
-    font-weight: 700;
-}
-
-.project-card__details summary::-webkit-details-marker {
-    display: none;
-}
-
-.project-card__details summary::before {
-    content: "+ ";
-}
-
-.project-card__details[open] summary::before {
-    content: "\2212 ";
-}
-
-.project-card__details summary:hover {
-    color: var(--accent);
-}
-
-.project-card__details-body {
-    display: grid;
-    gap: 12px;
-    margin-top: 12px;
-}
-
-.project-card__details-body p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.92rem;
-    line-height: 1.65;
-}
-
-.project-card__highlights {
-    display: grid;
-    gap: 6px;
-    margin: 0;
-    padding-left: 18px;
-    color: var(--muted);
-    font-size: 0.88rem;
-    line-height: 1.55;
-}
-
-.game-card {
-    padding: 0;
-    border-radius: 22px;
-    background: rgba(10, 14, 22, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-    transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 320ms ease, border-color 320ms ease, background 320ms ease;
-    animation: fadeInUp 600ms ease-out backwards;
-}
-
-.game-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 28px rgba(0, 231, 255, 0.1);
-}
-
-.game-card__image-wrap {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-    background: var(--bg);
-}
-
-.game-card__image-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(11, 15, 23, 0.05) 0%, rgba(11, 15, 23, 0.55) 100%);
-    pointer-events: none;
-}
-
-.game-card__image {
-    object-fit: cover;
-    filter: saturate(0.85) brightness(0.92);
-    transition: transform 360ms ease, filter 360ms ease;
-}
-
-.game-card:hover .game-card__image {
-    transform: scale(1.04);
-    filter: saturate(0.95) brightness(1);
-}
-
-.route-page {
-    display: grid;
-    gap: 22px;
-    padding-top: 24px;
-}
-
-.page-intro {
-    display: grid;
-    gap: 12px;
-    padding: 22px 6px 4px;
-    animation: fadeInUp 600ms ease-out backwards;
-}
-
-.page-intro h1 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    font-size: clamp(2.5rem, 6vw, 4.8rem);
-    max-width: 34ch;
-}
-
-.page-intro p:last-child {
-    margin: 0;
-    max-width: 58ch;
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 1rem;
-}
-
-.route-inline-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: -2px;
-}
-
-.route-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
-    gap: 24px;
-    padding: 44px;
-    border-radius: 30px;
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
-    animation: fadeInUp 700ms ease-out;
-}
-
-.route-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top right, rgba(63, 140, 232, 0.14), transparent 30%), radial-gradient(circle at bottom left, rgba(108, 140, 245, 0.1), transparent 30%);
-    pointer-events: none;
-}
-
-.route-hero>* {
-    position: relative;
-    z-index: 1;
-}
-
-.route-hero h1 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 600;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    font-size: clamp(3rem, 7vw, 5.8rem);
-    max-width: 10ch;
-}
-
-.route-hero__lede {
-    margin: 20px 0 0;
-    max-width: 58ch;
-    color: var(--muted);
-    font-size: 1.02rem;
-    line-height: 1.7;
-}
-
-.route-hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 28px;
-}
-
-.route-hero__panel {
-    padding: 22px;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.045);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    display: grid;
-    gap: 16px;
-    align-self: start;
-}
-
-.route-hero__panel-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.route-hero__panel-label {
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.74rem;
-    color: var(--accent-strong);
-}
-
-.route-hero__panel-note {
-    color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.55;
-    margin: 0;
-}
-
-.route-hero__panel-list {
-    display: grid;
-    gap: 12px;
-}
-
-.route-hero__panel-list>div {
-    padding-top: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: grid;
-    gap: 4px;
-}
-
-.route-hero__panel-list>div:first-child {
-    border-top: 0;
-    padding-top: 0;
-}
-
-.route-hero__panel-list strong {
-    color: var(--text);
-    font-size: 0.96rem;
-}
-
-.route-hero__panel-list span {
-    color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.route-section {
-    /* Same as .section: no card, just a hairline and spacing. */
-    display: grid;
-    gap: 18px;
-    padding: 64px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeInUp 650ms ease-out backwards;
-}
-
-.route-section__grid {
-    display: grid;
-    gap: 18px;
-}
-
-.route-section__grid--two {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.route-section__grid--three {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.timeline {
-    display: grid;
-    gap: 16px;
-}
-
-.timeline__item {
-    display: grid;
-    grid-template-columns: 156px minmax(0, 1fr);
-    gap: 16px;
-    padding: 18px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeInUp 650ms ease-out backwards;
-}
-
-.timeline__item:nth-child(1) {
-    animation-delay: 90ms;
-}
-
-.timeline__item:nth-child(2) {
-    animation-delay: 180ms;
-}
-
-.timeline__item:nth-child(3) {
-    animation-delay: 270ms;
-}
-
-.timeline__item:nth-child(4) {
-    animation-delay: 360ms;
-}
-
-.timeline__year {
-    display: grid;
-    gap: 6px;
-    align-content: start;
-    color: var(--accent-strong);
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 0.78rem;
-}
-
-/* Ties each milestone back to its dot on the Nordschleife map above. */
-.timeline__checkpoint {
-    display: inline-flex;
-    width: fit-content;
-    font-family: var(--font-mono);
-    letter-spacing: 0.02em;
-    text-transform: none;
-    font-size: 0.68rem;
-    color: var(--neon-cyan);
-    border: 1px solid rgba(0, 231, 255, 0.35);
-    background: rgba(0, 231, 255, 0.08);
-    border-radius: 999px;
-    padding: 2px 8px;
-}
-
-/* Stylized Nürburgring Nordschleife map above the timeline - see
-   <NordschleifeMap> in Experience.tsx for the checkpoint/corner data. */
-.track-map {
-    position: relative;
-    display: grid;
-    justify-items: center;
-    gap: 8px;
-    padding: 24px;
-    border-radius: 24px;
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-}
-
-.track-map__svg {
-    width: min(100%, 460px);
-    height: auto;
-}
-
-.track-map__road {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.16);
-    stroke-width: 20;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.track-map__line {
-    fill: none;
-    stroke: var(--neon-cyan);
-    stroke-width: 3;
-    stroke-dasharray: 9 11;
-    opacity: 0.55;
-}
-
-.track-map__checkpoint {
-    fill: #11141c;
-    stroke: var(--accent-strong);
-    stroke-width: 3;
-    filter: drop-shadow(0 0 5px rgba(63, 140, 232, 0.4));
-}
-
-.track-map__checkpoint--start {
-    stroke: var(--racing-green);
-    filter: drop-shadow(0 0 6px rgba(111, 227, 171, 0.55));
-}
-
-.track-map__checkpoint-label {
-    font-family: var(--font-tech);
-    font-size: 17px;
-    font-weight: 700;
-    fill: var(--text);
-    pointer-events: none;
-}
-
-.track-map__runner {
-    fill: var(--neon-cyan);
-    filter: drop-shadow(0 0 6px rgba(0, 231, 255, 0.9));
-}
-
-.track-map__caption {
-    margin: 4px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    text-align: center;
-}
-
-.timeline__content {
-    display: grid;
-    gap: 8px;
-}
-
-.timeline__content strong {
-    color: var(--text);
-    font-size: 1.05rem;
-}
-
-.timeline__content p {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.7;
-}
-
-.timeline__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.timeline__tags span {
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 0.76rem;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-@media (max-width: 960px) {
-
-    .route-hero,
-    .route-section__grid--two,
-    .route-section__grid--three {
-        grid-template-columns: 1fr;
-    }
-
-    .route-inline-actions {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .timeline__item {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-}
-
-/* Logo-click easter egg: a brief full-viewport "launch control" flash,
-   rendered by <LaunchControlOverlay> in the root layout. */
-.launch-control {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    display: grid;
-    place-items: center;
-    gap: 16px;
-    pointer-events: none;
-    animation: launchFade 2.2s ease-out forwards;
-}
-
-@keyframes launchFade {
-
-    0%,
-    100% {
-        opacity: 0;
-    }
-
-    10%,
-    80% {
-        opacity: 1;
-    }
-}
-
-.launch-control__flash {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(0, 231, 255, 0.18), transparent 60%);
-    animation: launchPulse 0.5s ease-out 3;
-}
-
-@keyframes launchPulse {
-
-    0%,
-    100% {
-        opacity: 0.4;
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
-
-.launch-control__text {
-    margin: 0;
-    font-family: var(--font-tech);
-    font-weight: 800;
-    font-size: clamp(1.3rem, 4vw, 2.4rem);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--neon-cyan);
-    text-shadow: 0 0 20px rgba(0, 231, 255, 0.7);
-    text-align: center;
-}
-
-.launch-control__bar {
-    width: min(70vw, 420px);
-    height: 8px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(0, 231, 255, 0.3);
-    overflow: hidden;
-}
-
-.launch-control__bar-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--accent), var(--neon-cyan));
-    animation: launchRev 1.8s ease-in forwards;
-}
-
-@keyframes launchRev {
-    0% {
-        width: 0%;
-    }
-
-    70% {
-        width: 96%;
-    }
-
-    100% {
-        width: 100%;
-    }
-}
-
-/* Konami-code secret: a small canvas lane-dodge game, rendered by
-   <SecretRaceGame> in the root layout. */
-.race-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 300;
-    display: grid;
-    place-items: center;
-    background: rgba(4, 6, 10, 0.86);
-    backdrop-filter: blur(6px);
-    animation: fadeIn 220ms ease-out;
-    padding: 20px;
-}
-
-.race-modal {
-    position: relative;
-    width: min(92vw, 380px);
-    padding: 22px;
-    border-radius: 24px;
-    border: 1px solid rgba(0, 231, 255, 0.3);
-    background: linear-gradient(180deg, rgba(10, 16, 26, 0.95), rgba(6, 10, 18, 0.98));
-    box-shadow: 0 0 60px rgba(0, 231, 255, 0.12), var(--shadow);
-    display: grid;
-    gap: 14px;
-}
-
-.race-modal__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.race-modal__title {
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    letter-spacing: 0.06em;
-}
-
-.race-modal__close {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 999px;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-.race-modal__close:hover {
-    color: var(--text);
-    border-color: rgba(255, 255, 255, 0.24);
-}
-
-.race-modal__hud {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--muted);
-}
-
-.race-modal__hud strong {
-    color: var(--neon-cyan);
-}
-
-.race-canvas {
-    width: 100%;
-    height: auto;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 231, 255, 0.25);
-    background: #060a12;
-    display: block;
-}
-
-.race-modal__prompt {
-    display: grid;
-    justify-items: center;
-    gap: 10px;
-    text-align: center;
-}
-
-.race-modal__prompt p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.88rem;
-}
-
-.race-modal__start {
-    font-family: var(--font-tech);
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 10px 22px;
-    border-radius: 999px;
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-    background: rgba(0, 231, 255, 0.08);
-    cursor: pointer;
-    transition: background 180ms ease, box-shadow 180ms ease;
-}
-
-.race-modal__start:hover {
-    background: rgba(0, 231, 255, 0.16);
-    box-shadow: 0 0 24px rgba(0, 231, 255, 0.35);
-}
-
-/* Tiny footer hint, dim enough to stay a secret you have to look for. */
-.footer-hint {
-    margin: 10px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: rgba(244, 240, 232, 0.28);
-    transition: color 200ms ease;
-}
-
-.footer-hint:hover {
-    color: var(--neon-cyan-soft);
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-
-    .hero__terminal-line {
-        opacity: 1;
-        clip-path: none;
-        transform: none;
-    }
-
-    .start-light {
-        opacity: 1;
-        box-shadow: 0 0 8px rgba(111, 227, 171, 0.8);
-    }
-}
-
-.game-card__content {
-    display: grid;
-    gap: 10px;
-    padding: 18px 20px 20px;
-}
-
-.game-card__content .status-badge {
-    justify-self: start;
-}
-
-.game-card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
-.game-card p {
-    margin: 0;
-}
-
-.links-page {
-    display: grid;
-    gap: 2px;
-}
-
-.links-grid {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-}
-
-.link-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 18px;
-    border-radius: 18px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: inherit;
-    text-decoration: none;
-    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
-}
-
-.link-card:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 231, 255, 0.3);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(0, 231, 255, 0.1);
-}
-
-.link-card__icon {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    color: var(--accent-strong);
-}
-
-.link-card__body {
-    display: grid;
-    gap: 3px;
-    min-width: 0;
-}
-
-.link-card__top {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-}
-
-.link-card__top strong {
-    font-size: 1.02rem;
-    color: var(--text);
-}
-
-.link-card__category {
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.68rem;
-    color: var(--muted);
-}
-
-.link-card__handle {
-    color: var(--muted);
-    font-size: 0.88rem;
-}
-
-.link-card__status {
-    margin-left: auto;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--racing-green);
-    white-space: nowrap;
-}
-
-.link-card__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--racing-green);
-    box-shadow: 0 0 6px rgba(111, 227, 171, 0.8);
-    animation: launchPulse 1.6s ease-in-out infinite;
-}
-
-.link-card__external {
-    color: var(--accent-strong);
-    font-size: 0.9rem;
-}
-
-.uses-grid {
-    display: grid;
-    gap: 18px;
-    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
-}
-
-.uses-card {
-    padding: 22px;
-    border-radius: 22px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.uses-card__title {
-    margin: 0 0 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: 0.78rem;
-    color: var(--accent-strong);
-}
-
-/* /uses "garage board" - the software grid reads like a dash of load
-   meters, sat under a genuinely live clock/session readout (see
-   useGarageClock in Uses.tsx). Host needs position: relative for the
-   hud-corner brackets reused from the track map. */
-.garage-panel {
-    position: relative;
-}
-
-.garage-readout {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px 16px;
-    padding: 10px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(0, 231, 255, 0.25);
-    background: rgba(0, 231, 255, 0.06);
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.03em;
-    color: var(--neon-cyan);
-}
-
-.garage-readout__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--racing-green);
-    box-shadow: 0 0 8px rgba(111, 227, 171, 0.8);
-    animation: launchPulse 1.6s ease-in-out infinite;
-}
-
-.garage-readout__item {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 6px;
-}
-
-.garage-readout__label {
-    color: var(--muted);
-    text-transform: uppercase;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-}
-
-.garage-readout__sep {
-    width: 1px;
-    height: 14px;
-    background: rgba(0, 231, 255, 0.25);
-}
-
-.software-grid {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-}
-
-.software-card {
-    display: grid;
-    gap: 10px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: fadeInUp 600ms ease-out backwards;
-    transition: transform 240ms ease, border-color 220ms ease;
-}
-
-.software-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(0, 231, 255, 0.3);
-}
-
-.software-card__top {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.software-card__top strong {
-    color: var(--text);
-    font-size: 0.98rem;
-}
-
-.software-card__category {
-    color: var(--muted);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    white-space: nowrap;
-}
-
-.software-card__meter {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.software-card__track {
-    flex: 1;
-    height: 6px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-}
-
-.software-card__fill {
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--accent), var(--neon-cyan));
-}
-
-.software-card__value {
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    color: var(--accent-strong);
-    min-width: 2.6em;
-    text-align: right;
-}
-
-.setup-grid {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-}
-
-.setup-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 18px;
-    border-radius: 16px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: fadeInUp 600ms ease-out backwards;
-    transition: transform 240ms ease, border-color 220ms ease;
-}
-
-.setup-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(63, 140, 232, 0.35);
-}
-
-.setup-card__icon {
-    width: 26px;
-    height: 26px;
-    flex-shrink: 0;
-    color: var(--accent-strong);
-}
-
-.setup-card__body {
-    display: grid;
-    gap: 3px;
-    min-width: 0;
-}
-
-.setup-card__type {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.68rem;
-    color: var(--racing-green);
-}
-
-.setup-card__body strong {
-    color: var(--text);
-    font-size: 0.92rem;
-    line-height: 1.35;
-}
-
-.project-card,
-.anime-list article {
-    padding: 24px;
-    border-radius: 22px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 320ms ease, border-color 320ms ease, background 320ms ease;
-    animation: fadeInUp 600ms ease-out backwards;
-}
-
-.project-card {
-    position: relative;
-    cursor: pointer;
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 28px rgba(0, 231, 255, 0.1);
-}
-
-.project-card:nth-child(1) {
-    animation-delay: 150ms;
-}
-
-.project-card:nth-child(2) {
-    animation-delay: 250ms;
-}
-
-.project-card:nth-child(3) {
-    animation-delay: 350ms;
-}
-
-.anime-list article {
-    animation-delay: 150ms;
-}
-
-.anime-list article:nth-child(2) {
-    animation-delay: 250ms;
-}
-
-.anime-list article:nth-child(3) {
-    animation-delay: 350ms;
-}
-
-.project-card__meta {
-    margin: 0 0 18px;
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--accent-strong);
-}
-
-.project-card h3,
-.anime-list strong {
-    margin: 0 0 12px;
-    font-size: 1.35rem;
-}
-
-.anime-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.anime-list article {
-    display: grid;
-    gap: 0;
-}
-
-.anime-card__image-wrap {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-    background: var(--bg);
-}
-
-.anime-card__image-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(11, 15, 23, 0.05) 0%, rgba(11, 15, 23, 0.55) 100%);
-    pointer-events: none;
-}
-
-.anime-card__image {
-    object-fit: cover;
-    filter: saturate(0.85) brightness(0.92);
-    transition: transform 360ms ease, filter 360ms ease;
-}
-
-.anime-list article:hover .anime-card__image {
-    transform: scale(1.04);
-    filter: saturate(0.95) brightness(1);
-}
-
-.anime-card__content {
-    display: grid;
-    gap: 8px;
-    padding: 18px 20px 20px;
-}
-
-.section--contact {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding-block: 40px;
-}
-
-.site-footer {
-    width: min(calc(100% - 2 * var(--gutter)), var(--content-width));
-    margin: 18px auto 24px;
-    padding: 18px 0 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.site-footer__content {
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) auto;
-    gap: 24px;
-    padding: 10px 0 0;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-}
-
-.site-footer__lead h2 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3.5vw, 3rem);
-    line-height: 0.98;
-}
-
-.site-footer__lead p:last-child {
-    margin: 14px 0 0;
-    max-width: 50ch;
-    color: var(--muted);
-    line-height: 1.7;
-}
-
-.site-footer__links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-self: start;
-}
-
-.site-footer__links a {
-    color: var(--muted);
-    transition: color 180ms ease, transform 180ms ease;
-}
-
-.site-footer__links a:hover {
-    transform: translateY(-1px);
-    color: var(--text);
-}
-
-.section--contact p {
-    max-width: 54ch;
-    margin-bottom: 0;
-}
-
-@media (max-width: 980px) {
-
-    .hero,
-    .project-grid,
-    .games-grid,
-    .links-grid,
-    .uses-grid,
-    .anime-list,
-    .section--contact,
-    .setup-grid {
-        grid-template-columns: 1fr;
-        display: grid;
-    }
-
-    .hero {
-        padding: 32px 0 56px;
-    }
-
-    .section,
-    .section--contact {
-        padding: 56px 0;
-    }
-
-    .hero h1 {
-        max-width: 100%;
-    }
-
-    .about-panel {
-        padding: 20px;
-    }
-}
-
-@media (max-width: 720px) {
-    main {
-        padding-top: 14px;
-    }
-
-    .route-section {
-        padding: 44px 0;
-    }
-
-    /* On phones the corner stripes of a content section run into its
-       heading; only the hero keeps them there. */
-    .section .livery-stripe {
-        display: none;
-    }
-
-    .hero {
-        padding: 20px 0 44px;
-    }
-
-    .section,
-    .section--contact {
-        padding: 44px 0;
-    }
-
-    .hero__actions {
-        flex-direction: column;
-    }
-
-    .hero__actions>* {
-        width: 100%;
-    }
-
-    .page-intro {
-        padding-top: 10px;
-    }
-
-    .page-intro h1 {
-        max-width: 100%;
-    }
-
-    .site-footer {
-        margin-bottom: 18px;
-    }
-
-    .site-footer__content {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .site-footer__links {
-        gap: 14px;
-    }
-}
-
-/* Guestbook ("Pit Wall") - form styling follows the button/card language
-   used everywhere else (pill buttons, .bg-elevated cards, --accent-strong
-   focus color) since this is the first real form on the site. */
-.guestbook-form {
-    display: grid;
-    gap: 16px;
-    padding: 24px;
-    border-radius: 22px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    max-width: 560px;
-}
-
-.guestbook-form__identity {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.guestbook-form__avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.guestbook-form__identity strong {
-    display: block;
-    color: var(--text);
-}
-
-.guestbook-form__signout {
-    background: none;
-    border: none;
-    padding: 0;
-    color: var(--muted);
-    font-size: 0.78rem;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.guestbook-form__signout:hover {
-    color: var(--text);
-}
-
-.guestbook-form__field {
-    display: grid;
-    gap: 6px;
-}
-
-.guestbook-form__field label {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.7rem;
-    color: var(--accent-soft);
-}
-
-.guestbook-input,
-.guestbook-textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text);
+button,
+input,
+textarea {
     font: inherit;
+    color: inherit;
 }
 
-.guestbook-textarea {
-    resize: vertical;
-    min-height: 100px;
+img,
+svg {
+    max-width: 100%;
 }
 
-.guestbook-input:focus,
-.guestbook-textarea:focus {
-    outline: none;
-    border-color: var(--accent-strong);
+:focus-visible {
+    outline: 2px solid var(--lb);
+    outline-offset: 3px;
 }
 
-.guestbook-form__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
+::selection {
+    background: var(--lb);
+    color: #000;
 }
 
-.guestbook-form__submit,
-.guestbook-form__discord {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 20px;
-    border-radius: 999px;
-    border: 1px solid transparent;
-    font-weight: 700;
-    font-family: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 180ms ease;
-}
-
-.guestbook-form__submit {
-    background: linear-gradient(135deg, var(--accent), #7fc4f7);
-    color: #0b0f17;
-    box-shadow: 0 14px 28px rgba(63, 140, 232, 0.28);
-}
-
-.guestbook-form__submit:hover {
-    transform: translateY(-3px);
-}
-
-.guestbook-form__submit:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.guestbook-form__discord {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: var(--border);
-    color: var(--text);
-}
-
-.guestbook-form__discord:hover {
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.guestbook-form__error {
-    margin: 0;
-    color: var(--m-red);
-    font-size: 0.88rem;
-}
-
-.guestbook-form__success {
-    margin: 0;
-    color: var(--racing-green);
-    font-size: 0.88rem;
-}
-
-.guestbook-empty {
-    color: var(--muted);
-}
-
-.guestbook-entries {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
-}
-
-.guestbook-entry {
-    display: flex;
-    gap: 14px;
-    padding: 18px;
-    border-radius: 18px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.guestbook-entry__avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-    object-fit: cover;
-    flex-shrink: 0;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.guestbook-entry__avatar--placeholder {
-    background: rgba(255, 255, 255, 0.06);
-}
-
-.guestbook-entry__body {
-    display: grid;
-    gap: 6px;
-    min-width: 0;
-}
-
-.guestbook-entry__top {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-}
-
-.guestbook-entry__top strong {
-    color: var(--text);
-}
-
-.guestbook-entry__source {
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.66rem;
-    color: var(--muted);
-}
-
-.guestbook-entry__message {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
-}
-
-.guestbook-entry__date {
-    color: var(--muted);
-    font-size: 0.74rem;
-    font-family: var(--font-mono);
-}
-
-.guestbook-admin-list {
-    display: grid;
-    gap: 12px;
-}
-
-.guestbook-admin-entry {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 16px 18px;
-    border-radius: 16px;
-    background: var(--bg-elevated);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.guestbook-admin-entry p {
-    margin: 4px 0 0;
-    color: var(--muted);
-}
-
-.guestbook-admin-entry__actions {
-    display: flex;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.guestbook-admin-entry__approve,
-.guestbook-admin-entry__delete {
-    padding: 8px 14px;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-}
-
-.guestbook-admin-entry__approve {
-    border: 1px solid rgba(111, 227, 171, 0.4);
-    background: rgba(111, 227, 171, 0.14);
-    color: var(--racing-green);
-}
-
-.guestbook-admin-entry__delete {
-    border: 1px solid rgba(226, 35, 26, 0.4);
-    background: rgba(226, 35, 26, 0.12);
-    color: var(--m-red);
-}
-
-@media (max-width: 980px) {
-    .guestbook-entries {
-        grid-template-columns: 1fr;
-    }
-
-    .guestbook-admin-entry {
-        flex-direction: column;
-    }
-}
-/* Start lights (reaction game on /off-duty). The gantry is one big button:
-   five pods, two lamps each like the real F1 gantry. Reds are driven by
-   .is-lit from React; green is driven by [data-phase="green"], which the
-   component also sets directly on the DOM so the paint isn't waiting on a
-   React render. */
 .visually-hidden {
     position: absolute;
     width: 1px;
     height: 1px;
-    padding: 0;
     margin: -1px;
+    padding: 0;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
 }
 
-.start-lights__layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    gap: 22px;
-    align-items: start;
-}
+/* ---------- layout ---------- */
 
-.start-lights__stage {
-    display: grid;
-    gap: 16px;
-}
-
-.start-lights__gantry {
-    --lamp-off: #161a22;
-    --lamp-red: var(--m-red);
-    --lamp-green: #2fe07f;
+.wrap {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: clamp(8px, 2vw, 16px);
+    z-index: 1;
     width: 100%;
-    padding: 30px clamp(14px, 3vw, 28px) 22px;
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background:
-        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 6px),
-        linear-gradient(180deg, #10141c, #07090d);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), var(--shadow);
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    font: inherit;
-    color: inherit;
+    max-width: 1680px;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
 }
 
-/* Overhead rail the pods hang from. */
-.start-lights__gantry::before {
+.sec {
+    position: relative;
+    flex: none;
+    padding-block: var(--sec-pad);
+    scroll-margin-top: 72px;
+}
+
+/* Subpages (links, pit wall, legal ...) - holds the orbs and pushes the
+   footer down. */
+.page {
+    position: relative;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- type ---------- */
+
+.disp {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+}
+
+.h2 {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(44px, 6.5vw, 96px);
+    line-height: 0.92;
+    text-wrap: balance;
+}
+
+.mut {
+    color: var(--mut);
+}
+
+/* Giant display words: white that thins out into milk glass. */
+.name {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.22em;
+    margin: -0.02em 0 -0.04em -0.02em;
+    font-weight: 900;
+    font-size: clamp(88px, 13vw, 200px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+}
+
+.ch {
+    display: inline-block;
+    padding: 0.06em 0;
+    margin-block: -0.07em;
+    background: linear-gradient(180deg, #fff 34%, rgba(255, 255, 255, 0.26) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ---------- milk glass ---------- */
+
+.glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07));
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    -webkit-backdrop-filter: blur(var(--frost)) saturate(150%);
+    backdrop-filter: blur(var(--frost)) saturate(150%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 24px 60px -32px rgba(0, 0, 0, 0.9);
+}
+
+/* Glass that lifts on hover and catches a streak of light. */
+.card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s var(--ease), border-color 0.4s;
+}
+
+.card::after {
     content: "";
     position: absolute;
-    top: 12px;
-    left: 16px;
-    right: 16px;
-    height: 6px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--m-blue-light), var(--m-blue-dark) 40%, var(--m-red) 75%, var(--m-white));
-    opacity: 0.55;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.18) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform 0.9s ease;
+    pointer-events: none;
 }
 
-.start-lights__pod {
-    display: grid;
-    gap: clamp(6px, 1.4vw, 12px);
-    justify-items: center;
-    padding: clamp(8px, 1.6vw, 14px) 0;
-    border-radius: 14px;
-    background: #0b0d12;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.36);
 }
 
-.start-lights__lamp {
-    width: min(100%, 56px);
-    max-width: 72%;
+.card:hover::after {
+    transform: translateX(120%);
+}
+
+/* M-colour light behind the glass. Size, place, colour and pace are set
+   inline per section (see <Orb>). */
+.orb {
+    position: absolute;
+    z-index: 0;
     aspect-ratio: 1;
-    border-radius: 999px;
-    background: radial-gradient(circle at 35% 30%, #262b35, var(--lamp-off) 70%);
-    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.7);
-    transition: background 60ms linear, box-shadow 60ms linear;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    animation: drift 28s ease-in-out infinite alternate;
 }
 
-.start-lights__pod.is-lit .start-lights__lamp {
-    background: radial-gradient(circle at 35% 30%, #ff8a80, var(--lamp-red) 55%, #8f0f08);
-    box-shadow: 0 0 22px rgba(226, 35, 26, 0.75), 0 0 4px rgba(255, 138, 128, 0.9) inset;
-}
+/* ---------- buttons and links ---------- */
 
-/* No transition into green - it has to appear in the very next frame. */
-.start-lights__gantry[data-phase="green"] .start-lights__lamp {
-    transition: none;
-    background: radial-gradient(circle at 35% 30%, #b8ffd3, var(--lamp-green) 55%, #0d7a3c);
-    box-shadow: 0 0 26px rgba(47, 224, 127, 0.75), 0 0 4px rgba(184, 255, 211, 0.9) inset;
-}
-
-.start-lights__gantry[data-phase="jumpstart"] {
-    border-color: rgba(226, 35, 26, 0.55);
-}
-
-/* The big "press here" pad. Same data-phase trick as the gantry: green is
-   set on the DOM in the same frame as the lights. */
-.start-lights__pad {
-    position: relative;
-    display: grid;
-    justify-items: center;
-    gap: 4px;
-    width: 100%;
-    min-height: 104px;
-    padding: 16px 18px;
-    border-radius: 22px;
-    border: 2px dashed rgba(79, 195, 247, 0.55);
-    background: linear-gradient(180deg, rgba(79, 195, 247, 0.14), rgba(47, 111, 209, 0.08));
-    color: var(--text);
-    font: inherit;
-    text-align: center;
-    align-content: center;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    transition: transform 160ms ease, border-color 160ms ease;
-}
-
-.start-lights__pad:hover {
-    border-color: var(--m-blue-light);
-}
-
-.start-lights__pad:active {
-    transform: scale(0.99);
-}
-
-.start-lights__pad:focus-visible {
-    outline: 2px solid var(--accent-strong);
-    outline-offset: 4px;
-}
-
-.start-lights__pad-icon {
+.btn {
     display: inline-flex;
-    color: var(--m-blue-light);
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 26px;
+    border: 1px solid transparent;
+    border-radius: 26px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s var(--ease), background 0.3s;
 }
 
-.start-lights__pad-title {
-    font-family: var(--font-tech);
-    font-size: clamp(1.25rem, 3vw, 1.7rem);
-    line-height: 1.05;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    font-variant-numeric: tabular-nums;
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-.start-lights__pad-sub {
-    color: var(--muted);
-    font-size: 0.84rem;
-    max-width: 46ch;
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
 }
 
-/* "Click" for mouse users, "Tap" on touch screens. */
-.start-lights__verb-tap {
-    display: none;
+.btn-w {
+    background: #fff;
+    color: #000;
 }
 
-@media (hover: none) {
-    .start-lights__verb-click {
-        display: none;
+.btn-g {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--line);
+    -webkit-backdrop-filter: blur(var(--frost));
+    backdrop-filter: blur(var(--frost));
+}
+
+.btn-g:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.ext {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.ext svg {
+    transition: transform 0.3s;
+}
+
+.ext:hover svg {
+    transform: translate(3px, -3px);
+}
+
+/* ---------- status ---------- */
+
+.stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dot {
+    display: block;
+    flex: none;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.dot.live,
+.dot.red {
+    background: var(--rd);
+}
+
+.dot.live {
+    animation: pulse 2.2s ease-out infinite;
+}
+
+.dot.wip {
+    border: 2px solid var(--lb);
+}
+
+.dot.blue {
+    background: var(--lb);
+}
+
+.dot.calm {
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- small pieces ---------- */
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.07);
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.chip:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Line-icon tile. */
+.ic {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.ic svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ic svg .f {
+    fill: currentColor;
+    stroke: none;
+}
+
+/* Thin list row that nudges in on hover. */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 32px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+    transition: padding 0.4s var(--ease);
+}
+
+.row:hover {
+    padding-left: 12px;
+}
+
+/* ---------- motion ---------- */
+
+/* On load: content defrosts - blurred, offset, then sharp. Stagger with an
+   inline animation-delay. The end state has to be filter: none, and it may
+   only sit on the glass element itself, never on a parent, or the glass
+   stops seeing the light behind it. */
+.ld,
+.ch {
+    animation: rise 1.1s var(--ease) backwards;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(0.3em);
+        filter: blur(16px);
     }
 
-    .start-lights__verb-tap {
-        display: inline;
+    to {
+        opacity: 1;
+        transform: none;
+        filter: none;
     }
 }
 
-/* Idle: a slow pulse so it reads as "press me" without any text. */
-.start-lights__pad[data-phase="idle"] {
-    animation: startLightsPulse 1.8s ease-in-out infinite;
-}
-
-@keyframes startLightsPulse {
-    0%,
-    100% {
-        box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.35);
+/* On scroll: same thaw, driven by the element's own way into view. Without
+   support for scroll-driven animations everything just shows. */
+@keyframes defrost {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(14px);
     }
 
-    50% {
-        box-shadow: 0 0 0 10px rgba(79, 195, 247, 0);
+    to {
+        opacity: 1;
+        transform: none;
+        filter: none;
     }
 }
 
-.start-lights__pad[data-phase="arming"],
-.start-lights__pad[data-phase="lights"] {
-    border-style: solid;
-    border-color: rgba(226, 35, 26, 0.45);
-    background: linear-gradient(180deg, rgba(226, 35, 26, 0.12), rgba(226, 35, 26, 0.04));
+@supports (animation-timeline: view()) {
+    .rv {
+        animation: defrost linear backwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+    }
 }
 
-.start-lights__pad[data-phase="arming"] .start-lights__pad-icon,
-.start-lights__pad[data-phase="lights"] .start-lights__pad-icon {
-    color: var(--m-red);
+@keyframes drift {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+        transform: translate3d(5vw, -48px, 0) scale(1.18);
+    }
 }
 
-.start-lights__pad[data-phase="green"] {
-    transition: none;
-    border-style: solid;
-    border-color: #2fe07f;
-    background: linear-gradient(180deg, rgba(47, 224, 127, 0.4), rgba(47, 224, 127, 0.18));
-}
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 0 0 rgba(226, 35, 26, 0.6);
+    }
 
-.start-lights__pad[data-phase="green"] .start-lights__pad-icon,
-.start-lights__pad[data-phase="green"] .start-lights__pad-title {
-    color: #b8ffd3;
-}
-
-.start-lights__pad[data-phase="result"] {
-    border-style: solid;
-    border-color: rgba(111, 227, 171, 0.45);
-    background: linear-gradient(180deg, rgba(111, 227, 171, 0.12), rgba(111, 227, 171, 0.04));
-}
-
-.start-lights__pad[data-phase="result"] .start-lights__pad-title,
-.start-lights__pad[data-phase="result"] .start-lights__pad-icon {
-    color: var(--racing-green);
-}
-
-.start-lights__pad[data-phase="jumpstart"] {
-    border-style: solid;
-    border-color: rgba(226, 35, 26, 0.65);
-    background: linear-gradient(180deg, rgba(226, 35, 26, 0.2), rgba(226, 35, 26, 0.08));
-}
-
-.start-lights__pad[data-phase="jumpstart"] .start-lights__pad-title,
-.start-lights__pad[data-phase="jumpstart"] .start-lights__pad-icon {
-    color: var(--m-red);
+    to {
+        box-shadow: 0 0 0 10px rgba(226, 35, 26, 0);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .start-lights__pad[data-phase="idle"] {
-        animation: none;
+    html {
+        scroll-behavior: auto;
     }
-}
 
-.start-lights__save {
-    display: grid;
-    gap: 12px;
-    padding: 18px;
-    border-radius: 18px;
-    background: rgba(111, 227, 171, 0.06);
-    border: 1px solid rgba(111, 227, 171, 0.3);
-}
-
-.start-lights__save-title {
-    margin: 0;
-    font-weight: 700;
-}
-
-.start-lights__save-row {
-    display: flex;
-    gap: 10px;
-}
-
-.start-lights__save-row .guestbook-input {
-    flex: 1;
-    min-width: 0;
-}
-
-.start-lights__save-row .guestbook-form__submit {
-    padding: 12px 18px;
-    white-space: nowrap;
-}
-
-.start-lights__board {
-    display: grid;
-    gap: 14px;
-    padding: 20px;
-    border-radius: 22px;
-    background: rgba(10, 14, 22, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.start-lights__board-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.start-lights__board-head h3 {
-    margin: 0;
-    font-family: var(--font-tech);
-    font-size: 1.5rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
-.start-lights__best {
-    font-size: 0.8rem;
-    color: var(--muted);
-}
-
-.start-lights__best strong {
-    color: var(--text);
-    font-variant-numeric: tabular-nums;
-}
-
-.start-lights__list {
-    display: grid;
-    gap: 6px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.start-lights__row {
-    display: grid;
-    grid-template-columns: 3ch minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid transparent;
-}
-
-.start-lights__row:first-child .start-lights__pos {
-    color: var(--racing-amber);
-}
-
-.start-lights__row.is-you {
-    border-color: rgba(111, 227, 171, 0.45);
-    background: rgba(111, 227, 171, 0.08);
-}
-
-.start-lights__pos {
-    font-family: var(--font-tech);
-    font-weight: 800;
-    color: var(--accent-soft);
-}
-
-.start-lights__name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.start-lights__time {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
-}
-
-@media (max-width: 980px) {
-    .start-lights__layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 520px) {
-    .start-lights__save-row {
-        flex-direction: column;
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
     }
 }

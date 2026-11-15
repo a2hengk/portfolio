@@ -37,45 +37,37 @@
       "description": "Impressum and legal information."
     }
   },
-  "header": {
-    "brandAria": "Go to the top of the homepage",
-    "avatarAlt": "Profile picture",
-    "role": "FIAE @ Herrenknecht",
-    "menu": "Menu",
-    "close": "Close",
-    "navAria": "Primary",
-    "nav": {
-      "home": { "label": "Home", "hint": "Start of the site" },
-      "about": { "label": "About", "hint": "Who I am" },
-      "experience": { "label": "Experience", "hint": "Apprenticeship and before" },
-      "projects": { "label": "Projects", "hint": "What I've built" },
-      "offDuty": { "label": "Off Duty", "hint": "Sim racing, games, anime" },
-      "guestbook": { "label": "Pit Wall", "hint": "Leave a message, set a reaction time" },
-      "links": { "label": "Links", "hint": "Where to find me" },
-      "uses": { "label": "Uses", "hint": "My setup" }
+  "nav": {
+    "aria": "Sections",
+    "brandAria": "Lunas, back to the top",
+    "items": {
+      "about": "About",
+      "builds": "Builds",
+      "path": "Path",
+      "setup": "Setup",
+      "offDuty": "Off duty",
+      "pitWall": "Pit wall",
+      "links": "Links"
     },
     "language": {
-      "label": "Language",
-      "aria": "Switch language",
-      "names": { "en": "English", "de": "Deutsch" }
+      "switchTo": "Switch language to {name}",
+      "names": {
+        "en": "English",
+        "de": "Deutsch"
+      }
     }
   },
+  "back": "Back to the portfolio",
   "footer": {
-    "eyebrow": "Contact",
-    "title": "Want to say hi or build something?",
-    "text": "The quickest way to reach me is through the links page, or directly via GitHub and email.",
-    "linksAria": "Contact links",
-    "openLinks": "Open links",
-    "email": "Email",
-    "legal": "Impressum / Legal",
-    "hint": "// sector 00 dev note: ↑ ↑ ↓ ↓ ← → ← → B A unlocks something"
+    "hint": "sector 00 dev note: ↑ ↑ ↓ ↓ ← → ← → B A unlocks something",
+    "legal": "Impressum / Legal"
   },
   "notFound": {
     "metaTitle": "Page not found - Lunas",
     "title": "This page doesn't exist.",
     "description": "The link might be outdated, or the page moved. Here are a few places to pick back up.",
     "home": "Back to home",
-    "projects": "See projects"
+    "builds": "See the builds"
   },
   "home": {
     "hero": {
@@ -124,13 +116,27 @@
     "barsAria": "Most used across my builds",
     "buildsOf": "{builds}/{of} builds",
     "skills": {
-      "frontend": { "gear": "1st", "title": "Frontend" },
-      "backend": { "gear": "2nd", "title": "Backend" },
-      "workflow": { "gear": "3rd", "title": "Workflow" },
+      "frontend": {
+        "gear": "1st",
+        "title": "Frontend"
+      },
+      "backend": {
+        "gear": "2nd",
+        "title": "Backend"
+      },
+      "workflow": {
+        "gear": "3rd",
+        "title": "Workflow"
+      },
       "interests": {
         "gear": "4th",
         "title": "Interests",
-        "tags": ["System Design", "Automation", "Game Development", "UI/UX"]
+        "tags": [
+          "System Design",
+          "Automation",
+          "Game Development",
+          "UI/UX"
+        ]
       }
     },
     "offDutyEyebrow": "Beyond the code",
@@ -158,43 +164,69 @@
         "year": "2022",
         "title": "Interested in IT",
         "description": "I was in 9th grade when I first got interested in IT. I started doing internships at local companies to get a feel for the industry and insights into the different roles and responsibilities.",
-        "tags": ["IT", "Internships", "Exploration"]
+        "tags": [
+          "IT",
+          "Internships",
+          "Exploration"
+        ]
       },
       "2": {
         "year": "2023 - 2025",
         "title": "Tech. Highschool",
         "description": "I enrolled in a tech-focused school to get more understanding and got in touch with programming and a lot more of different technologies. I also enrolled to get permission to study at a highschool.",
-        "tags": ["Tech highschool", "Programming", "Exploration"]
+        "tags": [
+          "Tech highschool",
+          "Programming",
+          "Exploration"
+        ]
       },
       "3": {
         "year": "2024 - 2025",
         "title": "Side projects",
         "description": "I started working on side projects to apply what I learned and to explore my interests further. I built a few projects, including a Discord bot and just small Python scripts to get a better understanding of programming.",
-        "tags": ["Python", "Discord bots"]
+        "tags": [
+          "Python",
+          "Discord bots"
+        ]
       },
       "4": {
         "year": "2025",
         "title": "Herrenknecht AG",
         "description": "I applied at Herrenknecht AG as a Dual Student in the field of IT. I got accepted and started working there in July 2025.",
-        "tags": ["Herrenknecht AG", "Dual Student", "IT"]
+        "tags": [
+          "Herrenknecht AG",
+          "Dual Student",
+          "IT"
+        ]
       },
       "5": {
         "year": "2025 - 2026",
         "title": "Dual Student at Herrenknecht AG",
         "description": "Alongside working at Herrenknecht AG, I was enrolled as a dual student at DHBW Karlsruhe, splitting my time between practical work and theoretical coursework.",
-        "tags": ["Herrenknecht AG", "DHBW Karlsruhe", "Dual Student"]
+        "tags": [
+          "Herrenknecht AG",
+          "DHBW Karlsruhe",
+          "Dual Student"
+        ]
       },
       "6": {
         "year": "2026",
         "title": "Changing direction",
         "description": "I left the dual-study program at DHBW Karlsruhe - splitting time between lectures and full-time work wasn't the right fit, so I looked for a path that's more hands-on.",
-        "tags": ["DHBW Karlsruhe", "Course correction"]
+        "tags": [
+          "DHBW Karlsruhe",
+          "Course correction"
+        ]
       },
       "7": {
         "year": "Sep 2026 - 2028",
         "title": "Ausbildung: Fachinformatiker Anwendungsentwicklung",
         "description": "Since 1 September 2026, I've swapped the split dual-study model for a full apprenticeship (Ausbildung) as a Fachinformatiker für Anwendungsentwicklung at Herrenknecht AG - full-time and fully hands-on through 2028.",
-        "tags": ["Herrenknecht AG", "Fachinformatiker Anwendungsentwicklung", "Ausbildung"]
+        "tags": [
+          "Herrenknecht AG",
+          "Fachinformatiker Anwendungsentwicklung",
+          "Ausbildung"
+        ]
       }
     }
   },

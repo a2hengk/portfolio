@@ -1,13 +1,15 @@
 import { headers } from "next/headers";
+import Link from "next/link";
 import type { Metadata } from "next";
-import Header from "@/components/Header/header";
-import Footer from "@/components/footer/footer";
-import BackgroundFX from "@/components/Effects/BackgroundFX";
-import Button from "@/components/Buttons/button";
-import PageIntro from "@/components/PageIntro";
+import BackHeader from "@/components/Layout/BackHeader";
+import Orb from "@/components/Layout/Orb";
+import PageTitle from "@/components/Layout/PageTitle";
+import SiteFooter from "@/components/Layout/SiteFooter";
+import LaunchControlOverlay from "@/components/Effects/LaunchControlOverlay";
+import SecretRaceGame from "@/components/Effects/SecretRaceGame";
 import { defaultLocale, hasLocale, localizedHref, type Locale } from "@/i18n/config";
 import { getDictionary } from "./[lang]/dictionaries";
-import { bigShoulders, cormorant } from "./fonts";
+import { fontVariables } from "./fonts";
 import "./globals.css";
 
 // Renders for any URL that doesn't match a route. It sits outside the [lang]
@@ -33,26 +35,30 @@ export default async function GlobalNotFound() {
     const t = dict.notFound;
 
     return (
-        <html lang={lang} className={`${cormorant.variable} ${bigShoulders.variable}`}>
+        <html lang={lang} className={fontVariables}>
             <body>
-                <BackgroundFX />
-                <Header lang={lang} dict={dict.header} />
-                <main id="top" className="route-page">
-                    <PageIntro
-                        eyebrow="404"
-                        title={t.title}
-                        description={t.description}
-                    />
-                    <div className="route-inline-actions">
-                        <Button href={localizedHref(lang, "/")} variant="primary">
-                            {t.home}
-                        </Button>
-                        <Button href={localizedHref(lang, "/projects")} variant="secondary">
-                            {t.projects}
-                        </Button>
-                    </div>
-                </main>
-                <Footer lang={lang} dict={dict.footer} />
+                <div className="page">
+                    <Orb color="dark" size="clamp(300px, 46vw, 680px)" opacity={0.9} right="-6%" top="-10%" />
+                    <Orb color="red" size="clamp(200px, 26vw, 380px)" opacity={0.42} left="-6%" bottom="-8%" duration={42} delay={-12} />
+
+                    <BackHeader lang={lang} label={dict.back} />
+
+                    <main id="top" className="wrap" style={{ flex: 1, paddingBlock: "clamp(48px, 7vw, 112px)" }}>
+                        <PageTitle kicker="404" title={t.title} text={t.description} small />
+                        <div className="ld" style={{ marginTop: 32, display: "flex", flexWrap: "wrap", gap: 12, animationDelay: "0.6s" }}>
+                            <Link className="btn btn-w" href={localizedHref(lang, "/")}>
+                                {t.home}
+                            </Link>
+                            <Link className="btn btn-g" href={localizedHref(lang, "/#builds")}>
+                                {t.builds}
+                            </Link>
+                        </div>
+                    </main>
+
+                    <SiteFooter lang={lang} dict={dict.footer} languages={dict.nav.language} path="/" />
+                </div>
+                <LaunchControlOverlay />
+                <SecretRaceGame />
             </body>
         </html>
     );

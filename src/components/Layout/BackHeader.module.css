@@ -1,0 +1,52 @@
+.header {
+    flex: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding-top: 20px;
+}
+
+.back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: rgba(14, 14, 14, 0.6);
+    -webkit-backdrop-filter: blur(var(--frost));
+    backdrop-filter: blur(var(--frost));
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.25s;
+}
+
+.back:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.back svg {
+    transition: transform 0.3s;
+}
+
+.back:hover svg {
+    transform: translateX(-3px);
+}
+
+.side a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--mut);
+    transition: color 0.25s;
+}
+
+.side a:hover {
+    color: #fff;
+}

@@ -12,13 +12,18 @@ export const SITE_URL = "https://www.about-lunas.dev";
 
 export const hasLocale = (locale: string): locale is Locale => (locales as readonly string[]).includes(locale);
 
-// "/about" -> "/de/about", "/" -> "/de". Hashes and external links pass through untouched.
+// "/links" -> "/de/links", "/" -> "/de", "/#path" -> "/de#path".
+// Bare hashes and external links pass through untouched.
 export function localizedHref(lang: Locale, href: string): string {
     if (!href.startsWith("/")) {
         return href;
     }
 
-    return href === "/" ? `/${lang}` : `/${lang}${href}`;
+    if (href === "/" || href.startsWith("/#")) {
+        return `/${lang}${href.slice(1)}`;
+    }
+
+    return `/${lang}${href}`;
 }
 
 // Strips the locale prefix again: "/de/about" -> "/about", "/en" -> "/".
