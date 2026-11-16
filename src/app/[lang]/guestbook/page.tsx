@@ -1,15 +1,20 @@
 import { desc, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import PageIntro from "@/components/PageIntro";
+import Link from "next/link";
+import BackHeader from "@/components/Layout/BackHeader";
+import Orb from "@/components/Layout/Orb";
+import PageTitle from "@/components/Layout/PageTitle";
+import SiteFooter from "@/components/Layout/SiteFooter";
 import { db } from "@/db";
 import { guestbookEntries } from "@/db/schema";
 import { GUESTBOOK_ENTRIES_LIMIT } from "@/lib/guestbook-constants";
-import StartLights from "@/components/Sections/StartLights";
 import { getLeaderboard, type LeaderboardEntry } from "@/lib/reaction-leaderboard";
-import { alternatesFor } from "@/i18n/config";
+import { alternatesFor, localizedHref } from "@/i18n/config";
 import { getDictionary, hasLocale } from "../dictionaries";
 import GuestbookForm from "./GuestbookForm";
+import StartLights from "./StartLights";
+import styles from "./pitwall.module.css";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/guestbook">): Promise<Metadata> {
     const { lang } = await params;
@@ -46,68 +51,63 @@ export default async function GuestbookPage({ params }: PageProps<"/[lang]/guest
     const leaderboard = await loadLeaderboard();
 
     return (
-        <main id="top" className="route-page">
-            <PageIntro
-                sector="07"
-                eyebrow={t.intro.eyebrow}
-                title={t.intro.title}
-                description={t.intro.description}
-            />
+        <div className="page">
+            <Orb color="dark" size="clamp(300px, 46vw, 680px)" opacity={0.9} left="-8%" top="-6%" />
+            <Orb color="red" size="clamp(220px, 30vw, 440px)" opacity={0.4} right="4%" top="24%" duration={36} />
+            <Orb color="light" size="clamp(220px, 32vw, 480px)" opacity={0.28} left="30%" bottom="-6%" duration={42} delay={-12} />
 
-            <section className="route-section">
-                <div className="section__heading">
-                    <div className="section-marker">
-                        <span className="sector-tag">{t.form.tag}</span>
-                        <p className="eyebrow">{t.form.eyebrow}</p>
-                    </div>
-                    <h2>{t.form.title}</h2>
-                </div>
-                <GuestbookForm lang={lang} dict={t.form} />
-            </section>
+            <BackHeader lang={lang} label={dict.back}>
+                <Link href={localizedHref(lang, "/links")}>{dict.nav.items.links}</Link>
+            </BackHeader>
 
-            <StartLights initialLeaderboard={leaderboard} dict={t.startLights} />
+            <main id="top" className={`wrap ${styles.main}`}>
+                <PageTitle kicker={t.intro.kicker} title={t.intro.title} text={t.intro.description} />
 
-            <section className="route-section">
-                <div className="section__heading">
-                    <div className="section-marker">
-                        <span className="sector-tag">{t.log.tag}</span>
-                        <p className="eyebrow">{t.log.eyebrow}</p>
-                    </div>
-                    <h2>{t.log.title}</h2>
+                <div className={styles.panels}>
+                    <StartLights initialLeaderboard={leaderboard} dict={t.startLights} />
+                    <section className={`glass ld ${styles.panel} ${styles.radio}`} aria-labelledby="pit-radio" style={{ animationDelay: "0.55s" }}>
+                        <GuestbookForm lang={lang} dict={t.form} />
+                    </section>
                 </div>
 
-                {entries.length === 0 ? (
-                    <p className="guestbook-empty">{t.log.empty}</p>
-                ) : (
-                    <div className="guestbook-entries">
-                        {entries.map((entry) => (
-                            <article key={entry.id} className="guestbook-entry">
-                                {entry.avatarUrl ? (
-                                    <img src={entry.avatarUrl} alt="" className="guestbook-entry__avatar" />
-                                ) : (
-                                    <span className="guestbook-entry__avatar guestbook-entry__avatar--placeholder" aria-hidden="true" />
-                                )}
-                                <div className="guestbook-entry__body">
-                                    <div className="guestbook-entry__top">
-                                        <strong>{entry.displayName}</strong>
-                                        <span className="guestbook-entry__source">
-                                            {entry.authType === "discord" ? t.log.discord : t.log.guest}
-                                        </span>
+                <section className={styles.log} aria-labelledby="pit-log">
+                    <h2 id="pit-log" className="rv">
+                        {t.log.title}
+                    </h2>
+
+                    {entries.length === 0 ? (
+                        <p className={`mut ${styles.logEmpty}`}>{t.log.empty}</p>
+                    ) : (
+                        <ol className={styles.entries}>
+                            {entries.map((entry) => (
+                                <li key={entry.id} className={`rv ${styles.entry}`}>
+                                    {entry.avatarUrl ? (
+                                        <img src={entry.avatarUrl} alt="" className={styles.avatar} />
+                                    ) : (
+                                        <span className={styles.avatar} aria-hidden="true" />
+                                    )}
+                                    <div className={styles.entryBody}>
+                                        <div className={styles.entryTop}>
+                                            <strong>{entry.displayName}</strong>
+                                            <span className="mut">{entry.authType === "discord" ? t.log.discord : t.log.guest}</span>
+                                        </div>
+                                        <p>{entry.message}</p>
+                                        <time className="mut" dateTime={entry.createdAt.toISOString()}>
+                                            {entry.createdAt.toLocaleDateString(t.log.dateLocale, {
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                            })}
+                                        </time>
                                     </div>
-                                    <p className="guestbook-entry__message">{entry.message}</p>
-                                    <time className="guestbook-entry__date" dateTime={entry.createdAt.toISOString()}>
-                                        {entry.createdAt.toLocaleDateString(t.log.dateLocale, {
-                                            day: "2-digit",
-                                            month: "short",
-                                            year: "numeric",
-                                        })}
-                                    </time>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                )}
-            </section>
-        </main>
+                                </li>
+                            ))}
+                        </ol>
+                    )}
+                </section>
+            </main>
+
+            <SiteFooter lang={lang} dict={dict.footer} languages={dict.nav.language} path="/guestbook" />
+        </div>
     );
 }

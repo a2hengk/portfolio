@@ -1,0 +1,423 @@
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-block: clamp(32px, 4vw, 56px);
+}
+
+/* Start lights on the left, the radio form on the right. */
+.panels {
+    margin-top: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.panel {
+    min-width: 0;
+    padding: clamp(18px, 2vw, 28px);
+}
+
+.panel h2 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 700;
+    text-wrap: balance;
+}
+
+.lights {
+    flex: 3 1 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.radio {
+    flex: 2 1 340px;
+}
+
+.panelHead {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.panelHead p {
+    max-width: 600px;
+    margin: 0;
+    text-wrap: pretty;
+}
+
+/* ---------- start lights ---------- */
+
+.gantry {
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 1.6vw, 18px);
+    padding: clamp(14px, 2vw, 22px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.lamp {
+    display: block;
+    width: clamp(36px, 6vw, 72px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.08s, box-shadow 0.08s, border-color 0.08s;
+}
+
+.lamp.lit {
+    background: var(--rd);
+    border-color: transparent;
+    box-shadow: 0 0 28px rgba(226, 35, 26, 0.8);
+}
+
+/* Green is set straight on the DOM by the component (data-phase), so the
+   paint doesn't wait for a React render. */
+.gantry[data-phase="green"] .lamp {
+    background: var(--go);
+    border-color: transparent;
+    box-shadow: 0 0 28px rgba(111, 227, 171, 0.8);
+}
+
+/* The pad is the real control. */
+.pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    min-height: 180px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    text-align: center;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.pad:hover {
+    background: rgba(255, 255, 255, 0.13);
+}
+
+.pad[data-phase="green"] {
+    background: rgba(111, 227, 171, 0.22);
+    border-color: var(--go);
+}
+
+.pad[data-phase="jumpstart"] {
+    background: rgba(226, 35, 26, 0.2);
+    border-color: var(--rd);
+}
+
+.padTitle {
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    font-weight: 800;
+}
+
+.padSub {
+    max-width: 44ch;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.verbTap {
+    display: none;
+}
+
+@media (hover: none) {
+    .verbClick {
+        display: none;
+    }
+
+    .verbTap {
+        display: inline;
+    }
+}
+
+.save {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.saveTitle {
+    margin: 0;
+    font-weight: 600;
+}
+
+.saveRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.saveRow .field {
+    flex: 1 1 200px;
+}
+
+.turnstile:empty {
+    display: none;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+}
+
+.boardHead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 16px;
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+}
+
+.boardHead h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.boardHead strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.boardEmpty {
+    margin: 0;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+}
+
+.boardList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.boardRow {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 12px;
+    min-height: 44px;
+    border-top: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+}
+
+.boardRow > :first-child {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.boardName {
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.boardRow.you {
+    color: var(--lb);
+}
+
+/* ---------- form ---------- */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input {
+    width: 100%;
+    min-height: 48px;
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: border-color 0.25s, background 0.25s;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, 0.58);
+}
+
+.input:focus-visible {
+    outline: none;
+    border-color: var(--lb);
+    background: rgba(0, 0, 0, 0.62);
+}
+
+textarea.input {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.count {
+    align-self: flex-end;
+    font-size: 13.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.identity {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.identity div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.signOut {
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--mut);
+    font-size: 14px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.signOut:hover {
+    color: #fff;
+}
+
+.error,
+.success {
+    margin: 0;
+    font-size: 15px;
+}
+
+.error {
+    color: #ff8a84;
+}
+
+.success {
+    color: var(--mut);
+}
+
+/* ---------- log ---------- */
+
+.log {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+}
+
+.log h2 {
+    margin: 0 0 16px;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 700;
+}
+
+.logEmpty {
+    margin: 0;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.entries {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid var(--line);
+}
+
+.entry {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 0 16px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+}
+
+.avatar {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    object-fit: cover;
+}
+
+.entryBody {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.entryTop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+}
+
+.entryTop strong {
+    font-size: 17px;
+}
+
+.entryTop span,
+.entryBody time {
+    font-size: 13.5px;
+}
+
+.entryBody p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.88);
+    overflow-wrap: anywhere;
+}
+
+/* "0.233 s" - the unit stays lower case. */
+.pad[data-phase="result"] .padTitle {
+    text-transform: none;
+}

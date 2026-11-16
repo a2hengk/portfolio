@@ -1,0 +1,165 @@
+/* Nav logo easter egg: a brief full-viewport "launch control" flash. */
+.launch {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 18px;
+    pointer-events: none;
+    animation: launchFade 2.2s ease-out forwards;
+}
+
+@keyframes launchFade {
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    10%,
+    80% {
+        opacity: 1;
+    }
+}
+
+.flash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(79, 195, 247, 0.22), rgba(10, 61, 145, 0.18) 40%, transparent 70%);
+    animation: launchPulse 0.5s ease-out 3;
+}
+
+@keyframes launchPulse {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.launchText {
+    position: relative;
+    margin: 0;
+    font-weight: 900;
+    font-size: clamp(36px, 7vw, 88px);
+    line-height: 1;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 40px rgba(79, 195, 247, 0.6);
+}
+
+.bar {
+    position: relative;
+    width: min(70vw, 420px);
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.14);
+    overflow: hidden;
+}
+
+.barFill {
+    height: 100%;
+    width: 0%;
+    border-radius: 3px;
+    background: var(--lb);
+    animation: launchRev 1.8s ease-in forwards;
+}
+
+@keyframes launchRev {
+    70% {
+        width: 96%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+/* Konami-code secret: a small canvas lane-dodge game. */
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.72);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.modal {
+    position: relative;
+    display: grid;
+    gap: 14px;
+    width: min(92vw, 380px);
+    padding: 22px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.close {
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+    color: var(--mut);
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+}
+
+.close:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+}
+
+.hud {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: var(--mut);
+    font-variant-numeric: tabular-nums;
+}
+
+.hud strong {
+    color: #fff;
+}
+
+.canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    background: #000;
+}
+
+.prompt {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.prompt p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--mut);
+}

@@ -1,0 +1,69 @@
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-block: clamp(32px, 4vw, 56px) var(--sec-pad);
+}
+
+.cta {
+    margin-top: 32px;
+}
+
+.section {
+    margin-top: 56px;
+}
+
+.section > p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.section h2 {
+    margin: 4px 0 16px;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1;
+    font-weight: 800;
+}
+
+.empty {
+    margin: 0;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--line);
+}
+
+.entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+}
+
+.entry p {
+    margin: 4px 0 0;
+    color: rgba(255, 255, 255, 0.88);
+    overflow-wrap: anywhere;
+}
+
+.entry > div:first-child {
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.delete:hover {
+    border-color: var(--rd);
+}

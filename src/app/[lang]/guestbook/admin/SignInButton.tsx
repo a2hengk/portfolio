@@ -10,7 +10,7 @@ export default function AdminSignInButton() {
     return (
         <button
             type="button"
-            className="guestbook-form__discord"
+            className="btn btn-w"
             onClick={() => authClient.signIn.social({ provider: "discord", callbackURL: `/${lang}/guestbook/admin` })}
         >
             Continue with Discord

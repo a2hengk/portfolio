@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import styles from "./Effects.module.css";
 
 // The secret: enter the Konami code anywhere on the site (no text inputs
 // exist here, so a bare keydown listener is safe) to unlock a tiny canvas
@@ -77,10 +78,10 @@ export default function SecretRaceGame() {
         const ctx = canvasRef.current?.getContext("2d");
         if (!ctx) return;
 
-        ctx.fillStyle = "#060a12";
+        ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-        ctx.strokeStyle = "rgba(0, 231, 255, 0.25)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.18)";
         ctx.lineWidth = 2;
         ctx.setLineDash([14, 16]);
         ctx.lineDashOffset = -(progressRef.current % 30);
@@ -95,20 +96,20 @@ export default function SecretRaceGame() {
         obstaclesRef.current.forEach((obstacle) => {
             const x = obstacle.lane * LANE_WIDTH + LANE_WIDTH / 2;
             ctx.save();
-            ctx.shadowColor = "rgba(224, 51, 63, 0.7)";
+            ctx.shadowColor = "rgba(226, 35, 26, 0.7)";
             ctx.shadowBlur = 12;
-            ctx.fillStyle = "#e0333f";
+            ctx.fillStyle = "#e2231a";
             ctx.fillRect(x - 22, obstacle.y - 34, 44, 60);
             ctx.restore();
         });
 
         const px = laneRef.current * LANE_WIDTH + LANE_WIDTH / 2;
         ctx.save();
-        ctx.shadowColor = "rgba(0, 231, 255, 0.8)";
+        ctx.shadowColor = "rgba(79, 195, 247, 0.8)";
         ctx.shadowBlur = 16;
-        ctx.fillStyle = "#3f8ce8";
+        ctx.fillStyle = "#4fc3f7";
         ctx.fillRect(px - 22, CANVAS_HEIGHT - 90, 44, 60);
-        ctx.fillStyle = "#f4f0e8";
+        ctx.fillStyle = "#fff";
         ctx.fillRect(px - 22, CANVAS_HEIGHT - 66, 44, 8);
         ctx.restore();
     }, []);
@@ -221,18 +222,13 @@ export default function SecretRaceGame() {
     }
 
     return (
-        <div className="race-overlay" role="dialog" aria-modal="true" aria-label="Secret BMW dash race">
-            <div className="race-modal">
-                <span className="hud-corner hud-corner--tl" aria-hidden="true" />
-                <span className="hud-corner hud-corner--tr" aria-hidden="true" />
-                <span className="hud-corner hud-corner--bl" aria-hidden="true" />
-                <span className="hud-corner hud-corner--br" aria-hidden="true" />
-
-                <div className="race-modal__top">
-                    <p className="race-modal__title neon-text">// secret sector unlocked</p>
+        <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Secret BMW dash race">
+            <div className={`glass ${styles.modal}`}>
+                <div className={styles.top}>
+                    <p className={styles.title}>// secret sector unlocked</p>
                     <button
                         type="button"
-                        className="race-modal__close"
+                        className={styles.close}
                         onClick={() => {
                             setOpen(false);
                             stopGame();
@@ -242,7 +238,7 @@ export default function SecretRaceGame() {
                     </button>
                 </div>
 
-                <div className="race-modal__hud">
+                <div className={styles.hud}>
                     <span>Score <strong>{score}</strong></span>
                     <span>Best <strong>{best}</strong></span>
                 </div>
@@ -251,14 +247,14 @@ export default function SecretRaceGame() {
                     ref={canvasRef}
                     width={CANVAS_WIDTH}
                     height={CANVAS_HEIGHT}
-                    className="race-canvas"
+                    className={styles.canvas}
                     aria-hidden="true"
                 />
 
                 {!running ? (
-                    <div className="race-modal__prompt">
+                    <div className={styles.prompt}>
                         <p>{gameOver ? `Crashed. Score ${score}.` : "Dodge the rivals. ← → to steer."}</p>
-                        <button type="button" className="race-modal__start" onClick={startGame}>
+                        <button type="button" className="btn btn-w" onClick={startGame}>
                             {gameOver ? "Retry" : "Start engine"}
                         </button>
                     </div>

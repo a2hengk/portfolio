@@ -1,0 +1,123 @@
+/* Floating glass pill, centred at the top. */
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex: none;
+    display: flex;
+    justify-content: center;
+    padding: 14px 12px 0;
+    pointer-events: none;
+}
+
+.inner {
+    pointer-events: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0 2px;
+    padding: 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    background: rgba(14, 14, 14, 0.6);
+    -webkit-backdrop-filter: blur(var(--frost)) saturate(150%);
+    backdrop-filter: blur(var(--frost)) saturate(150%);
+}
+
+.inner a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 22px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.84);
+    transition: background 0.25s, color 0.25s;
+}
+
+.inner a:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+}
+
+.inner a.brand {
+    padding-left: 6px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.avatar {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    object-fit: cover;
+}
+
+.inner a.lang {
+    color: var(--mut);
+}
+
+@media (max-width: 560px) {
+    .inner a {
+        padding: 0 10px;
+        font-size: 14px;
+    }
+
+    .inner a.opt {
+        display: none;
+    }
+}
+
+/* Narrow phones: the avatar alone carries the brand so the pill stays on
+   one line (the link keeps its aria-label). */
+@media (max-width: 420px) {
+    .nav {
+        padding-inline: 8px;
+    }
+
+    .inner a {
+        padding: 0 9px;
+    }
+
+    .brandName {
+        display: none;
+    }
+}
+
+/* 2px light-blue scroll progress along the very top. */
+.progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    width: 100%;
+    height: 2px;
+    background: var(--lb);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+}
+
+@keyframes grow {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@supports (animation-timeline: scroll()) {
+    .progress {
+        animation: grow linear both;
+        animation-timeline: scroll(root);
+    }
+}
+
+/* Without scroll timelines there's nothing to drive it. */
+@supports not (animation-timeline: scroll()) {
+    .progress {
+        display: none;
+    }
+}
